@@ -64,3 +64,16 @@ def test_dedupe_keeps_first():
     people = parse_directory(DIRECTORY, "A", BASE) + parse_directory(DIRECTORY, "B", BASE)
     out = dedupe(people)
     assert len(out) == 4 and all(p.department == "A" for p in out)
+
+
+def test_uwt_names():
+    from research_map.adapters import split_uwt_department, uwt_name
+
+    assert uwt_name("Abraham, Isaac") == "Isaac Abraham"
+    assert uwt_name("Endo, PhD/SPHR , Rachel") == "Rachel Endo"
+    assert uwt_name("Adams - Free Man of Color, Luther") == "Luther Adams"
+    assert uwt_name("Barnes Jr, Gordon R.") == "Gordon R. Barnes Jr"
+    assert split_uwt_department("Sciences and Mathematics, Department of School of Interdisciplinary Arts and Sciences") == (
+        "School of Interdisciplinary Arts and Sciences", "Sciences and Mathematics")
+    assert split_uwt_department("Engineering & Technology, School of") == (
+        "School of Engineering & Technology", "School of Engineering & Technology")

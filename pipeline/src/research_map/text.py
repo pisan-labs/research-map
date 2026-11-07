@@ -129,6 +129,30 @@ def research_bio(bio: str) -> str:
     return " ".join(s for s in sentences if s and not BIO_SKIP.search(s))
 
 
+DEGREE_RE = re.compile(
+    r"\b(Ph\.?\s?D\.?|Ed\.?\s?D\.?|D\.?\s?N\.?\s?P\.?|J\.?\s?D\.?|M\.?\s?F\.?\s?A\.?|M\.?\s?B\.?\s?A\.?|"
+    r"M\.?\s?S\.?\s?W\.?|M\.?\s?S\.?|M\.?\s?A\.?|B\.?\s?S\.?|B\.?\s?A\.?|MPH|MPA|MEd|M\.Ed\.?)\s+"
+)
+INSTITUTION_RE = re.compile(r"\b(University|College|Institute|School|Universidad|Universit[éeà]|Academy|Polytechnic)\b")
+
+
+def degree_fields(text: str) -> str:
+    """'Ph.D. Chemistry University of Washington Seattle 2015 M.S. Chemistry ...' -> 'Ph.D. Chemistry'.
+
+    Only the fields: institution names would group people by where they
+    studied, not what they study.
+    """
+    out = []
+    parts = DEGREE_RE.split(text or "")
+    # split keeps the captured degree: [pre, deg, rest, deg, rest, ...]
+    for deg, rest in zip(parts[1::2], parts[2::2]):
+        field = INSTITUTION_RE.split(rest)[0]
+        field = re.sub(r"\b(19|20)\d\d\b|[,;]", " ", field).strip()
+        if field and f"{deg.strip()} {field}" not in out:
+            out.append(f"{deg.strip()} {field}")
+    return " . ".join(out)
+
+
 def courses_text(profile: dict | None) -> str:
     sections = (profile or {}).get("sections", {})
     text = " . ".join(sections.get(k, "") for k in ("Courses", "Teaching Interests") if sections.get(k))
@@ -146,11 +170,14 @@ def build_doc(person_id: str, keywords: str, profile: dict | None, works: list[d
         "thesis": sections.get("_thesis", "").strip(),
         "bio": research_bio(profile.get("bio", "")).strip(),
     }
-    if not any(fields.values()):
+    if not any(fields.values()) and not works:
         # Teaching-focused faculty: place them by what they teach, drawn hollow.
+        # Degrees (e.g. "Ph.D. Sociology") are the last resort: at least the discipline.
         teaching = " . ".join(
             sections.get(k, "") for k in ("Teaching Interests", "Courses") if sections.get(k)
         )
+        if not teaching:
+            teaching = degree_fields(sections.get("Degrees", ""))
         fields["teaching"] = re.sub(r"\b[A-Z]{2,5} \d{3}\b", "", teaching).strip()
     return Doc(
         person_id=person_id,

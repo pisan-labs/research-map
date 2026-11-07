@@ -1,0 +1,29 @@
+# Hand-written names for UW Tacoma's computed areas (see config/uwb-stem-labels.yaml).
+# Drafted 2026-11-07 from the members' own research descriptions; edit freely.
+- {level: area, member: nicole-blair, label: "Literature, arts and cultural studies"}
+- {level: area, member: christopher-beasley, label: "Health, psychology, social work and criminal justice"}
+- {level: area, member: hannah-e-r-baughman, label: "Life, earth and environmental sciences"}
+- {level: area, member: yan-bai, label: "Computing, networks and security"}
+- {level: area, member: marion-eberly, label: "Business, management and organizations"}
+- {level: area, member: yonn-dierwechter, label: "Urban studies, politics and law"}
+- {level: area, member: joan-bleecker, label: "Few publications or profile text"}
+- {level: area, member: bryan-goda, label: "Computing and engineering education"}
+- {level: area, member: peter-horak, label: "Mathematics"}
+- {level: area, member: vahid-dargahi, label: "Electrical engineering and energy"}
+
+- {level: topic, member: yan-bai, label: "Networks, security and data systems"}
+- {level: topic, member: nicole-blair, label: "Literature and creative writing"}
+- {level: topic, member: jarrod-call, label: "Health and psychology"}
+- {level: topic, member: marion-eberly, label: "Business, accounting and organizations"}
+- {level: topic, member: joan-bleecker, label: "Few publications or profile text"}
+- {level: topic, member: matthew-ford, label: "Education and human-technology interaction"}
+- {level: topic, member: michael-forman, label: "History, human rights and critical race studies"}
+- {level: topic, member: yonn-dierwechter, label: "Urban planning and political economy"}
+- {level: topic, member: anna-m-groat-carmona, label: "Cell, molecular and organismal biology"}
+- {level: topic, member: james-gawel, label: "Environmental science, oceanography and geotechnics"}
+- {level: topic, member: pamela-krayenbuhl, label: "Film, media and performance"}
+- {level: topic, member: peter-horak, label: "Mathematics"}
+- {level: topic, member: vahid-dargahi, label: "Power electronics, circuits and transportation"}
+- {level: topic, member: eric-madfis, label: "Criminal justice and violence"}
+- {level: topic, member: claudia-sellmaier, label: "Social work, disability and family"}
+- {level: topic, member: dawn-hardison-stevens, label: "Race, Indigenous studies and justice in education"}

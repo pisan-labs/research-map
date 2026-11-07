@@ -13,9 +13,8 @@ from pathlib import Path
 import numpy as np
 import yaml
 
-from . import bundle, model, openalex, roster
+from . import adapters, bundle, model, openalex, roster
 from .fetch import CachedFetcher
-from .profiles import parse_profile
 from .text import build_doc
 
 
@@ -25,7 +24,8 @@ def repo_root(config_path: Path) -> Path:
 
 def load_config(path: Path) -> dict:
     cfg = yaml.safe_load(path.read_text())
-    cfg.setdefault("include_categories", ["Full-time faculty"])
+    if cfg.get("adapter", "uwb-stem") == "uwb-stem":
+        cfg.setdefault("include_categories", ["Full-time faculty"])
     cfg.setdefault("opt_out", [])
     cfg.setdefault("color_by", "program")
     return cfg
@@ -36,31 +36,28 @@ def cmd_roster(args: argparse.Namespace) -> int:
     root = repo_root(args.config)
     data = root / "data" / cfg["slug"]
     fetcher = CachedFetcher(data / "html", delay=args.delay)
+    adapter = adapters.ADAPTERS[cfg.get("adapter", "uwb-stem")]
 
-    people: list[roster.Person] = []
-    areas: dict[str, list[str]] = {}
-    for entry in cfg["directory"]:
-        html = fetcher.get(entry["url"], refresh=args.refresh)
-        found = roster.parse_directory(html, entry["department"], cfg["base_url"])
-        print(f"{entry['department']}: {len(found)} listed", file=sys.stderr)
-        people += found
-        for name, ids in roster.parse_research_areas(html, cfg["base_url"]).items():
-            areas.setdefault(name, [])
-            areas[name] += [i for i in ids if i not in areas[name]]
-
-    keep = set(cfg["include_categories"])
-    people = [p for p in roster.dedupe(people) if p.category in keep and p.id not in set(cfg["opt_out"])]
+    people, areas = adapter.listing(fetcher, cfg, args.refresh)
+    rules = dict(cfg.get("include") or {})
+    if cfg.get("include_categories") and "categories" not in rules:
+        rules["categories"] = cfg["include_categories"]
+    opt_out = set(cfg["opt_out"])
+    people = [p for p in roster.dedupe(people) if adapters.included(p, rules) and p.id not in opt_out]
     print(f"on the map: {len(people)}", file=sys.stderr)
 
     profiles = {}
-    for i, p in enumerate(people, 1):
+    for i, p in enumerate(people if adapter.profile else [], 1):
         try:
-            prof = parse_profile(fetcher.get(p.profile_url, refresh=args.refresh))
+            prof = adapter.profile(fetcher.get(p.profile_url, refresh=args.refresh))
         except Exception as e:  # a missing profile should not stop the roster
             print(f"  profile failed for {p.id}: {e}", file=sys.stderr)
             continue
         if prof.orcid and not p.orcid:
             p.orcid = prof.orcid
+        # Contact details stay out of the repository as well as the page.
+        prof.bio = bundle.scrub(prof.bio)
+        prof.sections = {k: bundle.scrub(v) for k, v in prof.sections.items()}
         profiles[p.id] = asdict(prof)
         if i % 20 == 0:
             print(f"  profiles {i}/{len(people)}", file=sys.stderr)
@@ -117,6 +114,11 @@ def cmd_openalex(args: argparse.Namespace) -> int:
             doc = build_doc(p.id, p.keywords, profiles.get(p.id), works.get(p.id))
             a = model.self_works_agreement(doc, embedder, now)
             if a is None:
+                if m.how == "search-wider" and works.get(p.id):
+                    # No profile text to check a UW-wide match against: review instead.
+                    print(f"  held for review {p.name}: UW-wide match with no profile text to check", file=sys.stderr)
+                    m.how, m.author_ids = "unchecked-wider", []
+                    works[p.id] = []
                 continue
             agreement[p.id] = a
             if m.how == "search-wider" and a < args.min_agreement:
@@ -125,7 +127,7 @@ def cmd_openalex(args: argparse.Namespace) -> int:
                 m.how, m.author_ids = "rejected-topic", []
                 works[p.id] = []
         low = [f"{by_id[k].name} {v:.2f}" for k, v in sorted(agreement.items(), key=lambda kv: kv[1])
-               if v < args.min_agreement and dict((m.person_id, m.how) for m in matches)[k] != "rejected-topic"]
+               if v < args.min_agreement and dict((m.person_id, m.how) for m in matches)[k] not in ("rejected-topic", "unchecked-wider")]
         if low:
             print("low agreement, kept (check by hand): " + ", ".join(low), file=sys.stderr)
 
@@ -190,7 +192,7 @@ def coauthor_pairs(works: dict[str, list[dict]], oa_ids: dict[str, list[str]]) -
     return out
 
 
-def add_search_vectors(payload: dict, name: str, data: Path) -> None:
+def add_search_vectors(payload: dict, name: str, data: Path, dims: int = 0) -> None:
     """Vectors for every search record, in the order web/search.js builds them."""
     if not name:
         return
@@ -211,15 +213,22 @@ def add_search_vectors(payload: dict, name: str, data: Path) -> None:
             texts.append(t); slots.append((sv, "topics", k))
         for k, t in enumerate(row["listed"]):
             texts.append(t); slots.append((sv, "listed", k))
-    packed = model.pack_vectors(emb.encode(texts))
+    vecs = emb.encode(texts)
+    proj = None
+    if dims and dims < vecs.shape[1]:
+        mean, w = model.fit_projection(vecs, dims)
+        vecs = model.project(vecs, mean, w)
+        proj = {"k": dims, "n": int(w.shape[0]), "mean": model.b64_floats(mean), "w": model.b64_floats(w)}
+    packed = model.pack_vectors(vecs)
     for (sv, key, k), b64 in zip(slots, packed):
         if k < 0:
             sv[key] = b64
         else:
             sv[key][k] = b64
     payload["meta"]["search_model"] = {"name": name, "browser": spec["browser"], "pooling": spec["pooling"],
-                                       "size_mb": spec["size_mb"]}
-    print(f"search vectors: {len(texts)} records with {name}", file=sys.stderr)
+                                       "size_mb": spec["size_mb"], "proj": proj}
+    print(f"search vectors: {len(texts)} records with {name}"
+          + (f", projected to {dims} dims" if proj else ""), file=sys.stderr)
 
 
 def apply_label_overrides(path: Path, ids: list[str], levels: dict) -> None:
@@ -300,12 +309,15 @@ def cmd_build(args: argparse.Namespace) -> int:
                           {"area": (broad, broad_labels), "topic": (fine, fine_labels)})
     print(f"areas: {len(set(broad))} broad, {len(set(fine))} fine", file=sys.stderr)
     check = model.listed_area_agreement([p.id for p in people], nbrs, listed_areas)
-    print(
-        "neighbours vs curated research areas: "
-        f"{check['precision']:.0%} of top-5 share an area (chance {check['chance']:.0%}, "
-        f"lift {check['lift']:.1f}x, {check['people']} people listed)",
-        file=sys.stderr,
-    )
+    if check["people"] >= 10:
+        print(
+            "neighbours vs curated research areas: "
+            f"{check['precision']:.0%} of top-5 share an area (chance {check['chance']:.0%}, "
+            f"lift {check['lift']:.1f}x, {check['people']} people listed)",
+            file=sys.stderr,
+        )
+    else:
+        print("neighbour check skipped: no department-curated research areas for this unit", file=sys.stderr)
 
     payload = bundle.payload(
         cfg=cfg,
@@ -329,11 +341,18 @@ def cmd_build(args: argparse.Namespace) -> int:
         as_of=dt.date.today().isoformat(),
     )
     add_search_vectors(payload, args.search_model if args.search_model is not None
-                       else cfg.get("search_model", "all-MiniLM-L6-v2"), data)
+                       else cfg.get("search_model", "all-MiniLM-L6-v2"), data,
+                       args.search_dims if args.search_dims is not None else int(cfg.get("search_dims", 64)))
     out = root / "site" / cfg["slug"] / "index.html"
     size = bundle.write_html(payload, root / "web", out)
     (data / "payload.json").write_text(json.dumps(payload, indent=1))
     print(f"wrote {out.relative_to(root)} ({size / 1024:.0f} KB)", file=sys.stderr)
+    mapped = [r for r in payload["people"] if not r.get("off")]
+    (out.parent / "meta.json").write_text(json.dumps({
+        "name": cfg["name"], "university": cfg.get("university", ""), "as_of": payload["meta"]["as_of"],
+        "people": len(mapped), "works": sum(r["n_works"] for r in payload["people"]),
+    }, indent=1) + "\n")
+    bundle.write_site_index(root / "site")
     run_search_eval(root, cfg["slug"])
     return 0
 
@@ -344,6 +363,10 @@ def run_search_eval(root: Path, slug: str) -> None:
     import subprocess
 
     script = root / "tests" / "search_eval.mjs"
+    areas = root / "rosters" / f"{slug}-areas.json"
+    if not areas.exists() or len(json.loads(areas.read_text())) == 0:
+        print("search test set skipped: no department-curated research areas for this unit", file=sys.stderr)
+        return
     if not shutil.which("node") or not script.exists():
         print("search test set skipped (needs node)", file=sys.stderr)
         return
@@ -380,6 +403,8 @@ def main(argv: list[str] | None = None) -> int:
     b.add_argument("--model", default=model.DEFAULT_MODEL)
     b.add_argument("--search-model", default=None, choices=[*model.SEARCH_MODELS, ""],
                    help="model for in-page search by meaning (default from config; '' turns it off)")
+    b.add_argument("--search-dims", type=int, default=None,
+                   help="shrink search vectors to this many PCA dimensions (default: config, else 64; 0 keeps all)")
     b.add_argument("--seed", type=int, default=42)
     b.add_argument("--broad", type=float, default=1.5, help="Leiden resolution for broad areas")
     b.add_argument("--fine", type=float, default=3.0, help="Leiden resolution for fine topics")

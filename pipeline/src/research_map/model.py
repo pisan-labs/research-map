@@ -28,6 +28,30 @@ SEARCH_MODELS = {
 }
 
 
+def fit_projection(vecs: np.ndarray, k: int) -> tuple[np.ndarray, np.ndarray]:
+    """PCA basis (mean, W of shape dims x k) for shrinking search vectors.
+
+    The page applies the same projection to the query, so records and query
+    stay comparable; vectors are renormalised after projecting.
+    """
+    mean = vecs.mean(axis=0)
+    _, _, vt = np.linalg.svd(vecs - mean, full_matrices=False)
+    return mean.astype(np.float32), vt[:k].T.astype(np.float32)
+
+
+def project(vecs: np.ndarray, mean: np.ndarray, w: np.ndarray) -> np.ndarray:
+    out = (vecs - mean) @ w
+    n = np.linalg.norm(out, axis=1, keepdims=True)
+    n[n == 0] = 1.0
+    return out / n
+
+
+def b64_floats(a: np.ndarray) -> str:
+    import base64
+
+    return base64.b64encode(np.ascontiguousarray(a, dtype="<f4").tobytes()).decode("ascii")
+
+
 def pack_vectors(vecs: np.ndarray) -> list[str]:
     """Unit vectors as base64 int8 (x127): 384 bytes per vector instead of ~3 KB of JSON."""
     import base64

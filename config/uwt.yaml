@@ -1,0 +1,20 @@
+# Research map for UW Tacoma (whole campus, full-time faculty).
+slug: uwt
+name: UW Tacoma
+university: University of Washington Tacoma
+adapter: uwt-directory
+listing_url: https://directory.tacoma.uw.edu/faculty
+base_url: https://directory.tacoma.uw.edu/
+directory:
+  - department: All schools
+    url: https://directory.tacoma.uw.edu/faculty
+openalex_institution: I4210150356  # University of Washington Tacoma
+openalex_fallback_institutions: [I201448701]  # any UW institution, single record only
+# Full-time faculty: professorial and lecturer titles, without emeriti,
+# retirees, affiliates, part-time lecturers, adjuncts or field supervisors.
+include:
+  title_pattern: "professor|lecturer"
+  exclude_title_pattern: "emerit|retired|affiliate|part[- ]time|adjunct|field|visiting"
+opt_out: []
+color_by: department
+search_model: all-MiniLM-L6-v2

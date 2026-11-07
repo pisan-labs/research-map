@@ -65,7 +65,7 @@ config.yaml ┘                                                                 
 | Extras | Up to 10 nearest people per person (with shared terms), hidden below a similarity cut-off; co-author pairs within the roster | Precomputed, so the page needs no vectors |
 | Search index | Records (work titles, courses, grants) with BM25 statistics, inlined; later a compact vector per record for semantic search | Person score from best 8 records; evidence titles shown |
 | Checks | Neighbours vs curated areas; search test set (top-10 hit rate, MRR); privacy scan (e-mails, phone and ID-like numbers) | Printed on every build; the privacy scan fails the build |
-| Bundle | Inline JSON, JS, CSS into one HTML; size budget about 5 MB per 1,000 people | GTU is 16 MB for 800 people because it ships every title and vector |
+| Bundle | Inline JSON, JS, CSS into one HTML; size budget about 10 MB per 1,000 people (revised 2026-11-07 for search vectors) | GTU is 16 MB for 800 people because it ships every title and vector |
 
 Front end: vanilla JS, D3 v7 for zoom and scales, Canvas 2D for drawing
 (SVG slows past a few thousand points). No build step. Python pipeline
@@ -243,6 +243,36 @@ should set a multilingual `search_model` or consider a server. The test set
 has only short topic names (no hand-written phrase queries), so the gain on
 project descriptions is not measured.
 
+### More universities (started 2026-11-07)
+
+Order: UW Tacoma and UW Seattle, then Northwestern and UC San Diego.
+
+Scope (default adopted after 15 minutes without an answer; change by
+saying which units): large universities are mapped one unit at a time from
+that unit's own faculty directory, starting with the engineering college at
+each (UW College of Engineering, Northwestern McCormick, UCSD Jacobs).
+Whole-campus rosters taken from OpenAlex were rejected: OpenAlex cannot tell
+faculty from students, postdocs and clinical staff, has no departments, and
+UW alone would be tens of thousands of people.
+
+Each site gets a small adapter in `pipeline/src/research_map/adapters.py`;
+who is kept is a title rule in the config.
+
+| Map | Status | Notes |
+|---|---|---|
+| UW Bothell STEM (`uwb-stem`) | built | 87 people; neighbour check 52%; search hit@10 0.75 |
+| UW Tacoma (`uwt`) | built | whole campus, 268 full-time faculty, 256 mapped; 195 matched in OpenAlex, 6,180 works; no curated areas, so no checks; areas named by hand |
+| UW College of Engineering (`uw-coe`) | roster done | 301 full-time faculty from the Faculty Finder, with research areas (also a test set: 68 areas with 2+ people); OpenAlex waits for the daily budget |
+| Northwestern McCormick | next | directory page found |
+| UCSD Jacobs | next | needs the InCommon intermediate certificate (in `config/certs/`) |
+
+Lessons so far: some university servers omit an intermediate certificate
+(fixed by shipping it, not by turning verification off); degree text must
+keep only fields, not institutions; search vectors are shrunk to 64 PCA
+dimensions (no measurable loss, page about half the size). Page budget
+revised: about 10 MB per 1,000 people with search vectors (GTU: 16 MB for
+800).
+
 ### Phase 2: views GTU does not have
 
 Pick from these after Phase 1; each is independent.
@@ -302,3 +332,4 @@ Q6: confirmed. Q12 and Q13 are new and open.
 12. LLM research profiles (ranking only, never shown): run them with the local `claude` CLI, which sends public titles to Anthropic under your subscription, or skip them? GTU kept everything on campus with an open-weight model; their measured gain was small (0.80 → 0.81 top-10). (rec: skip until record-level search is measured; then decide)
 13. Add grants as a component from the NSF and NIH award APIs (public, free, no key)? (rec: yes, in Phase 1)
 14. Hand-written test queries: declined 2026-11-07. The curated areas remain the only search test set; `tests/<slug>-queries.json` is supported if someone writes them later.
+15. Units for UW Seattle, Northwestern and UC San Diego: engineering colleges first? (default adopted 2026-11-07; name other units to change)

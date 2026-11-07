@@ -82,6 +82,7 @@
   const SM = META.search_model || null;
   const TRANSFORMERS_URL = "https://cdn.jsdelivr.net/npm/@huggingface/transformers@4.3.1";
   const sem = { state: SM && INDEX.hasVectors ? "off" : "none", embed: null, error: "", cache: new Map() };
+  const PROJECT = RMSearch.projector(SM && SM.proj);
   async function loadSemantic() {
     if (sem.state === "on" || sem.state === "loading") return;
     sem.state = "loading"; renderPanel();
@@ -101,7 +102,7 @@
     if (sem.state !== "on") return null;
     if (sem.cache.has(q)) return sem.cache.get(q);
     const out = await sem.embed(q, { pooling: SM.pooling, normalize: true });
-    const v = Float32Array.from(out.data);
+    const v = PROJECT(Float32Array.from(out.data));
     sem.cache.set(q, v);
     return v;
   }

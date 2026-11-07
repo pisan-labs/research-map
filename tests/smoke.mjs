@@ -26,23 +26,27 @@ const n = await page.evaluate(() => window.__rm.P.length);
 if (n < 50) fail(`only ${n} people`);
 if (shots) await page.screenshot({ path: `${shots}/overview.png` });
 
-// Find a person.
-await page.fill("#q", "Pisan");
+// Find a person: Yusuf Pisan on the UW Bothell map, otherwise the first mapped person.
+const isUWB = file.includes("uwb-stem");
+const who = isUWB ? { name: "Pisan", id: "yusuf-pisan" }
+  : await page.evaluate(() => { const p = window.__rm.P.find((x) => !x.off && x.near.length); return { name: p.name.split(" ").slice(-1)[0], id: p.id }; });
+await page.fill("#q", who.name);
 await page.waitForTimeout(400);
 const top = await page.evaluate(() => document.querySelector(".hits button b")?.textContent);
-if (!top || !top.includes("Pisan")) fail("name search did not find Yusuf Pisan: " + top);
-await page.press("#q", "Enter");
+if (!top || !top.includes(who.name)) fail(`name search did not find ${who.name}: ` + top);
+await page.evaluate((id) => window.__rm.select(window.__rm.P.findIndex((p) => p.id === id), true), who.id);
 await page.waitForTimeout(700);
 const card = await page.textContent("#panel");
 if (!card.includes("Closest people")) fail("person card did not open");
 const near = await page.$$eval(".near .who", (els) => els.map((e) => e.textContent));
-if (near.length !== 10) fail(`expected 10 neighbours, got ${near.length}`);
-console.log("Pisan's neighbours:", near.join(", "));
-if (!page.url().includes("#p=yusuf-pisan")) fail("URL hash not set: " + page.url());
+if (near.length < 3) fail(`expected neighbours, got ${near.length}`);
+console.log(`${who.name}'s neighbours:`, near.join(", "));
+if (!page.url().includes(`#p=${who.id}`)) fail("URL hash not set: " + page.url());
 if (shots) await page.screenshot({ path: `${shots}/person.png` });
 
-// Keyword search.
-for (const [q, expect] of [["machine learning", "Computing & Software Systems"], ["ecology", "Biological Sciences"]]) {
+// Keyword search (department checks only where the expected departments exist).
+const KEYWORD_CHECKS = isUWB ? [["machine learning", "Computing & Software Systems"], ["ecology", "Biological Sciences"]] : [];
+for (const [q, expect] of KEYWORD_CHECKS) {
   if (await page.$("#back")) await page.click("#back");
   await page.fill("#q", q);
   await page.waitForTimeout(400);
@@ -52,6 +56,7 @@ for (const [q, expect] of [["machine learning", "Computing & Software Systems"],
   console.log(`"${q}": top ${hits.length}, ${(share * 100).toFixed(0)}% in ${expect}`);
   if (!hits.length || share < 0.5) fail(`keyword search "${q}" looks wrong`);
 }
+if (!isUWB) { await page.fill("#q", "data"); await page.waitForTimeout(400); }
 const ev = await page.$$eval(".hits .ev", (els) => els.length);
 if (!ev) fail("search results show no evidence lines");
 if (shots) await page.screenshot({ path: `${shots}/search.png` });

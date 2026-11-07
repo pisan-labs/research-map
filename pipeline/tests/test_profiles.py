@@ -40,3 +40,11 @@ def test_build_doc_fields():
     assert d.fields["thesis"] == "An integrated architecture"
     assert [w for _, w in d.weighted] == [1.0, 1.0, 0.5, 0.7]
     assert build_doc("x", "", None).weighted == []
+
+
+def test_degree_fields_drop_institutions():
+    from research_map.text import degree_fields
+
+    t = "Ph.D. Chemistry University of Washington Seattle 2015 M.S. Chemistry University of Washington Seattle 2012"
+    assert degree_fields(t) == "Ph.D. Chemistry . M.S. Chemistry"
+    assert degree_fields("Ph.D. Caribbean Literature Universidad de Puerto Rico") == "Ph.D. Caribbean Literature"

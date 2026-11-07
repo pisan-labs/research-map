@@ -1,0 +1,30 @@
+# Research map for the UW College of Engineering (Seattle), from its Faculty Finder.
+slug: uw-coe
+name: UW College of Engineering
+university: University of Washington
+adapter: uwcoe-facultyfinder
+listing_url: https://www.engr.washington.edu/facultyfinder
+base_url: https://www.engr.washington.edu/
+directory:
+  - department: All departments
+    url: https://www.engr.washington.edu/facultyfinder
+# Department names as the Faculty Finder writes them (first match wins).
+departments:
+  - Aeronautics & Astronautics
+  - Bioengineering
+  - Chemical Engineering
+  - Civil & Environmental Engineering
+  - Computer Science & Engineering
+  - Electrical & Computer Engineering
+  - Human Centered Design & Engineering
+  - Industrial & Systems Engineering
+  - Materials Science & Engineering
+  - Mechanical Engineering
+openalex_institution: I201448701  # University of Washington
+# Full-time faculty: professorial and lecturer ranks.
+include:
+  title_pattern: "professor|lecturer|chair"  # endowed chairs list the chair name instead of a rank
+  exclude_title_pattern: "emerit|retired|affiliate|part[- ]time|adjunct|visiting|courtesy"
+opt_out: []
+color_by: department
+search_model: all-MiniLM-L6-v2

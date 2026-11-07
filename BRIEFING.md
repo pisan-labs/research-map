@@ -31,6 +31,9 @@ unanswered for 15 minutes. Reverse any of them by answering that question.
 - 2026-11-07: default colouring is by department with a shape per
   department; program and computed area are options.
 - 2026-11-07: full-time faculty only (confirmed).
+- 2026-11-07: more universities: UW Tacoma (whole campus), then one unit at
+  a time at large universities, engineering colleges first (UW Seattle,
+  Northwestern, UCSD), each from its own faculty directory.
 - 2026-11-07: search ranks records then people, with evidence; optional
   in-page search by meaning uses an English model (23 MB, downloaded on
   request) because multilingual ones are 118 MB. The map vectors stay

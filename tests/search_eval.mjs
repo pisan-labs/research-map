@@ -69,9 +69,10 @@ if (sm && index.hasVectors) {
     const { pipeline, env } = await import("@huggingface/transformers");
     env.allowLocalModels = false;
     const embed = await pipeline("feature-extraction", sm.browser, { dtype: "q8" });
+    const project = S.projector(sm.proj);
     for (const { q } of queries) {
       const out = await embed(q, { pooling: sm.pooling, normalize: true });
-      qvecs.set(q, Float32Array.from(out.data));
+      qvecs.set(q, project(Float32Array.from(out.data)));
     }
     engines["V3 hybrid 50/50"] = (q) => S.search(index, q, { qvec: qvecs.get(q) });
     if (process.argv.includes("--variants")) {

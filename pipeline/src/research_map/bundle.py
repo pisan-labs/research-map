@@ -187,3 +187,37 @@ def write_html(data: dict, web_dir: Path, out: Path) -> int:
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(html, encoding="utf-8")
     return len(html.encode())
+
+
+def write_site_index(site_dir: Path) -> None:
+    """site/index.html: one row per built map, from each map's meta.json."""
+    import html as h
+
+    rows = []
+    for meta_path in sorted(site_dir.glob("*/meta.json")):
+        m = json.loads(meta_path.read_text())
+        rows.append(
+            f"<li><a href=\"{h.escape(meta_path.parent.name)}/index.html\">{h.escape(m['name'])}</a>"
+            f"<span>{h.escape(m['university'])} · {m['people']} faculty · {m['works']:,} publications · "
+            f"as of {h.escape(m['as_of'])}</span></li>"
+        )
+    page = f"""<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>University research maps</title>
+<style>
+:root {{ color-scheme: light; --bg: #f9f9f7; --ink: #0b0b0b; --muted: #6f6d68; --line: #e1e0d9; --accent: #2a78d6; }}
+@media (prefers-color-scheme: dark) {{ :root:not([data-theme="light"]) {{ color-scheme: dark; --bg: #0d0d0d; --ink: #f0efec; --muted: #9d9b94; --line: #2c2c2a; --accent: #3987e5; }} }}
+:root[data-theme="dark"] {{ color-scheme: dark; --bg: #0d0d0d; --ink: #f0efec; --muted: #9d9b94; --line: #2c2c2a; --accent: #3987e5; }}
+body {{ margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 system-ui, sans-serif; }}
+main {{ max-width: 720px; margin: 0 auto; padding: 32px 16px; }}
+h1 {{ font-size: 22px; margin: 0 0 4px; }} p {{ color: var(--muted); margin: 0 0 20px; }}
+ul {{ list-style: none; padding: 0; margin: 0; }} li {{ border-top: 1px solid var(--line); padding: 12px 0; }}
+a {{ color: var(--accent); font-weight: 600; text-decoration: none; }} a:hover {{ text-decoration: underline; }}
+li span {{ display: block; color: var(--muted); font-size: 13px; }}
+</style></head><body><main>
+<h1>University research maps</h1>
+<p>Each map shows faculty as points; people who work on similar topics sit close together. Built from public directory pages and OpenAlex.</p>
+<ul>{"".join(rows)}</ul>
+</main></body></html>
+"""
+    (site_dir / "index.html").write_text(page, encoding="utf-8")

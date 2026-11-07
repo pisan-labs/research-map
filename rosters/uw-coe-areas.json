@@ -1,0 +1,2340 @@
+{
+ "Engineering and energy": [
+  "stuart-adler",
+  "payman-arabshahi",
+  "david-beck",
+  "david-bergsman",
+  "robert-breidenthal",
+  "ting-cao",
+  "morteza-derakhti",
+  "abdolmajid-erfani",
+  "andy-feng",
+  "hugh-hillhouse",
+  "bruce-hinds",
+  "faisal-hossain",
+  "luna-yue-huang",
+  "juan-idrobo",
+  "samson-jenekhe",
+  "alan-kaptanoglu",
+  "daniel-kirschen",
+  "carl-knowlen",
+  "john-kramlich",
+  "ana-larra-aga",
+  "jun-liu",
+  "jessica-lundquist",
+  "christine-luscombe",
+  "sirine-maalej",
+  "don-mackenzie",
+  "j-devin-mackenzie",
+  "julian-marshall",
+  "ann-mescher",
+  "michael-motley",
+  "bart-nijssen",
+  "rene-overney",
+  "brian-polagye",
+  "julie-rorrer",
+  "zachary-sherman",
+  "joshua-smith",
+  "bhuvana-srinivasan",
+  "jim-thomson",
+  "richard-wiebe",
+  "owen-williams",
+  "jihui-yang",
+  "chaoyue-zhao"
+ ],
+ "Infrastructure and smart cities": [
+  "stuart-adler",
+  "xuegang-ban",
+  "jeffrey-berman",
+  "paolo-calvi",
+  "cynthia-chen",
+  "xu-chen",
+  "john-choe",
+  "brock-craft",
+  "marc-eberhard",
+  "abdolmajid-erfani",
+  "mike-gomez",
+  "mark-haselkorn",
+  "faisal-hossain",
+  "ji-eun-kim",
+  "daniel-kirschen",
+  "dawn-lehman",
+  "karen-leung",
+  "laura-lowes",
+  "don-mackenzie",
+  "peter-mackenzie-helnwein",
+  "julian-marshall",
+  "brett-maurer",
+  "david-mcdonald",
+  "michael-motley",
+  "stephen-muench",
+  "shwetak-patel",
+  "radha-poovendran",
+  "lillian-ratliff",
+  "matt-reynolds",
+  "joshua-smith",
+  "amir-taghvaei",
+  "travis-thonstad",
+  "joseph-wartman",
+  "richard-wiebe",
+  "julian-yamaura"
+ ],
+ "Electrochemical Engineering": [
+  "stuart-adler"
+ ],
+ "Kinetic, Transport, and Thermodynamic Properties of Solids": [
+  "stuart-adler"
+ ],
+ "Advanced Measurement and Modeling of Solid State Electrochemical Systems": [
+  "stuart-adler"
+ ],
+ "Fluid Mechanics": [
+  "alberto-aliseda",
+  "robert-breidenthal"
+ ],
+ "Dynamics of Multiphase Flows": [
+  "alberto-aliseda"
+ ],
+ "Gas Exchange Between Atmosphere and Ocean": [
+  "alberto-aliseda"
+ ],
+ "Atomization of Liquids in Combustion": [
+  "alberto-aliseda"
+ ],
+ "Engineering and health": [
+  "nancy-allbritton",
+  "richard-anderson",
+  "mike-averkiou",
+  "neda-bagheri",
+  "soraya-bailey",
+  "ashis-banerjee",
+  "david-beck",
+  "andre-berndt",
+  "patrick-m-boyle",
+  "cynthia-chen",
+  "daniel-chiu",
+  "john-choe",
+  "eric-chudler",
+  "jae-hyun-chung",
+  "sarah-coppola",
+  "jennifer-davis",
+  "michael-dodd",
+  "stefania-fresca",
+  "erica-fuhrmeister",
+  "lara-gamble",
+  "xiaohu-gao",
+  "gian-gabriel-garcia",
+  "cecilia-giachelli",
+  "bruce-hinds",
+  "faisal-hossain",
+  "princess-imoukhuede",
+  "ji-eun-kim",
+  "hao-yuan-kueh",
+  "dan-li",
+  "jun-liu",
+  "barry-lutz",
+  "jorge-marchand",
+  "julian-marshall",
+  "christina-mastrangelo",
+  "chet-moritz",
+  "elizabeth-nance",
+  "christopher-neils",
+  "rebecca-neumann",
+  "ayokunle-olanrewaju",
+  "amy-orsborn",
+  "chiwoo-park",
+  "shwetak-patel",
+  "peter-pauzauskie",
+  "ivan-pelivanov",
+  "gerald-pollack",
+  "joe-powers",
+  "prashanth-rajivan",
+  "daniel-ratner",
+  "michael-regnier",
+  "jenny-robinson",
+  "jay-rubinstein",
+  "joan-sanders",
+  "herbert-sauro",
+  "marta-scatena",
+  "drew-sellers",
+  "linda-shapiro",
+  "steve-shen",
+  "zachary-sherman",
+  "christopher-sims",
+  "avik-som",
+  "patrick-stayton",
+  "kelly-stevens",
+  "colin-studholme",
+  "juming-tang",
+  "alyssa-taylor",
+  "rong-tian",
+  "ruikang-ricky-wang",
+  "joseph-wartman",
+  "paul-wiggins",
+  "kim-woodrow",
+  "quansan-yang",
+  "azadeh-yazdan-shahmorad",
+  "ying-zheng"
+ ],
+ "Single-cell enzyme assays": [
+  "nancy-allbritton"
+ ],
+ "Biomedical microdevices": [
+  "nancy-allbritton"
+ ],
+ "Intestine-on-a-chip": [
+  "nancy-allbritton"
+ ],
+ "Array-based cell sorting": [
+  "nancy-allbritton"
+ ],
+ "Electrical, Electromechanical and Optical Response of Nanodevices": [
+  "m-anantram"
+ ],
+ "Educational Technology": [
+  "richard-anderson",
+  "ruth-anderson"
+ ],
+ "Computing For the Developing World": [
+  "richard-anderson",
+  "ruth-anderson"
+ ],
+ "Operating Systems": [
+  "tom-anderson"
+ ],
+ "Distributed Systems": [
+  "tom-anderson",
+  "arvind-krishnamurthy"
+ ],
+ "Networking": [
+  "tom-anderson",
+  "simon-peter"
+ ],
+ "Security": [
+  "tom-anderson",
+  "michael-ernst",
+  "zachary-tatlock"
+ ],
+ "Computer Science Education": [
+  "ruth-anderson",
+  "stuart-reges",
+  "robbie-weber"
+ ],
+ "Underwater and Space Communications": [
+  "payman-arabshahi"
+ ],
+ "Wireless Networks, Power System Optimization": [
+  "payman-arabshahi"
+ ],
+ "Smart Grid": [
+  "payman-arabshahi"
+ ],
+ "Data Mining and Search": [
+  "payman-arabshahi"
+ ],
+ "Information Visualization": [
+  "brock-craft"
+ ],
+ "Computer-supported Cooperative Work": [
+  "amy-zhang"
+ ],
+ "Constitutive Modeling of Soils": [
+  "pedro-arduino"
+ ],
+ "Computational Geomechanics": [
+  "pedro-arduino"
+ ],
+ "Finite Elements": [
+  "pedro-arduino"
+ ],
+ "Meshless Techniques": [
+  "pedro-arduino"
+ ],
+ "Soil Structure Interaction": [
+  "pedro-arduino"
+ ],
+ "Engineering and manufacturing": [
+  "ashis-banerjee",
+  "david-bergsman",
+  "patty-buchanan",
+  "ting-cao",
+  "xu-chen",
+  "jae-hyun-chung",
+  "ji-eun-kim",
+  "dan-li",
+  "jun-liu",
+  "eli-livne",
+  "christine-luscombe",
+  "j-devin-mackenzie",
+  "krithika-manohar",
+  "jorge-marchand",
+  "christina-mastrangelo",
+  "ann-mescher",
+  "martin-nisser",
+  "ayokunle-olanrewaju",
+  "chiwoo-park",
+  "jenny-robinson",
+  "steve-shen",
+  "zachary-sherman",
+  "monica-li-storms",
+  "juming-tang",
+  "richard-wiebe",
+  "jihui-yang",
+  "quansan-yang"
+ ],
+ "Engineering and environment": [
+  "david-beck",
+  "david-bergsman",
+  "robert-breidenthal",
+  "michael-brett",
+  "david-butman",
+  "john-choe",
+  "morteza-derakhti",
+  "michael-dodd",
+  "abdolmajid-erfani",
+  "andy-feng",
+  "erica-fuhrmeister",
+  "mike-gomez",
+  "hugh-hillhouse",
+  "bruce-hinds",
+  "alexander-horner-devine",
+  "faisal-hossain",
+  "erkan-istanbulluoglu",
+  "edward-kolodziej",
+  "gregory-korshin",
+  "karen-leung",
+  "eli-livne",
+  "jessica-lundquist",
+  "don-mackenzie",
+  "j-devin-mackenzie",
+  "jorge-marchand",
+  "julian-marshall",
+  "rebecca-neumann",
+  "bart-nijssen",
+  "ayokunle-olanrewaju",
+  "shwetak-patel",
+  "brian-polagye",
+  "julie-rorrer",
+  "monica-li-storms",
+  "amir-taghvaei",
+  "jim-thomson",
+  "joseph-wartman",
+  "mari-winkler",
+  "quansan-yang"
+ ],
+ "Bioinspired Materials": [
+  "lucas-meza"
+ ],
+ "Engineering Education": [
+  "renee-desing",
+  "michelle-hickner",
+  "eli-patten",
+  "alex-prybutok",
+  "jennifer-turns"
+ ],
+ "Ultrasound Imaging and Ultrasound Contrast Agents": [
+  "mike-averkiou"
+ ],
+ "Tumor Angiogenesis Imaging and Quantification": [
+  "mike-averkiou"
+ ],
+ "Imaging of Atherosclerotic Plaques With Microbubble Contrast Agents": [
+  "mike-averkiou"
+ ],
+ "Ultrasound-mediated Drug Delivery": [
+  "mike-averkiou"
+ ],
+ "Computational/systems Biology": [
+  "neda-bagheri"
+ ],
+ "Emergent Phenomena": [
+  "neda-bagheri"
+ ],
+ "Dynamics": [
+  "neda-bagheri"
+ ],
+ "Clinical Needs Assessment": [
+  "soraya-bailey"
+ ],
+ "Engineering Design": [
+  "soraya-bailey"
+ ],
+ "Databases": [
+  "magdalena-balazinska",
+  "dan-suciu"
+ ],
+ "Big Data": [
+  "magdalena-balazinska"
+ ],
+ "Cloud": [
+  "magdalena-balazinska"
+ ],
+ "Scientific Data": [
+  "magdalena-balazinska"
+ ],
+ "Transportation Network System Modeling & Simulation": [
+  "xuegang-ban"
+ ],
+ "Urban Traffic System Modeling and Operations": [
+  "xuegang-ban"
+ ],
+ "Intelligent Transportation Systems": [
+  "xuegang-ban"
+ ],
+ "Connected / Automated Vehicles": [
+  "xuegang-ban"
+ ],
+ "Autonomous Mobile Robots": [
+  "ashis-banerjee"
+ ],
+ "Micro-bio Robotics and Automation": [
+  "ashis-banerjee"
+ ],
+ "Human-robot Collaboration": [
+  "ashis-banerjee"
+ ],
+ "Quantum Materials": [
+  "arthur-barnard",
+  "juan-idrobo"
+ ],
+ "Nanomechanics": [
+  "arthur-barnard"
+ ],
+ "Data Management": [
+  "leilani-battle",
+  "dan-suciu"
+ ],
+ "Human-Computer Interaction": [
+  "leilani-battle",
+  "brock-craft",
+  "jeffrey-heer",
+  "david-mcdonald",
+  "katharina-reinecke",
+  "jennifer-turns",
+  "mark-zachry",
+  "amy-zhang"
+ ],
+ "Computational Complexity": [
+  "paul-beame"
+ ],
+ "Molecular Data Science and Artificial Intelligence (AI)": [
+  "david-beck"
+ ],
+ "Biophysical Chemistry Software, Methods and Applications": [
+  "david-beck"
+ ],
+ "Colloidal Materials": [
+  "john-berg"
+ ],
+ "Adhesion Phenomena": [
+  "john-berg"
+ ],
+ "Gels in Multi-phase Media": [
+  "john-berg"
+ ],
+ "Membranes For Water Treatment and Industrial Energy Reduction": [
+  "david-bergsman"
+ ],
+ "Nanostructured Materials For Carbon Capture and Wastewater Remediation": [
+  "david-bergsman"
+ ],
+ "Structural and Earthquake Engineering": [
+  "jeffrey-berman"
+ ],
+ "Steel Structures": [
+  "jeffrey-berman"
+ ],
+ "Innovative Seismic Load Resisting Systems": [
+  "jeffrey-berman"
+ ],
+ "Structural Robustness": [
+  "jeffrey-berman",
+  "travis-thonstad"
+ ],
+ "Structure Guided and Automated High Throughput Protein Engineering": [
+  "andre-berndt"
+ ],
+ "Optogenetics": [
+  "andre-berndt",
+  "azadeh-yazdan-shahmorad"
+ ],
+ "In Vivo and in Vitro Fluorescence Imaging of Life and Fixed Tissue": [
+  "andre-berndt"
+ ],
+ "Electrophysiology and Physiology of Neurons and Cardiac Cells": [
+  "andre-berndt"
+ ],
+ "Computer Graphics": [
+  "gilbert-bernstein",
+  "brian-curless",
+  "ira-kemelmacher-shlizerman",
+  "zoran-popovic",
+  "steven-seitz"
+ ],
+ "Programming Languages": [
+  "gilbert-bernstein",
+  "daniel-grossman",
+  "hal-perkins"
+ ],
+ "Geometry/topology": [
+  "gilbert-bernstein"
+ ],
+ "Tools for artists": [
+  "gilbert-bernstein"
+ ],
+ "Simulation": [
+  "gilbert-bernstein",
+  "john-choe"
+ ],
+ "Predicting and Preventing Sudden Cardiac Death": [
+  "patrick-m-boyle"
+ ],
+ "Discovering Mechanistic Underpinnings of Atrial Flutter and Fibrillation": [
+  "patrick-m-boyle"
+ ],
+ "Harnessing Emerging Technologies, Including Optogenetics, to Develop New Anti-arrhythmia Techniques": [
+  "patrick-m-boyle"
+ ],
+ "Understanding and Minimizing Graft-associated Arrhythmias Following Transplantation of Stem Cell-derived Cardiomyocytes": [
+  "patrick-m-boyle"
+ ],
+ "Aerodynamics": [
+  "robert-breidenthal",
+  "owen-williams"
+ ],
+ "Turbulence": [
+  "robert-breidenthal",
+  "owen-williams"
+ ],
+ "Eutrophication and Regulation of Algal Biomass and Secondary Production in Lakes": [
+  "michael-brett"
+ ],
+ "Essential Fatty Acid Production and Bioaccumulation in Aquatic Food Webs": [
+  "michael-brett"
+ ],
+ "Zooplankton and Aquatic Food-web Ecology": [
+  "michael-brett"
+ ],
+ "Terrestrial and Aquatic Ecosystem Coupling": [
+  "michael-brett"
+ ],
+ "Dynamics and Control": [
+  "stefania-fresca",
+  "krithika-manohar"
+ ],
+ "Machine Learning and Data Science": [
+  "stefania-fresca"
+ ],
+ "Engineered Biomaterials and Tissue Bioengineering": [
+  "cecilia-giachelli"
+ ],
+ "Molecular Bioengineering and Nanotechnology": [
+  "xiaohu-gao",
+  "cecilia-giachelli"
+ ],
+ "Systems Engineering": [
+  "patty-buchanan",
+  "christina-mastrangelo"
+ ],
+ "Manufacturing Design": [
+  "patty-buchanan"
+ ],
+ "Simulation Models": [
+  "patty-buchanan"
+ ],
+ "Controls and Robotics": [
+  "samuel-burden"
+ ],
+ "Biosystems": [
+  "samuel-burden",
+  "sreeram-kannan"
+ ],
+ "Networked Control Systems": [
+  "linda-bushnell"
+ ],
+ "Global and Regional Carbon Cycling": [
+  "david-butman"
+ ],
+ "The Biogeochemical Connections Between Land and Waters Systems": [
+  "david-butman"
+ ],
+ "Human-Robot Interaction": [
+  "maya-cakmak"
+ ],
+ "Programming by Demonstration": [
+  "maya-cakmak"
+ ],
+ "End-User Programming": [
+  "maya-cakmak"
+ ],
+ "Assistive Robots": [
+  "maya-cakmak"
+ ],
+ "Earthquake Engineering": [
+  "paolo-calvi",
+  "travis-thonstad"
+ ],
+ "Reinforced Concrete Structures": [
+  "paolo-calvi"
+ ],
+ "Steel-Concrete Composite Structures": [
+  "paolo-calvi"
+ ],
+ "Passive and Active Response-Control Systems": [
+  "paolo-calvi"
+ ],
+ "Computational Materials Science": [
+  "ting-cao"
+ ],
+ "Condensed Matter Physics": [
+  "ting-cao",
+  "juan-idrobo",
+  "di-xiao"
+ ],
+ "Low-dimensional Materials": [
+  "ting-cao",
+  "juan-idrobo",
+  "di-xiao"
+ ],
+ "Synthetic Biology": [
+  "jeffrey-nivala"
+ ],
+ "Computer Architecture": [
+  "luis-ceze",
+  "baris-kasikci",
+  "david-kohlbrenner",
+  "michael-taylor",
+  "chris-thachuk"
+ ],
+ "Compilers": [
+  "luis-ceze",
+  "hal-perkins",
+  "zachary-tatlock"
+ ],
+ "Programming Models": [
+  "luis-ceze"
+ ],
+ "Urban adaptable systems": [
+  "cynthia-chen"
+ ],
+ "Human mobility pattern analysis": [
+  "cynthia-chen"
+ ],
+ "Bias and uncertainty quantification in big data": [
+  "cynthia-chen"
+ ],
+ "Controls": [
+  "xu-chen"
+ ],
+ "Adaptive Manufacturing": [
+  "xu-chen"
+ ],
+ "Physical Intelligence": [
+  "xu-chen"
+ ],
+ "Quantum Information": [
+  "mo-chen"
+ ],
+ "Quantum Devices": [
+  "mo-chen"
+ ],
+ "Nanomaterials": [
+  "daniel-chiu",
+  "hugh-hillhouse"
+ ],
+ "Advanced Optical Instrumentation": [
+  "daniel-chiu"
+ ],
+ "Microfluidics": [
+  "daniel-chiu",
+  "ayokunle-olanrewaju"
+ ],
+ "Single-molecule Studies": [
+  "daniel-chiu"
+ ],
+ "Data Science": [
+  "john-choe",
+  "ryan-maas",
+  "amy-zhang"
+ ],
+ "Power electronics and sustainable energy": [
+  "jungwon-choi"
+ ],
+ "Power semiconductor devices": [
+  "jungwon-choi"
+ ],
+ "Control systems, magnetic design": [
+  "jungwon-choi"
+ ],
+ "Neural Engineering": [
+  "eric-chudler"
+ ],
+ "Medicinal Plants": [
+  "eric-chudler"
+ ],
+ "Parkinson\u2019s Disease": [
+  "eric-chudler"
+ ],
+ "Pain": [
+  "eric-chudler"
+ ],
+ "MEMS/Nanotechnology": [
+  "jae-hyun-chung"
+ ],
+ "Nanostructured Sensors": [
+  "jae-hyun-chung"
+ ],
+ "Nanostructured Biosensors": [
+  "jae-hyun-chung"
+ ],
+ "Quantum computation": [
+  "andrea-coladangelo"
+ ],
+ "Cryptography": [
+  "andrea-coladangelo"
+ ],
+ "Physical Computing": [
+  "brock-craft"
+ ],
+ "Learning Design": [
+  "brock-craft"
+ ],
+ "Computer Vision": [
+  "brian-curless",
+  "ali-farhadi",
+  "ira-kemelmacher-shlizerman",
+  "steven-seitz"
+ ],
+ "3D Modeling": [
+  "brian-curless"
+ ],
+ "Computational Photography": [
+  "brian-curless"
+ ],
+ "Acoustic Propagation in Shallow Water": [
+  "peter-dahl"
+ ],
+ "Acoustic Vector Intensity": [
+  "peter-dahl"
+ ],
+ "Underwater Industrial Noise": [
+  "peter-dahl"
+ ],
+ "Arctic Underwater Acoustics": [
+  "peter-dahl"
+ ],
+ "Underwater Noise From Pile Driving and Explosives": [
+  "peter-dahl"
+ ],
+ "Device Modeling": [
+  "r-bruce-darling"
+ ],
+ "Optical Sensors": [
+  "r-bruce-darling"
+ ],
+ "Chemical Sensors": [
+  "r-bruce-darling"
+ ],
+ "Microfabrication Processes": [
+  "r-bruce-darling"
+ ],
+ "Instrument Development": [
+  "r-bruce-darling"
+ ],
+ "Interaction Design": [
+  "andrew-davidson"
+ ],
+ "Cellular and Molecular Mechanisms of Cardiac Wound Healing and the Fibrotic Injury Response": [
+  "jennifer-davis"
+ ],
+ "The Impact of Fibrosis and Scarring On Cardiac Regeneration and Cellular Therapeutics": [
+  "jennifer-davis"
+ ],
+ "Signaling Mechanisms Govering Cardiac Muscle Growth and Remodeling": [
+  "jennifer-davis"
+ ],
+ "Skeletal Muscle Regeneration and Fibrosis": [
+  "jennifer-davis"
+ ],
+ "Environmental Fluid Mechanics": [
+  "morteza-derakhti",
+  "christie-hegermiller",
+  "alexander-horner-devine",
+  "jim-thomson"
+ ],
+ "Coastal Processes and Extreme Events": [
+  "morteza-derakhti"
+ ],
+ "Fluid-structure Interaction": [
+  "morteza-derakhti"
+ ],
+ "Diversity, Equity, and Inclusion in Engineering": [
+  "renee-desing"
+ ],
+ "Sustainable Interaction Design": [
+  "kristin-dew"
+ ],
+ "Technology Ethics": [
+  "kristin-dew"
+ ],
+ "Oxidation and Disinfection Processes in Drinking Water and Wastewater Treatment": [
+  "michael-dodd"
+ ],
+ "Characterization and Control of Antibiotic Resistance Dissemination in the Environment": [
+  "michael-dodd"
+ ],
+ "Oxidative and Photochemical Transformations of Contaminants in Engineered and Natural Systems": [
+  "michael-dodd"
+ ],
+ "Mechanical metamaterials": [
+  "charles-dorn"
+ ],
+ "Wave propagation": [
+  "charles-dorn"
+ ],
+ "Origami": [
+  "charles-dorn"
+ ],
+ "Structural Optimization": [
+  "charles-dorn",
+  "eli-livne",
+  "avin-vijay"
+ ],
+ "Artificial Intelligence": [
+  "simon-du",
+  "luke-zettlemoyer"
+ ],
+ "Machine Learning": [
+  "simon-du",
+  "ali-farhadi",
+  "gian-gabriel-garcia",
+  "hannaneh-hajishirzi",
+  "alan-kaptanoglu",
+  "pang-koh",
+  "jose-nathan-kutz",
+  "su-in-lee",
+  "sara-mostafavi",
+  "chiwoo-park",
+  "yulia-tsvetkov",
+  "sheng-wang",
+  "luke-zettlemoyer"
+ ],
+ "Theory of Computation": [
+  "simon-du"
+ ],
+ "Rapid Construction": [
+  "marc-eberhard"
+ ],
+ "Reinforced and Prestressed Concrete": [
+  "marc-eberhard"
+ ],
+ "Earthquake and Tsunami Engineering": [
+  "marc-eberhard"
+ ],
+ "Infrastructure and Construction Economics": [
+  "abdolmajid-erfani"
+ ],
+ "Human-AI Collaboration": [
+  "abdolmajid-erfani"
+ ],
+ "Programmer Productivity": [
+  "michael-ernst"
+ ],
+ "Software Engineering": [
+  "michael-ernst"
+ ],
+ "Static Analysis": [
+  "michael-ernst"
+ ],
+ "Type Systems": [
+  "michael-ernst"
+ ],
+ "Fundamental thermal transport": [
+  "andy-feng"
+ ],
+ "Thermal management of semiconductors": [
+  "andy-feng"
+ ],
+ "Ultrahigh temperature thermal transport": [
+  "andy-feng"
+ ],
+ "Human Computer Interaction": [
+  "james-fogarty",
+  "shwetak-patel"
+ ],
+ "Ubiquitous and Pervasive Computing": [
+  "james-fogarty"
+ ],
+ "Robotics": [
+  "karen-leung"
+ ],
+ "Posthumanism": [
+  "tyler-fox"
+ ],
+ "Systems Thinking": [
+  "tyler-fox"
+ ],
+ "Art-science Relations": [
+  "tyler-fox"
+ ],
+ "Scientific Machine Learning": [
+  "stefania-fresca"
+ ],
+ "Reduced order modeling": [
+  "stefania-fresca",
+  "ana-larra-aga"
+ ],
+ "Fabrication": [
+  "jon-froehlich"
+ ],
+ "Human-Computer Interaction & Accessible Technology": [
+  "jon-froehlich"
+ ],
+ "Wireless & Sensor Systems": [
+  "jon-froehlich"
+ ],
+ "Ubiquitous Computing": [
+  "jon-froehlich"
+ ],
+ "Fundamental Spin Physics": [
+  "kai-mei-fu"
+ ],
+ "Quantum Information Processing": [
+  "kai-mei-fu"
+ ],
+ "Magnetic Sensing For Biological Applications": [
+  "kai-mei-fu"
+ ],
+ "Water, Sanitation, and Hygiene": [
+  "erica-fuhrmeister"
+ ],
+ "Antimicrobial Resistance": [
+  "erica-fuhrmeister"
+ ],
+ "Space Systems": [
+  "akshay-gadre",
+  "justin-little"
+ ],
+ "City-scale Internet-of-Things": [
+  "akshay-gadre"
+ ],
+ "Wireless communication": [
+  "akshay-gadre"
+ ],
+ "Mobile sensing": [
+  "akshay-gadre"
+ ],
+ "Engineered Biomaterials": [
+  "lara-gamble"
+ ],
+ "Surface Analysis of Biomaterials": [
+  "lara-gamble"
+ ],
+ "Mass Spectral Imaging": [
+  "lara-gamble"
+ ],
+ "Medical Imaging and Image-Guided Therapy": [
+  "xiaohu-gao"
+ ],
+ "Targeted Drug Delivery": [
+  "xiaohu-gao",
+  "patrick-stayton"
+ ],
+ "Cancer Research": [
+  "xiaohu-gao"
+ ],
+ "Analysis Design": [
+  "joseph-garbini"
+ ],
+ "Control of Dynamic Systems": [
+  "joseph-garbini"
+ ],
+ "Mechatronics": [
+  "joseph-garbini"
+ ],
+ "Instrumentation": [
+  "joseph-garbini",
+  "joan-sanders"
+ ],
+ "Medical Decision Making": [
+  "gian-gabriel-garcia"
+ ],
+ "Design and Analysis of Algorithms": [
+  "shayan-oveis-gharan"
+ ],
+ "Action research": [
+  "sucheta-ghoshal"
+ ],
+ "Information communication technologies": [
+  "sucheta-ghoshal"
+ ],
+ "Technoculture": [
+  "sucheta-ghoshal"
+ ],
+ "Health": [
+  "cecilia-giachelli",
+  "shwetak-patel"
+ ],
+ "Ectopic Calcification in Biomaterials and Disease": [
+  "cecilia-giachelli"
+ ],
+ "Machine learning and data science for neuroscience and neuroengineering": [
+  "matt-golub"
+ ],
+ "Brain-machine Interfaces": [
+  "matt-golub",
+  "amy-orsborn"
+ ],
+ "Bio-mediated Soil Improvement": [
+  "mike-gomez"
+ ],
+ "Sustainable Geotechnics": [
+  "mike-gomez"
+ ],
+ "Advanced Soil Characterization": [
+  "mike-gomez"
+ ],
+ "Biomimicry Designs": [
+  "ed-habtour"
+ ],
+ "Geometric Patterns": [
+  "ed-habtour"
+ ],
+ "Bio-inspired Robots": [
+  "ed-habtour"
+ ],
+ "Nonlinear Dynamics": [
+  "ed-habtour",
+  "richard-wiebe"
+ ],
+ "Natural Language Processing": [
+  "hannaneh-hajishirzi",
+  "pang-koh",
+  "sheng-wang"
+ ],
+ "Knowledge Representation and Reasoning": [
+  "hannaneh-hajishirzi"
+ ],
+ "Language-based Interactive Systems": [
+  "hannaneh-hajishirzi"
+ ],
+ "Haptic Interfaces": [
+  "blake-hannaford"
+ ],
+ "Surgical Robots": [
+  "blake-hannaford"
+ ],
+ "Cyber-physical Systems": [
+  "blake-hannaford"
+ ],
+ "Visualization": [
+  "jeffrey-heer"
+ ],
+ "Social Computing": [
+  "jeffrey-heer",
+  "amy-zhang"
+ ],
+ "Coastal processes and change": [
+  "christie-hegermiller"
+ ],
+ "Ocean waves": [
+  "christie-hegermiller"
+ ],
+ "Extreme Events": [
+  "christie-hegermiller"
+ ],
+ "Numerical Modeling": [
+  "christie-hegermiller"
+ ],
+ "Machine learning and data-driven methods for engineering": [
+  "michelle-hickner"
+ ],
+ "Sensing and control in biomechanics": [
+  "michelle-hickner"
+ ],
+ "Solar Energy Conversion": [
+  "hugh-hillhouse"
+ ],
+ "Colloidal & Interfacial Phenomena": [
+  "hugh-hillhouse"
+ ],
+ "Nano-scale Functional Devices": [
+  "bruce-hinds"
+ ],
+ "Engineering Membranes": [
+  "bruce-hinds"
+ ],
+ "Coastal Oceanography": [
+  "alexander-horner-devine"
+ ],
+ "Water Resources Management": [
+  "faisal-hossain"
+ ],
+ "Data Science of Materials Informatics": [
+  "luna-yue-huang"
+ ],
+ "Computational Study of Materials' Electronic Structure": [
+  "luna-yue-huang"
+ ],
+ "Technology in Engineering Education": [
+  "erik-hurlen"
+ ],
+ "Image/Video Signal Processing": [
+  "jenq-neng-hwang"
+ ],
+ "Multimedia Networking and QoS": [
+  "jenq-neng-hwang"
+ ],
+ "Statistical Pattern Recognition": [
+  "jenq-neng-hwang"
+ ],
+ "Scanning Transmission Electron Microscopy": [
+  "juan-idrobo"
+ ],
+ "Robotics and Controls": [
+  "kim-ingraham"
+ ],
+ "Geomorphology": [
+  "erkan-istanbulluoglu"
+ ],
+ "Hydrology": [
+  "erkan-istanbulluoglu",
+  "bart-nijssen"
+ ],
+ "Ecohydrology": [
+  "erkan-istanbulluoglu"
+ ],
+ "Bio-inspired Systems": [
+  "vikram-iyer"
+ ],
+ "Wireless technologies": [
+  "vikram-iyer"
+ ],
+ "Deep reinforcement learning": [
+  "natasha-jaques"
+ ],
+ "Multi-agent reinforcement learning": [
+  "natasha-jaques"
+ ],
+ "Reinforcement learning from human feedback": [
+  "natasha-jaques"
+ ],
+ "Human-AI interaction": [
+  "natasha-jaques"
+ ],
+ "Social learning": [
+  "natasha-jaques"
+ ],
+ "Organic Photovoltaics: Materials synthesis and device engineering": [
+  "samson-jenekhe"
+ ],
+ "Organic/Flexible Electronics: Materials synthesis and charge transport": [
+  "samson-jenekhe"
+ ],
+ "Organic Light-Emitting Diodes: Materials synthesis and device engineering": [
+  "samson-jenekhe"
+ ],
+ "Synthesis and Properties of Semiconducting Polymers": [
+  "samson-jenekhe"
+ ],
+ "Biomaterials": [
+  "jenny-robinson",
+  "marta-scatena",
+  "ying-zheng"
+ ],
+ "Computational Fluid Dyanics": [
+  "john-palmore-jr"
+ ],
+ "Multiphase Flow": [
+  "john-palmore-jr"
+ ],
+ "Numerical Methods": [
+  "john-palmore-jr"
+ ],
+ "Combustion and Fires": [
+  "john-palmore-jr"
+ ],
+ "Droplets and Particles": [
+  "john-palmore-jr"
+ ],
+ "Computing and Networking": [
+  "sreeram-kannan"
+ ],
+ "Data Sciences": [
+  "sreeram-kannan"
+ ],
+ "Nuclear fusion": [
+  "alan-kaptanoglu"
+ ],
+ "Stellarator optimization": [
+  "alan-kaptanoglu"
+ ],
+ "Numerical methods for plasma physics": [
+  "alan-kaptanoglu"
+ ],
+ "Algorithms": [
+  "anna-karlin",
+  "james-lee"
+ ],
+ "Game Theory": [
+  "anna-karlin"
+ ],
+ "Economics": [
+  "anna-karlin"
+ ],
+ "Datacenter applications": [
+  "baris-kasikci"
+ ],
+ "Systems support for heterogeneous platforms": [
+  "baris-kasikci"
+ ],
+ "Hardware security": [
+  "baris-kasikci"
+ ],
+ "Human Performance Modeling": [
+  "ji-eun-kim"
+ ],
+ "Cognitive Engineering": [
+  "ji-eun-kim"
+ ],
+ "Smart Grids": [
+  "daniel-kirschen"
+ ],
+ "Integration of Renewable Energy": [
+  "daniel-kirschen"
+ ],
+ "Power System Economics": [
+  "daniel-kirschen"
+ ],
+ "Energy Conversion": [
+  "carl-knowlen",
+  "jihui-yang"
+ ],
+ "Combustion Physics": [
+  "carl-knowlen"
+ ],
+ "Hypervelocity Propulsion": [
+  "carl-knowlen"
+ ],
+ "Security & Privacy": [
+  "david-kohlbrenner"
+ ],
+ "Computer Systems & Networking": [
+  "david-kohlbrenner"
+ ],
+ "Design For Digital Inclusion": [
+  "beth-kolko"
+ ],
+ "Computer-mediated Communication": [
+  "beth-kolko"
+ ],
+ "Educational/ Business/social Gaming": [
+  "beth-kolko"
+ ],
+ "Information and Communication Technology (ICT)": [
+  "beth-kolko"
+ ],
+ "Water Quality and Contaminant Fate": [
+  "edward-kolodziej"
+ ],
+ "Ecosystem Health": [
+  "edward-kolodziej"
+ ],
+ "Roadway Runoff": [
+  "edward-kolodziej"
+ ],
+ "Tire Rubber Pollution and Microplastics": [
+  "edward-kolodziej"
+ ],
+ "Physico-chemical Water Treatment Methods": [
+  "gregory-korshin"
+ ],
+ "Environmental Electrochemistry": [
+  "gregory-korshin"
+ ],
+ "Cycling of Arsenic and Antimony in Renewable Natural Gas Operations": [
+  "gregory-korshin"
+ ],
+ "Renewable Natural Gas": [
+  "gregory-korshin"
+ ],
+ "Energy Conversion Systems": [
+  "john-kramlich"
+ ],
+ "Combustion and Pollutants/environmental Control": [
+  "john-kramlich"
+ ],
+ "Turbulent Reacting Flows": [
+  "john-kramlich"
+ ],
+ "Biofuel Combustion Properties and Emissions": [
+  "john-kramlich"
+ ],
+ "Networks": [
+  "arvind-krishnamurthy"
+ ],
+ "Systems, Synthetic and Quantitative Biology": [
+  "hao-yuan-kueh"
+ ],
+ "Molecular and Cellular Engineering": [
+  "hao-yuan-kueh"
+ ],
+ "Stem Cell and Developmental Biology": [
+  "hao-yuan-kueh"
+ ],
+ "Immunology": [
+  "hao-yuan-kueh"
+ ],
+ "Electromagnetics": [
+  "yasuo-kuga"
+ ],
+ "Remote Sensing": [
+  "yasuo-kuga"
+ ],
+ "Scientific Computing": [
+  "jose-nathan-kutz"
+ ],
+ "Dynamical Systems": [
+  "jose-nathan-kutz"
+ ],
+ "Optical and atomic physics": [
+  "jose-nathan-kutz"
+ ],
+ "Computational Neuroscience": [
+  "jose-nathan-kutz"
+ ],
+ "Scientific Machine Learning and Data Science": [
+  "ana-larra-aga"
+ ],
+ "Computational Fluid Dynamics": [
+  "ana-larra-aga",
+  "michael-motley"
+ ],
+ "Combustion": [
+  "ana-larra-aga"
+ ],
+ "Complexity Theory": [
+  "james-lee"
+ ],
+ "Analysis & Geometry": [
+  "james-lee"
+ ],
+ "Computational Biology": [
+  "su-in-lee",
+  "sara-mostafavi"
+ ],
+ "Convex Optimization and Geometry": [
+  "yin-tat-lee"
+ ],
+ "Spectral Graph Theory": [
+  "yin-tat-lee"
+ ],
+ "Online Algorithms": [
+  "yin-tat-lee"
+ ],
+ "Large-Scale Testing of Bridge and Building Components and Systems": [
+  "dawn-lehman"
+ ],
+ "Performance-Based Earthquake Engineering of Buildings, Bridges and Infrastructure": [
+  "dawn-lehman"
+ ],
+ "Seismic Design and Advanced Nonlinear Analysis Models For SCBFs and BRBFs": [
+  "dawn-lehman"
+ ],
+ "Engineering Properties and Connections For Concrete-Filled Tubes Components": [
+  "dawn-lehman"
+ ],
+ "Human-robot interactions": [
+  "karen-leung"
+ ],
+ "Safety-critical autonomy": [
+  "karen-leung"
+ ],
+ "Cyber-Physical Security and Resilience": [
+  "dan-li"
+ ],
+ "Anomaly detection": [
+  "dan-li"
+ ],
+ "Applied AI/ML": [
+  "dan-li"
+ ],
+ "Nano-scale Photonic Devices and Integrated Systems": [
+  "lih-lin"
+ ],
+ "Bio-photonics": [
+  "lih-lin"
+ ],
+ "Micro-instrumentation by Optical MEMS/NEMS": [
+  "lih-lin"
+ ],
+ "Plasma Diagnostics": [
+  "justin-little"
+ ],
+ "Small Satellites": [
+  "justin-little"
+ ],
+ "Plasma Physics": [
+  "justin-little"
+ ],
+ "Electric Propulsion": [
+  "justin-little"
+ ],
+ "Optimization": [
+  "zoran-popovic"
+ ],
+ "Materials Synthesis and Characterizations": [
+  "jun-liu"
+ ],
+ "Energy Storage": [
+  "jun-liu"
+ ],
+ "Aerospace Structures": [
+  "eli-livne",
+  "richard-wiebe"
+ ],
+ "Structural Dynamics": [
+  "eli-livne"
+ ],
+ "Constitutive Theory": [
+  "laura-lowes"
+ ],
+ "Numerical Modeling For Structural Systems Behavior": [
+  "laura-lowes"
+ ],
+ "Experimental Investigation of Structural Material": [
+  "laura-lowes"
+ ],
+ "Element and System Response": [
+  "laura-lowes"
+ ],
+ "Power and Energy Systems": [
+  "june-lukuyu"
+ ],
+ "Mountain Hydrology": [
+  "jessica-lundquist"
+ ],
+ "Snow": [
+  "jessica-lundquist"
+ ],
+ "EnvironmentHydrometeorology": [
+  "jessica-lundquist"
+ ],
+ "Semiconducting Polymers": [
+  "christine-luscombe"
+ ],
+ "Polymerizations": [
+  "christine-luscombe"
+ ],
+ "Photovoltaics": [
+  "christine-luscombe"
+ ],
+ "Point-of-care Diagnostics": [
+  "barry-lutz",
+  "ayokunle-olanrewaju"
+ ],
+ "Microfluidic Physics": [
+  "barry-lutz"
+ ],
+ "Biosensor Transport & Kinetics": [
+  "barry-lutz"
+ ],
+ "Sound-driven Microfluidic Systems": [
+  "barry-lutz"
+ ],
+ "Data management and visualization": [
+  "ryan-maas"
+ ],
+ "Vehicle Electrification": [
+  "don-mackenzie"
+ ],
+ "New Mobility Services": [
+  "don-mackenzie"
+ ],
+ "Device Structures": [
+  "j-devin-mackenzie"
+ ],
+ "Printed and Flexible Electronics Including Flexible and Ultrathin Displays, Compact Wireless Sensors, Wearable Electronics, and Health Monitoring Devices": [
+  "j-devin-mackenzie"
+ ],
+ "Beam, Plate, and Shell Structures": [
+  "peter-mackenzie-helnwein"
+ ],
+ "Structural Stability": [
+  "peter-mackenzie-helnwein"
+ ],
+ "Constitutive Modeling of Anisotropic Materials": [
+  "peter-mackenzie-helnwein"
+ ],
+ "Finite Element Technology": [
+  "peter-mackenzie-helnwein"
+ ],
+ "Nanophotonics": [
+  "arka-majumdar"
+ ],
+ "Dielectric Metasurfaces": [
+  "arka-majumdar"
+ ],
+ "Miniature Optical Sensors": [
+  "arka-majumdar"
+ ],
+ "Machine Learning for Dynamical Systems": [
+  "krithika-manohar"
+ ],
+ "Sparse Sensing": [
+  "krithika-manohar"
+ ],
+ "Air Quality Engineering": [
+  "julian-marshall"
+ ],
+ "Quality Engineering": [
+  "christina-mastrangelo"
+ ],
+ "Predictive Analytics For System Obsolescence": [
+  "christina-mastrangelo"
+ ],
+ "Geotechnical Earthquake Engineering": [
+  "brett-maurer"
+ ],
+ "Life-cycle Hazard Assessment and Mitigation": [
+  "brett-maurer"
+ ],
+ "Soil Liquefaction": [
+  "brett-maurer"
+ ],
+ "Machine and Deep Learning in Geotechnics": [
+  "brett-maurer"
+ ],
+ "Computer Supported Cooperative Work": [
+  "david-mcdonald"
+ ],
+ "Large Scale Collaborative Systems": [
+  "david-mcdonald"
+ ],
+ "Geothermal Transfer": [
+  "ann-mescher"
+ ],
+ "Solar Energy Transfer": [
+  "ann-mescher"
+ ],
+ "Earth's Atmospheric Radiative Exchange": [
+  "ann-mescher"
+ ],
+ "Nanoarchitected Materials": [
+  "lucas-meza"
+ ],
+ "Experimental Nanomechanics": [
+  "lucas-meza"
+ ],
+ "Mechanical Instabilities": [
+  "lucas-meza"
+ ],
+ "3D Woven Carbon-fiber Composites": [
+  "lucas-meza"
+ ],
+ "System Integration For Emerging Technologies": [
+  "sajjad-moazeni"
+ ],
+ "Integrated Photonics": [
+  "sajjad-moazeni"
+ ],
+ "Neurophotonics & Biophotonics": [
+  "sajjad-moazeni"
+ ],
+ "Mixed-signal Integrated Circuits": [
+  "sajjad-moazeni"
+ ],
+ "Animation": [
+  "barbara-mones",
+  "zoran-popovic"
+ ],
+ "Neuroengineering and Neuroprosthetic Technology": [
+  "chet-moritz"
+ ],
+ "Restorative Technology": [
+  "chet-moritz"
+ ],
+ "Systems Biology": [
+  "sara-mostafavi"
+ ],
+ "Human disease genomics": [
+  "sara-mostafavi"
+ ],
+ "Fluid-structure Interaction of Large Scale Structural Systems": [
+  "michael-motley"
+ ],
+ "Multi-hazard Response of Coastal Infrastructure": [
+  "michael-motley"
+ ],
+ "Trapped-ion systems": [
+  "sara-mouradian"
+ ],
+ "Optical fields": [
+  "sara-mouradian"
+ ],
+ "Photonics": [
+  "sara-mouradian"
+ ],
+ "Quantum Computing": [
+  "sara-mouradian",
+  "di-xiao"
+ ],
+ "Pavements": [
+  "stephen-muench",
+  "julian-yamaura"
+ ],
+ "Greenroads": [
+  "stephen-muench"
+ ],
+ "Sustainability": [
+  "stephen-muench"
+ ],
+ "Transportation Infrastructure and Construction": [
+  "stephen-muench"
+ ],
+ "Millimeter-wave and terahertz integrated circuit design": [
+  "hossein-naghavi"
+ ],
+ "Nanomedicine": [
+  "elizabeth-nance"
+ ],
+ "Imaging": [
+  "elizabeth-nance"
+ ],
+ "Neurobiology": [
+  "elizabeth-nance"
+ ],
+ "Neurological Disease": [
+  "elizabeth-nance"
+ ],
+ "Medical Electronic Devices": [
+  "christopher-neils"
+ ],
+ "Feedback Control Systems": [
+  "christopher-neils"
+ ],
+ "Fluid and Structural Dynamics": [
+  "christopher-neils"
+ ],
+ "Signal and Image Processing": [
+  "christopher-neils",
+  "mari-ostendorf"
+ ],
+ "Subsurface Hydrology and Metal Biogeochemistry": [
+  "rebecca-neumann"
+ ],
+ "Plant-controlled Hydrology and Biogeochemistry": [
+  "rebecca-neumann"
+ ],
+ "Field, Lab and Modeling Studies of Water and Food Quality": [
+  "rebecca-neumann"
+ ],
+ "Surface Water": [
+  "bart-nijssen"
+ ],
+ "Hydrological Modeling": [
+  "bart-nijssen"
+ ],
+ "Computational design and fabrication": [
+  "martin-nisser"
+ ],
+ "In-space manufacturing": [
+  "martin-nisser",
+  "avin-vijay"
+ ],
+ "Modular robotics": [
+  "martin-nisser"
+ ],
+ "Programmable materials": [
+  "martin-nisser"
+ ],
+ "Molecular sensing": [
+  "jeffrey-nivala"
+ ],
+ "DNA and molecular computing": [
+  "jeffrey-nivala"
+ ],
+ "Biophysics": [
+  "jeffrey-nivala"
+ ],
+ "Nanopore technology": [
+  "jeffrey-nivala"
+ ],
+ "Photoacoustics": [
+  "ivan-pelivanov"
+ ],
+ "Motor Learning": [
+  "amy-orsborn"
+ ],
+ "Motor Control": [
+  "amy-orsborn"
+ ],
+ "Multi-learner Adaptive Systems": [
+  "amy-orsborn"
+ ],
+ "Speech, and Language Interpretation": [
+  "mari-ostendorf"
+ ],
+ "Statistical Modeling For Signal Interpretation and Generation": [
+  "mari-ostendorf"
+ ],
+ "Space Systems Engineering": [
+  "alvar-saenz-otero"
+ ],
+ "Avionics": [
+  "alvar-saenz-otero"
+ ],
+ "Transport Properties of Nano-constrained Systems": [
+  "rene-overney"
+ ],
+ "Scanning Probe Tools": [
+  "rene-overney"
+ ],
+ "Tribology": [
+  "rene-overney"
+ ],
+ "Interfacial Compatibilization": [
+  "rene-overney"
+ ],
+ "Surrogate Modeling": [
+  "chiwoo-park"
+ ],
+ "Digital Twin": [
+  "chiwoo-park"
+ ],
+ "Molecular Engineering": [
+  "peter-pauzauskie",
+  "patrick-stayton"
+ ],
+ "Nanoscale Optoelectonic Materials": [
+  "peter-pauzauskie"
+ ],
+ "Cavity Optomechanics": [
+  "peter-pauzauskie"
+ ],
+ "Subwavelength Molecular Biosensors": [
+  "peter-pauzauskie"
+ ],
+ "Laser-ultrasonics": [
+  "ivan-pelivanov"
+ ],
+ "Biomedical Ultrasound": [
+  "ivan-pelivanov"
+ ],
+ "Elastography": [
+  "ivan-pelivanov"
+ ],
+ "CS Education": [
+  "hal-perkins"
+ ],
+ "Cloud computing": [
+  "simon-peter"
+ ],
+ "Systems": [
+  "simon-peter"
+ ],
+ "Experimental and Field Optimization of Marine Renewable Energy Conversion Systems": [
+  "brian-polagye"
+ ],
+ "Instrumentation for Characterizing Marine Renewable Energy Environments": [
+  "brian-polagye"
+ ],
+ "Water": [
+  "gerald-pollack"
+ ],
+ "Surfaces": [
+  "gerald-pollack"
+ ],
+ "Materials, Health": [
+  "gerald-pollack"
+ ],
+ "Exclusion Zones": [
+  "gerald-pollack"
+ ],
+ "Applied Cryptography For Network Security": [
+  "radha-poovendran"
+ ],
+ "Information Theory and Game Theory": [
+  "radha-poovendran"
+ ],
+ "Resource Allocation Problems": [
+  "radha-poovendran"
+ ],
+ "Discrete Algorithms and Optimization in Networks": [
+  "radha-poovendran"
+ ],
+ "Optimal Control": [
+  "zoran-popovic"
+ ],
+ "Natural Locomotion": [
+  "zoran-popovic"
+ ],
+ "Biomechanics": [
+  "joe-powers"
+ ],
+ "Mechanobiology": [
+  "joe-powers",
+  "jenny-robinson"
+ ],
+ "Cardiac Pathology": [
+  "joe-powers"
+ ],
+ "Anti-Racism, Diversity, Equity, and Inclusion": [
+  "alex-prybutok"
+ ],
+ "Molecular Imaging": [
+  "patrick-stayton"
+ ],
+ "Drug Delivery": [
+  "drew-sellers",
+  "kim-woodrow"
+ ],
+ "Regenerative Medicine": [
+  "kelly-stevens",
+  "ying-zheng"
+ ],
+ "Tissue Engineering": [
+  "jenny-robinson",
+  "marta-scatena"
+ ],
+ "Cyber Security": [
+  "prashanth-rajivan"
+ ],
+ "Modeling and Simulation": [
+  "prashanth-rajivan"
+ ],
+ "Theoretical Computer Science": [
+  "anup-rao",
+  "thomas-rothvoss"
+ ],
+ "Smart Urban Spaces": [
+  "lillian-ratliff"
+ ],
+ "Human-Machine Interaction & Autonomy": [
+  "lillian-ratliff"
+ ],
+ "Glycotechnology": [
+  "daniel-ratner"
+ ],
+ "Label-free Biosensors": [
+  "daniel-ratner"
+ ],
+ "Surface Modification/characterization": [
+  "daniel-ratner"
+ ],
+ "Global Health": [
+  "daniel-ratner"
+ ],
+ "Multi-scale Muscle Biomechanics": [
+  "michael-regnier"
+ ],
+ "Myofilament Targeted Gene Therapy": [
+  "michael-regnier"
+ ],
+ "Stem Cell Derived Cardiomyocytes": [
+  "michael-regnier"
+ ],
+ "Multi-scale Modeling of Muscle": [
+  "michael-regnier"
+ ],
+ "Intelligent User Interfaces": [
+  "katharina-reinecke"
+ ],
+ "Cross-cultural Usability of Technology": [
+  "katharina-reinecke"
+ ],
+ "Smart Materials and Surfaces": [
+  "matt-reynolds"
+ ],
+ "Wireless Power Transfer, Biomedical Applications": [
+  "matt-reynolds"
+ ],
+ "RFID": [
+  "matt-reynolds"
+ ],
+ "Ultra-low Power Sensing and Computation": [
+  "matt-reynolds"
+ ],
+ "Science and Technology Studies (STS)": [
+  "david-ribes"
+ ],
+ "Information Studies": [
+  "david-ribes"
+ ],
+ "Cyberinfrastructures": [
+  "david-ribes"
+ ],
+ "Statistical Signal Processing With Applications to Wireless Communications": [
+  "james-ritcey"
+ ],
+ "Underwater Acoustic Communications": [
+  "james-ritcey"
+ ],
+ "Radar/Sonar Signal Processing": [
+  "james-ritcey"
+ ],
+ "Computer Security and Privacy": [
+  "franziska-roesner"
+ ],
+ "Heterogeneous Catalysis": [
+  "julie-rorrer"
+ ],
+ "Polymer Upcycling": [
+  "julie-rorrer"
+ ],
+ "Renewable Fuels": [
+  "julie-rorrer"
+ ],
+ "Discrete Mathematics": [
+  "thomas-rothvoss"
+ ],
+ "Theory, Analysis and Evaluation of Next Generation Wireless and Mobile Communication Systems/networks": [
+  "sumit-roy"
+ ],
+ "Applications to Sensor, Local and Wide Area Wireless Networks (underwater/vehicular/airborne Networks)": [
+  "sumit-roy"
+ ],
+ "Spectrum Management and Co-existence/convergence of Multiple Networks": [
+  "sumit-roy"
+ ],
+ "Computational Biophysics": [
+  "jay-rubinstein"
+ ],
+ "Clinical and Basic Electrophysiology": [
+  "jay-rubinstein"
+ ],
+ "Human Psychophysics": [
+  "jay-rubinstein"
+ ],
+ "Clinical Trials of New Inner Ear Implant Technology": [
+  "jay-rubinstein"
+ ],
+ "RF, Mm-Wave, Analog and Mixed Signal Systems": [
+  "jaques-rudell"
+ ],
+ "Composite Structures": [
+  "avin-vijay"
+ ],
+ "Prosthetics": [
+  "joan-sanders"
+ ],
+ "Innovative Measurement Techniques": [
+  "joan-sanders"
+ ],
+ "Amputee": [
+  "joan-sanders"
+ ],
+ "Digital and Mixed-signal Integrated Circuits": [
+  "visvesh-sathe"
+ ],
+ "Energy Efficient High Performance VLSI Design": [
+  "visvesh-sathe"
+ ],
+ "Circuit-architecture Co-design For Ultra Low-power Systems": [
+  "visvesh-sathe"
+ ],
+ "Power Conversion, Delivery and Regulation": [
+  "visvesh-sathe"
+ ],
+ "Clocking": [
+  "visvesh-sathe"
+ ],
+ "Credible Predictive Models of Disease": [
+  "herbert-sauro"
+ ],
+ "Supporting Best Practices in Computational Modeling": [
+  "herbert-sauro"
+ ],
+ "Control Theory Applied of Cellular Networks": [
+  "herbert-sauro"
+ ],
+ "Develop New Approaching to Mechansistic Modeling of Cells": [
+  "herbert-sauro"
+ ],
+ "Inflammation": [
+  "marta-scatena"
+ ],
+ "Cardiovascular Disease": [
+  "marta-scatena"
+ ],
+ "Synthetic and Quantitative Biology": [
+  "georg-seelig"
+ ],
+ "DNA Nanotechnology": [
+  "georg-seelig"
+ ],
+ "RNA-based Mechanisms For Gene Regulation": [
+  "georg-seelig"
+ ],
+ "Molecular Circuits": [
+  "georg-seelig"
+ ],
+ "Cell Reprogramming Strategies": [
+  "drew-sellers"
+ ],
+ "Neural Regeneration": [
+  "drew-sellers"
+ ],
+ "\u201cSmart\u201d Biomaterial and Bio-responsive Hydrogels": [
+  "drew-sellers"
+ ],
+ "Database (multimedia Retrieval Systems)": [
+  "linda-shapiro"
+ ],
+ "Computer Vision With Related Interests in Artificial Intelligence (search, Reasoning, Task Planning)": [
+  "linda-shapiro"
+ ],
+ "Applications to Robotics and Medicine": [
+  "linda-shapiro"
+ ],
+ "Computing Education Research (CER)": [
+  "r-benjamin-shapiro"
+ ],
+ "Learning Sciences (LS)": [
+  "r-benjamin-shapiro"
+ ],
+ "Vibration and Dynamics": [
+  "steve-shen"
+ ],
+ "Disk Drive Dynamics (e.g., Spindle Motors, Actuators, Shocks, and Systems)": [
+  "steve-shen"
+ ],
+ "Bearing Diagnosis and Identification": [
+  "steve-shen"
+ ],
+ "colloidal soft materials": [
+  "zachary-sherman"
+ ],
+ "Self-Assembly": [
+  "zachary-sherman"
+ ],
+ "Computer-aided Design": [
+  "c-j-shi"
+ ],
+ "VLSI Circuits": [
+  "c-j-shi"
+ ],
+ "Analog and Deep-submicron Circuit Modeling, Simulation, Optimization": [
+  "c-j-shi"
+ ],
+ "Aerospace Communication and Electronics": [
+  "c-j-shi"
+ ],
+ "Radiation Hardened Space Electronics": [
+  "c-j-shi"
+ ],
+ "Data-driven Dynamical Systems": [
+  "eli-shlizerman"
+ ],
+ "Neural Circuits": [
+  "eli-shlizerman"
+ ],
+ "Inference of Network Architecture": [
+  "eli-shlizerman"
+ ],
+ "Modeling Neurobiological Networks": [
+  "eli-shlizerman"
+ ],
+ "Neural System Control": [
+  "eli-shlizerman"
+ ],
+ "Analytical Tools For Cell Biology": [
+  "christopher-sims"
+ ],
+ "Stem Cell Technologies For Pharmaceutical and Microbiome Research": [
+  "christopher-sims"
+ ],
+ "Microfabricated Platforms For Cellular Studies": [
+  "christopher-sims"
+ ],
+ "Sensing": [
+  "joshua-smith"
+ ],
+ "Signal Processing": [
+  "joshua-smith"
+ ],
+ "Power Harvesting": [
+  "joshua-smith"
+ ],
+ "Natural Language Processing: Automated Analysis of Text": [
+  "noah-smith"
+ ],
+ "Machine Learning, Especially For Structured Data": [
+  "noah-smith"
+ ],
+ "Computational Social Science, Especially With Linguistic Data": [
+  "noah-smith"
+ ],
+ "Image-Guided Drug Delivery for Immuno-Oncology": [
+  "avik-som"
+ ],
+ "Image-guided Tissue Engineering and Delivery": [
+  "avik-som"
+ ],
+ "Fusion Energy": [
+  "bhuvana-srinivasan"
+ ],
+ "High-energy-density plasmas": [
+  "bhuvana-srinivasan"
+ ],
+ "Plasma-based space propulsion": [
+  "bhuvana-srinivasan"
+ ],
+ "Space and astrophysical plasmas": [
+  "bhuvana-srinivasan"
+ ],
+ "Nanomedicine/Nanotechnology": [
+  "patrick-stayton"
+ ],
+ "Tissue Engineering & Morphogenesis": [
+  "kelly-stevens"
+ ],
+ "Pluripotent Stem Cell Biology": [
+  "kelly-stevens"
+ ],
+ "3D Printing & Microfabrication": [
+  "kelly-stevens"
+ ],
+ "Soft Robotics": [
+  "monica-li-storms"
+ ],
+ "Tactile sensing": [
+  "monica-li-storms"
+ ],
+ "Grasping and dexterous manipulation": [
+  "monica-li-storms"
+ ],
+ "MR Image Acquisition and Reconstruction During Subject Motion": [
+  "colin-studholme"
+ ],
+ "The Impact of Genes and the Environment On Early Brain Development": [
+  "colin-studholme"
+ ],
+ "The Development of Fetal Brain Functional and Structural Connectivity": [
+  "colin-studholme"
+ ],
+ "Early Human Brain Tissue Growth Patterns": [
+  "colin-studholme"
+ ],
+ "Video Coding and Networking - H.264 Optimization, Next Generation Video Coding, Transcoding, Streaming": [
+  "ming-ting-sun"
+ ],
+ "Machine Learning - Multi-modality, Surveillance, Health Care, Intelligent Home": [
+  "ming-ting-sun"
+ ],
+ "Nonlinear filtering/estimation": [
+  "amir-taghvaei"
+ ],
+ "Reinforcement learning": [
+  "amir-taghvaei"
+ ],
+ "Stochastic Thermodynamics": [
+  "amir-taghvaei"
+ ],
+ "Formal Verification": [
+  "zachary-tatlock"
+ ],
+ "Curriculum Design": [
+  "alyssa-taylor"
+ ],
+ "Optimizing Student Learning Outcomes through Educational Research": [
+  "alyssa-taylor"
+ ],
+ "VLSI and Compilers": [
+  "michael-taylor"
+ ],
+ "14/16nm ASIC Design": [
+  "michael-taylor"
+ ],
+ "Heterogeneous Tiled Microprocessors": [
+  "michael-taylor"
+ ],
+ "Dark Silicon": [
+  "michael-taylor"
+ ],
+ "Computational & Synthetic Biology": [
+  "chris-thachuk"
+ ],
+ "Molecular Programming & DNA Nanotechnology": [
+  "chris-thachuk"
+ ],
+ "Coastal Oceanography and Morphodynamics": [
+  "jim-thomson"
+ ],
+ "Surface-gravity Waves": [
+  "jim-thomson"
+ ],
+ "Precast and Prestressed Concrete": [
+  "travis-thonstad"
+ ],
+ "Energy Metabolism in Cardiovascular Diseases": [
+  "rong-tian"
+ ],
+ "Mitochondrial Function and Protein Modification": [
+  "rong-tian"
+ ],
+ "Metabolomics, Biosensors, Stable Isotope Tracing": [
+  "rong-tian"
+ ],
+ "Quantum information theory": [
+  "rahul-trivedi"
+ ],
+ "Quantum optics": [
+  "rahul-trivedi"
+ ],
+ "Natural language processing (NLP)": [
+  "yulia-tsvetkov"
+ ],
+ "Computational social science": [
+  "yulia-tsvetkov",
+  "amy-zhang"
+ ],
+ "Computational ethics": [
+  "yulia-tsvetkov"
+ ],
+ "User-Centered Design": [
+  "jennifer-turns",
+  "linda-wagner"
+ ],
+ "Design Processes and Strategies": [
+  "jennifer-turns"
+ ],
+ "Educating Reflective Practitioners": [
+  "jennifer-turns"
+ ],
+ "Design and Product Strategy": [
+  "linda-wagner"
+ ],
+ "Ethnographic Research": [
+  "linda-wagner"
+ ],
+ "Innovation": [
+  "linda-wagner"
+ ],
+ "Biophotonics/biomedical Optics": [
+  "ruikang-ricky-wang"
+ ],
+ "Photoacoustic Imaging": [
+  "ruikang-ricky-wang"
+ ],
+ "Functional Optical Imaging Using Coherence Gating (OCT) and Confocal Gating Techniques": [
+  "ruikang-ricky-wang"
+ ],
+ "Laser Doppler, Speckle and Intrinsic Optical Signal Imaging": [
+  "ruikang-ricky-wang"
+ ],
+ "Computational biomedicine": [
+  "sheng-wang"
+ ],
+ "Geological Hazards": [
+  "joseph-wartman"
+ ],
+ "Disaster Risk Reduction": [
+  "joseph-wartman"
+ ],
+ "Algorithm design": [
+  "robbie-weber"
+ ],
+ "Combinatorics": [
+  "robbie-weber"
+ ],
+ "Bacterial Cell Biology, Chromosome Structure and Bacterial Ultra-structure": [
+  "paul-wiggins"
+ ],
+ "Quantitative Imaging": [
+  "paul-wiggins"
+ ],
+ "DNA and Membrane Statistical Mechanics": [
+  "paul-wiggins"
+ ],
+ "Separated Flows": [
+  "owen-williams"
+ ],
+ "Hypersonics": [
+  "owen-williams"
+ ],
+ "Wastewater Treatment": [
+  "mari-winkler"
+ ],
+ "Nitrogen Cyling": [
+  "mari-winkler"
+ ],
+ "Nanoparticles": [
+  "kim-woodrow"
+ ],
+ "Nanofibers": [
+  "kim-woodrow"
+ ],
+ "Mucosal Biology": [
+  "kim-woodrow"
+ ],
+ "Construction Technology": [
+  "julian-yamaura"
+ ],
+ "Transportation Construction": [
+  "julian-yamaura"
+ ],
+ "Project Inspection": [
+  "julian-yamaura"
+ ],
+ "Advanced Thermoelectric Materials": [
+  "jihui-yang"
+ ],
+ "Li-ion Battery Materials": [
+  "jihui-yang"
+ ],
+ "Mechanics, Materials, Manufacturing, Medicine, Sustainability": [
+  "quansan-yang"
+ ],
+ "2D Quantum Materials": [
+  "matthew-yankowitz"
+ ],
+ "Stroke Rehabilitation": [
+  "azadeh-yazdan-shahmorad"
+ ],
+ "Neural Interfaces": [
+  "azadeh-yazdan-shahmorad"
+ ],
+ "Brain Stimulation": [
+  "azadeh-yazdan-shahmorad"
+ ],
+ "Workplace Studies": [
+  "mark-zachry"
+ ],
+ "Communication Design": [
+  "mark-zachry"
+ ],
+ "Rhetoric of Technology": [
+  "mark-zachry"
+ ],
+ "Natural Langauge Processing": [
+  "luke-zettlemoyer"
+ ],
+ "Power Systems Control and Economics": [
+  "baosen-zhang"
+ ],
+ "Data Analytics For Smart Grid": [
+  "baosen-zhang"
+ ],
+ "Power Electronics": [
+  "baosen-zhang"
+ ],
+ "Optimal Power Flow": [
+  "baosen-zhang"
+ ],
+ "Mechanism Design": [
+  "baosen-zhang"
+ ],
+ "Theory: Data-Driven Optimization, Stochastic Optimization, Robust Optimization, Deep Reinforcement Learning": [
+  "chaoyue-zhao"
+ ],
+ "Applications: Power System Planning, Scheduling and Resilience, Renewable Energy Integration and Risk Assessment": [
+  "chaoyue-zhao"
+ ],
+ "Angiogenesis and Thrombosis": [
+  "ying-zheng"
+ ],
+ "Microvascular Remodeling": [
+  "ying-zheng"
+ ]
+}

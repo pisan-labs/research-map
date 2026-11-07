@@ -37,3 +37,7 @@
 2026-11-07 [code] Optional in-page search by meaning (transformers.js 4.3.1, all-MiniLM-L6-v2, 23 MB on request), blended 50/50: hit@10 0.76 vs 0.68.
 
 2026-11-07 [decision] Search-by-meaning model is English (multilingual ONNX is 118 MB); map vectors stay multilingual. No hand-written test queries.
+
+2026-11-07 [decision] Large universities mapped one unit at a time from unit directories, engineering colleges first (default after 15 min).
+
+2026-11-07 [code] Site adapters; UW Tacoma map (256 people, 6,180 works); UW CoE roster (293); 64-dim search vectors; degree-field fallback; site index.

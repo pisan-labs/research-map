@@ -7,6 +7,20 @@ nearby points work on similar topics.
 - [docs/survey.md](docs/survey.md): survey of other research-map styles
 - [BRIEFING.md](BRIEFING.md): scope and decisions
 
+## Maps
+
+`site/index.html` lists the built maps:
+
+| Map | Config | People |
+|---|---|---|
+| UW Bothell School of STEM | `config/uwb-stem.yaml` | 87 |
+| UW Tacoma (whole campus) | `config/uwt.yaml` | 256 |
+| UW College of Engineering | `config/uw-coe.yaml` | roster only so far |
+
+A new university needs a config and, unless an existing one fits, an
+adapter in `pipeline/src/research_map/adapters.py` that lists people and
+parses profile pages.
+
 ## First map: UW Bothell School of STEM
 
 `site/uwb-stem/index.html` is one self-contained file (about 2.3 MB) that

@@ -161,7 +161,33 @@
     return opts.limit ? out.slice(0, opts.limit) : out;
   }
 
-  const api = { norm, tokens, stem, buildIndex, search, unpack };
+  // Apply the build's PCA projection (meta.search_model.proj) to a query vector.
+  function floats(b64) {
+    const bin = typeof atob === "function" ? atob(b64) : Buffer.from(b64, "base64").toString("binary");
+    const bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    return new Float32Array(bytes.buffer);
+  }
+  function projector(proj) {
+    if (!proj) return (q) => q;
+    const mean = floats(proj.mean), w = floats(proj.w), k = proj.k, n = proj.n;
+    return (q) => {
+      const out = new Float32Array(k);
+      for (let i = 0; i < n; i++) {
+        const d = q[i] - mean[i];
+        if (!d) continue;
+        const row = i * k;
+        for (let j = 0; j < k; j++) out[j] += d * w[row + j];
+      }
+      let norm = 0;
+      for (let j = 0; j < k; j++) norm += out[j] * out[j];
+      norm = Math.sqrt(norm) || 1;
+      for (let j = 0; j < k; j++) out[j] /= norm;
+      return out;
+    };
+  }
+
+  const api = { norm, tokens, stem, buildIndex, search, unpack, projector };
   root.RMSearch = api;
   if (typeof module !== "undefined" && module.exports) module.exports = api;
 })(typeof window !== "undefined" ? window : globalThis);

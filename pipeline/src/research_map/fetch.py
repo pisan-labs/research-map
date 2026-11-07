@@ -7,12 +7,30 @@ no requests. Fresh requests are spaced by `delay` seconds.
 from __future__ import annotations
 
 import hashlib
+import os
+import ssl
 import time
 from pathlib import Path
 
 import httpx
 
 USER_AGENT = "research-map/0.1 (+https://github.com/pisan-labs/research-map)"
+CERTS_DIR = Path(__file__).resolve().parents[3] / "config" / "certs"
+
+
+def ssl_context(extra_dir: Path = CERTS_DIR) -> ssl.SSLContext:
+    """System trust plus extra intermediate certificates from config/certs/.
+
+    Some university servers (tacoma.uw.edu, jacobsschool.ucsd.edu) omit the
+    intermediate certificate. Browsers fetch it on their own; here it is added
+    to the trust store instead, so verification stays on.
+    """
+    cafile = os.environ.get("SSL_CERT_FILE") or os.environ.get("REQUESTS_CA_BUNDLE")
+    ctx = ssl.create_default_context(cafile=cafile) if cafile else ssl.create_default_context()
+    if extra_dir.is_dir():
+        for pem in sorted(extra_dir.glob("*.pem")):
+            ctx.load_verify_locations(cafile=str(pem))
+    return ctx
 
 
 class CachedFetcher:
@@ -23,6 +41,7 @@ class CachedFetcher:
             headers={"User-Agent": USER_AGENT},
             follow_redirects=True,
             timeout=timeout,
+            verify=ssl_context(),
         )
         self._last = 0.0
 
