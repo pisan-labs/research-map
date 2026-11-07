@@ -60,6 +60,30 @@ const engines = {
   "V2 record BM25": (q) => S.search(index, q),
 };
 
+// Search by meaning: embed each query with the same transformers.js model the
+// page loads (skipped if the package or the vectors are missing).
+const sm = payload.meta.search_model;
+const qvecs = new Map();
+if (sm && index.hasVectors) {
+  try {
+    const { pipeline, env } = await import("@huggingface/transformers");
+    env.allowLocalModels = false;
+    const embed = await pipeline("feature-extraction", sm.browser, { dtype: "q8" });
+    for (const { q } of queries) {
+      const out = await embed(q, { pooling: sm.pooling, normalize: true });
+      qvecs.set(q, Float32Array.from(out.data));
+    }
+    engines["V3 hybrid 50/50"] = (q) => S.search(index, q, { qvec: qvecs.get(q) });
+    if (process.argv.includes("--variants")) {
+      engines["meaning only"] = (q) => S.search(index, q, { qvec: qvecs.get(q), alpha: 1 });
+      engines["hybrid 30/70"] = (q) => S.search(index, q, { qvec: qvecs.get(q), alpha: 0.3 });
+      engines["hybrid 70/30"] = (q) => S.search(index, q, { qvec: qvecs.get(q), alpha: 0.7 });
+    }
+  } catch (e) {
+    console.error(`search by meaning skipped: ${e.message.split("\n")[0]}`);
+  }
+}
+
 function evaluate(run) {
   const rows = queries.map(({ q, relevant, source }) => {
     const ranked = run(q).map((h) => P[h.p].id);
@@ -80,7 +104,9 @@ if (asJson) {
   console.log(`${queries.length} queries (${queries.filter((x) => x.source === "curated").length} curated areas)`);
   for (const [k, v] of Object.entries(results)) console.log(`${k.padEnd(20)} hit@10 ${v.hit10.toFixed(2)}  MRR ${v.mrr.toFixed(2)}`);
   if (process.argv.includes("--detail")) {
-    const [a, b] = Object.values(results);
-    a.rows.forEach((r, i) => console.log(`  ${r.q.slice(0, 48).padEnd(48)} n=${String(r.n).padStart(2)}  V1 ${r.hit.toFixed(2)}/${r.rr.toFixed(2)}  V2 ${b.rows[i].hit.toFixed(2)}/${b.rows[i].rr.toFixed(2)}`));
+    const names = Object.keys(results);
+    console.log(`  ${"query".padEnd(48)}  n  ` + names.map((n) => n.split(" ")[0].padEnd(10)).join(" "));
+    results[names[0]].rows.forEach((r, i) => console.log(`  ${r.q.slice(0, 48).padEnd(48)} ${String(r.n).padStart(2)}  ` +
+      names.map((n) => `${results[n].rows[i].hit.toFixed(2)}/${results[n].rows[i].rr.toFixed(2)}`.padEnd(10)).join(" ")));
   }
 }

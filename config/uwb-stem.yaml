@@ -23,3 +23,5 @@ include_categories:
 opt_out: []
 # Colour by default: department (4 colours + shapes), program, or area.
 color_by: department
+# In-page search by meaning (English; see model.SEARCH_MODELS). Empty turns it off.
+search_model: all-MiniLM-L6-v2

@@ -16,6 +16,25 @@ from .text import STOP_WORDS, Doc
 # curated-area check (48% of top-5 neighbours share an area) and is multilingual.
 DEFAULT_MODEL = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
 
+# Models for in-page search by meaning: the page embeds the query in the
+# browser with transformers.js (the ONNX copy), the build embeds the records
+# with sentence-transformers (the same weights). English only: the
+# multilingual ONNX models are 118 MB, too large to download on first search.
+SEARCH_MODELS = {
+    "all-MiniLM-L6-v2": {"python": "sentence-transformers/all-MiniLM-L6-v2", "browser": "Xenova/all-MiniLM-L6-v2",
+                         "pooling": "mean", "size_mb": 23},
+    "bge-small-en-v1.5": {"python": "BAAI/bge-small-en-v1.5", "browser": "Xenova/bge-small-en-v1.5",
+                          "pooling": "cls", "size_mb": 34},
+}
+
+
+def pack_vectors(vecs: np.ndarray) -> list[str]:
+    """Unit vectors as base64 int8 (x127): 384 bytes per vector instead of ~3 KB of JSON."""
+    import base64
+
+    q = np.clip(np.round(vecs * 127), -127, 127).astype(np.int8)
+    return [base64.b64encode(row.tobytes()).decode("ascii") for row in q]
+
 
 # ---------------------------------------------------------------- embedding
 

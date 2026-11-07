@@ -190,6 +190,38 @@ def coauthor_pairs(works: dict[str, list[dict]], oa_ids: dict[str, list[str]]) -
     return out
 
 
+def add_search_vectors(payload: dict, name: str, data: Path) -> None:
+    """Vectors for every search record, in the order web/search.js builds them."""
+    if not name:
+        return
+    spec = model.SEARCH_MODELS[name]
+    emb = model.Embedder(spec["python"], cache_dir=data)
+    texts: list[str] = []
+    slots: list[tuple[dict, str, int]] = []
+    for row in payload["people"]:
+        sv: dict = {"pubs": [None] * len(row["pubs"]), "topics": [None] * len(row["oa_topics"]),
+                    "listed": [None] * len(row["listed"])}
+        row["sv"] = sv
+        for k, pub in enumerate(row["pubs"]):
+            texts.append(pub[0]); slots.append((sv, "pubs", k))
+        for key in ("keywords", "interests", "bio"):
+            if row.get(key):
+                texts.append(row[key]); slots.append((sv, key, -1))
+        for k, t in enumerate(row["oa_topics"]):
+            texts.append(t); slots.append((sv, "topics", k))
+        for k, t in enumerate(row["listed"]):
+            texts.append(t); slots.append((sv, "listed", k))
+    packed = model.pack_vectors(emb.encode(texts))
+    for (sv, key, k), b64 in zip(slots, packed):
+        if k < 0:
+            sv[key] = b64
+        else:
+            sv[key][k] = b64
+    payload["meta"]["search_model"] = {"name": name, "browser": spec["browser"], "pooling": spec["pooling"],
+                                       "size_mb": spec["size_mb"]}
+    print(f"search vectors: {len(texts)} records with {name}", file=sys.stderr)
+
+
 def apply_label_overrides(path: Path, ids: list[str], levels: dict) -> None:
     """Replace computed labels with hand-written ones from config/<slug>-labels.yaml.
 
@@ -296,6 +328,8 @@ def cmd_build(args: argparse.Namespace) -> int:
         openalex_ids=oa_ids,
         as_of=dt.date.today().isoformat(),
     )
+    add_search_vectors(payload, args.search_model if args.search_model is not None
+                       else cfg.get("search_model", "all-MiniLM-L6-v2"), data)
     out = root / "site" / cfg["slug"] / "index.html"
     size = bundle.write_html(payload, root / "web", out)
     (data / "payload.json").write_text(json.dumps(payload, indent=1))
@@ -344,6 +378,8 @@ def main(argv: list[str] | None = None) -> int:
     b = sub.add_parser("build", help="embed, lay out and write site/<slug>/index.html")
     b.add_argument("config", type=Path)
     b.add_argument("--model", default=model.DEFAULT_MODEL)
+    b.add_argument("--search-model", default=None, choices=[*model.SEARCH_MODELS, ""],
+                   help="model for in-page search by meaning (default from config; '' turns it off)")
     b.add_argument("--seed", type=int, default=42)
     b.add_argument("--broad", type=float, default=1.5, help="Leiden resolution for broad areas")
     b.add_argument("--fine", type=float, default=3.0, help="Leiden resolution for fine topics")

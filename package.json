@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "name": "research-map-tests",
+  "description": "Node tools for tests only: search evaluation with the same query model the page loads.",
+  "devDependencies": {
+    "@huggingface/transformers": "4.3.1"
+  }
+}

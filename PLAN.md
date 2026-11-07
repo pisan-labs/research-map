@@ -228,6 +228,21 @@ set still need someone who knows the faculty (Q14).
 - Department × area matrix (GTU's lower panel).
 - Shareable URL state (selected person, filters, zoom).
 
+### Phase 2 status (2026-11-07)
+
+In-page search by meaning is built. Each search record carries an 8-bit
+vector from `all-MiniLM-L6-v2` (2,829 records, about 1.4 MB of the 2.3 MB
+page). On request the page loads transformers.js 4.3.1 from jsDelivr and
+the 23 MB model from Hugging Face (3.7 s in testing), embeds the query, and
+blends meaning and keyword scores 50/50 per record. On the curated-area test
+set: hit@10 0.76 (keyword only 0.68), MRR 0.83 (unchanged). Meaning alone
+scores 0.72; 30/70 and 70/30 blends are within 0.03; bge-small-en-v1.5
+scores 0.73 / 0.87 at 34 MB, so the smaller model stays. The search model is
+English: the multilingual ONNX models are 118 MB. A non-English university
+should set a multilingual `search_model` or consider a server. The test set
+has only short topic names (no hand-written phrase queries), so the gain on
+project descriptions is not measured.
+
 ### Phase 2: views GTU does not have
 
 Pick from these after Phase 1; each is independent.
@@ -236,7 +251,7 @@ Pick from these after Phase 1; each is independent.
   co-authored" pairs as collaboration candidates.
 - Year-range filter; colour by "new in the last 3 years".
 - Department footprints (density contours).
-- In-page semantic search (transformers.js), blended 50/50 with BM25.
+- In-page semantic search (transformers.js), blended 50/50 with BM25 (done 2026-11-07).
 - LLM research profiles for ranking only (Q12): grounded in titles, JSON
   schema, temperature 0, never shown without human review.
 - Topics-over-time streamgraph.
@@ -281,9 +296,9 @@ Q6: confirmed. Q12 and Q13 are new and open.
 6. Who goes on the map: faculty only, or also postdocs, research staff, graduate students? (rec: faculty, with an opt-out list)
 7. Points: people, papers, or both with a toggle? (rec: people; papers later)
 8. Which extra views matter most from Phase 2? (rec: department × area matrix, then co-author links on the map)
-9. Search: keyword only, in-page semantic, or a server? (rec: record-level BM25 in Phase 1, blended with in-page semantic in Phase 2, no server)
+9. Search: keyword only, in-page semantic, or a server? (done: record-level BM25 plus optional in-page search by meaning, no server)
 10. Hosting and refresh: single HTML file, where hosted, one-off or scheduled? (rec: single HTML, local or GitHub Pages, one-off first)
 11. Language and branding: English UI only or bilingual like GTU; generic look or per-university colours? (rec: English UI, multilingual model, generic look with configurable colours)
 12. LLM research profiles (ranking only, never shown): run them with the local `claude` CLI, which sends public titles to Anthropic under your subscription, or skip them? GTU kept everything on campus with an open-weight model; their measured gain was small (0.80 → 0.81 top-10). (rec: skip until record-level search is measured; then decide)
 13. Add grants as a component from the NSF and NIH award APIs (public, free, no key)? (rec: yes, in Phase 1)
-14. Hand-written test queries: could you write 10–20 project-style queries (a sentence each) with the people you would expect, into `tests/uwb-stem-queries.json`? The curated areas test short topic names only; phrase queries are where GTU saw semantic search help most. (rec: yes, before Phase 2)
+14. Hand-written test queries: declined 2026-11-07. The curated areas remain the only search test set; `tests/<slug>-queries.json` is supported if someone writes them later.

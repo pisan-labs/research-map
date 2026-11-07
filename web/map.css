@@ -139,6 +139,8 @@ h3 .count { text-transform: none; letter-spacing: 0; font-weight: 400; }
 .hits .why { display: block; font-size: 12px; color: var(--muted); }
 .hits .ev { display: block; font-size: 12px; color: var(--ink-2); margin-top: 3px; line-height: 1.35; }
 .hits .evk { color: var(--muted); font-variant-numeric: tabular-nums; }
+.semline { font-size: 12px; margin: 4px 0 8px; }
+.semline button { margin-right: 4px; }
 .project { display: flex; flex-direction: column; gap: 6px; }
 .project textarea { font: inherit; color: var(--ink); background: var(--raised); border: 1px solid var(--line); border-radius: 6px; padding: 8px; resize: vertical; min-height: 84px; }
 .project button { align-self: flex-start; }

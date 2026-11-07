@@ -9,7 +9,7 @@ nearby points work on similar topics.
 
 ## First map: UW Bothell School of STEM
 
-`site/uwb-stem/index.html` is one self-contained file (about 750 KB) that
+`site/uwb-stem/index.html` is one self-contained file (about 2.3 MB) that
 works offline: open it in a browser, or host it anywhere. It shows 87
 full-time STEM faculty, placed by their publications (OpenAlex), venues,
 profile text and courses; 2 more with no text are findable by search.
@@ -58,11 +58,19 @@ one of the department-curated research areas, against chance.
 ## Tests
 
 ```bash
+npm install                                     # once: transformers.js 4.3.1, for the search test set only
 cd pipeline && uv run pytest -q
 node tests/search_unit.mjs                      # search module (web/search.js)
 node tests/search_eval.mjs uwb-stem --detail    # search test set: hit@10 and MRR per query
 node tests/smoke.mjs site/uwb-stem/index.html   # Playwright: offline load, search, advisors, card, phone width
+node tests/semantic_online.mjs                  # needs network: turns on search by meaning in a real browser
 ```
+
+Search by meaning is optional in the page: the build stores a vector for
+every search record (`search_model` in the config, English
+all-MiniLM-L6-v2 by default), and the page downloads the matching 23 MB
+model only when someone clicks "Also search by meaning". Without it the
+page searches by words, fully offline.
 
 `build` also prints the search test set scores. The test queries are the
 department-curated research areas; add hand-written ones in

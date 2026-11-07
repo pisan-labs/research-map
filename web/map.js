@@ -68,13 +68,70 @@
   // bio and the department's listed areas; people ranked by their best records.
   const norm = RMSearch.norm;
   const INDEX = RMSearch.buildIndex(P, { useListed: true });
-  function search(q, limit) {
+  function search(q, limit, qvec) {
     const words = RMSearch.tokens(q);
-    if (!words.length) return null;
-    const hits = RMSearch.search(INDEX, q, { limit }).map((h) => ({ p: P[h.p], score: h.score, evidence: h.evidence }));
-    return { words, hits };
+    if (!words.length && !qvec) return null;
+    const hits = RMSearch.search(INDEX, q, { limit, qvec }).map((h) => ({ p: P[h.p], score: h.score, evidence: h.evidence }));
+    return { words, hits, semantic: !!qvec };
   }
   let result = null;
+
+  // ---- search by meaning: optional, downloaded on request, remembered per browser.
+  // The query is embedded in the browser with the same model the build used for
+  // the records; without it (offline, declined, failed) search stays keyword-only.
+  const SM = META.search_model || null;
+  const TRANSFORMERS_URL = "https://cdn.jsdelivr.net/npm/@huggingface/transformers@4.3.1";
+  const sem = { state: SM && INDEX.hasVectors ? "off" : "none", embed: null, error: "", cache: new Map() };
+  async function loadSemantic() {
+    if (sem.state === "on" || sem.state === "loading") return;
+    sem.state = "loading"; renderPanel();
+    try {
+      const tf = await import(TRANSFORMERS_URL);
+      tf.env.allowLocalModels = false;
+      sem.embed = await tf.pipeline("feature-extraction", SM.browser, { dtype: "q8" });
+      sem.state = "on";
+      try { localStorage.setItem("rm-semantic", "on"); } catch (_) { /* storage blocked */ }
+    } catch (e) {
+      sem.state = "failed";
+      sem.error = navigator.onLine === false ? "you appear to be offline" : String(e && e.message || e).slice(0, 120);
+    }
+    rerunSearch();
+  }
+  async function queryVector(q) {
+    if (sem.state !== "on") return null;
+    if (sem.cache.has(q)) return sem.cache.get(q);
+    const out = await sem.embed(q, { pooling: SM.pooling, normalize: true });
+    const v = Float32Array.from(out.data);
+    sem.cache.set(q, v);
+    return v;
+  }
+  let searchSeq = 0;
+  // Keyword results at once; blended results replace them when the query vector is ready.
+  async function runSearch(q, mode) {
+    const seq = ++searchSeq;
+    const limit = mode === "project" ? 10 : undefined;
+    const show = (r) => {
+      result = r ? { ...r, set: new Set(r.hits.map((h) => h.p.i)), mode } : null;
+      renderPanel(); draw();
+    };
+    show(search(q, limit));
+    if (result && result.hits.length) zoomTo(result.hits.map((h) => h.p).filter((p) => passesFilters(p) && !p.off), 3);
+    if (sem.state !== "on") return;
+    const qvec = await queryVector(q);
+    if (seq !== searchSeq || !qvec) return; // a newer search started meanwhile
+    show(search(q, limit, qvec));
+  }
+  function rerunSearch() {
+    if (result && state.sel === null) runSearch(state.q, result.mode);
+    else renderPanel();
+  }
+  function semanticLine() {
+    if (sem.state === "none") return "";
+    if (sem.state === "on") return `<p class="semline muted">Search by meaning is on: results blend matching words and similar meaning.</p>`;
+    if (sem.state === "loading") return `<p class="semline muted">Loading the search model (${SM.size_mb} MB, once)…</p>`;
+    const failed = sem.state === "failed" ? `Search by meaning could not load (${esc(sem.error)}); showing word matches. ` : "";
+    return `<p class="semline muted">${failed}<button type="button" class="small ghost" id="semon">Also search by meaning</button> downloads a ${SM.size_mb} MB model once; finds related wording, not just the same words.</p>`;
+  }
 
   const passesFilters = (p) => (!state.dept || p.department === state.dept) && (!state.rank || p.rank === state.rank);
   function isActive(p) {
@@ -359,7 +416,8 @@
          <button type="button" class="ghost back" id="clearproject">← Overview</button>`
       : `<h2>${shown.length} match${shown.length === 1 ? "" : "es"}</h2>
          <p class="sub muted">for “${esc(state.q)}”${state.dept || state.rank ? " within the filters" : ""}. Each result shows the records that matched.</p>`;
-    panel.innerHTML = head + `
+    const semHtml = semanticLine();
+    panel.innerHTML = head + semHtml + `
       <ul class="hits">${shown.map(({ p, evidence }) => {
         const ev = evidence.slice(0, project ? 3 : 2).map((r) => evidenceLine(r, result.words)).join("");
         return `<li><button type="button" data-i="${p.i}"><b>${hl(p.name, result.words)}</b> <span class="muted">${esc(p.program)}${p.off ? " · not on map" : ""}</span>${ev}</button></li>`;
@@ -367,16 +425,14 @@
       ${shown.length ? "" : `<p class="muted">No one matches. Try a broader word, or clear the filters.</p>`}`;
     panel.querySelectorAll("[data-i]").forEach((b) => b.onclick = () => select(Number(b.dataset.i), true));
     if (project) $("clearproject").onclick = () => { result = null; state.q = ""; renderPanel(); draw(); };
+    if ($("semon")) $("semon").onclick = loadSemantic;
   }
 
   function runProject(text) {
-    const r = search(text, 10);
     $("q").value = "";
     state.q = text;
-    result = r ? { ...r, set: new Set(r.hits.map((h) => h.p.i)), mode: "project" } : null;
     state.sel = null;
-    renderPanel(); draw();
-    if (result && result.hits.length) zoomTo(result.hits.map((h) => h.p).filter((p) => !p.off), 3);
+    runSearch(text, "project");
   }
 
   function renderPanel() {
@@ -447,11 +503,9 @@
     clearTimeout(qTimer);
     qTimer = setTimeout(() => {
       state.q = e.target.value.trim();
-      const r = search(state.q);
-      result = r ? { ...r, set: new Set(r.hits.map((h) => h.p.i)), mode: "search" } : null;
       state.sel = null;
-      renderPanel(); draw();
-      if (result && result.hits.length) zoomTo(result.hits.map((h) => h.p).filter((p) => passesFilters(p) && !p.off), 3);
+      if (!state.q) { result = null; renderPanel(); draw(); return; }
+      runSearch(state.q, "search");
     }, 160);
   });
   $("q").addEventListener("keydown", (e) => {
@@ -497,5 +551,8 @@
   const m = location.hash.match(/p=([^&]+)/);
   const start = m ? P.find((p) => p.id === decodeURIComponent(m[1])) : null;
   if (start) select(start.i, true); else renderPanel();
-  window.__rm = { state, P, select, runProject, search: (q) => { $("q").value = q; $("q").dispatchEvent(new Event("input")); } };
+  let semPref = null;
+  try { semPref = localStorage.getItem("rm-semantic"); } catch (_) { /* storage blocked */ }
+  if (semPref === "on" && sem.state === "off" && navigator.onLine !== false) loadSemantic();
+  window.__rm = { state, P, select, runProject, loadSemantic, sem, search: (q) => { $("q").value = q; $("q").dispatchEvent(new Event("input")); } };
 })();
