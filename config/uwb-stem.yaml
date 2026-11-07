@@ -1,0 +1,23 @@
+# Research map for UW Bothell School of STEM (Phase 0 vertical slice).
+slug: uwb-stem
+name: UW Bothell School of STEM
+university: University of Washington Bothell
+# OpenAlex institution id, used once an OpenAlex key is available.
+openalex_institution: null
+base_url: https://www.uwb.edu/
+directory:
+  - department: Biological Sciences
+    url: https://www.uwb.edu/stem/faculty/bs-faculty
+  - department: Computing & Software Systems
+    url: https://www.uwb.edu/stem/faculty/css-faculty
+  - department: Engineering & Mathematics
+    url: https://www.uwb.edu/stem/faculty/em-faculty
+  - department: Physical Sciences
+    url: https://www.uwb.edu/stem/faculty/ps-faculty
+# Directory categories to include (faculty only by default).
+include_categories:
+  - Full-time faculty
+# Person ids (profile slugs) to leave off the map.
+opt_out: []
+# Colour by default: department (4 colours + shapes), program, or area.
+color_by: department

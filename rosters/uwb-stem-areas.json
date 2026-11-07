@@ -1,0 +1,205 @@
+{
+ "Anatomy and Physiology": [
+  "salwa-al-noori",
+  "jeffrey-jensen",
+  "michele-price"
+ ],
+ "Ecology, Evolution and Behavior": [
+  "cynthia-chang",
+  "kristina-hillesland",
+  "jeffrey-jensen",
+  "rick-mclaughlin",
+  "elizabeth-ostrowski",
+  "douglas-wacker",
+  "jesse-zaneveld"
+ ],
+ "Genomic and Bioinformatics": [
+  "kristina-hillesland",
+  "rick-mclaughlin",
+  "elizabeth-ostrowski",
+  "jesse-zaneveld"
+ ],
+ "Microbiology, Molecular and Cellular Biology": [
+  "kristina-hillesland",
+  "rick-mclaughlin",
+  "elizabeth-ostrowski",
+  "han-wei-shih",
+  "jesse-zaneveld"
+ ],
+ "Artificial Intelligence/Machine Learning": [
+  "mia-champion",
+  "kaylea-champion",
+  "min-chen",
+  "brent-lagesse",
+  "afra-mashhadi",
+  "clark-olson",
+  "erika-parsons",
+  "dong-si",
+  "michael-stiber",
+  "murat-ayhan",
+  "geethapriya-thamilarasu",
+  "zhao-wang"
+ ],
+ "Computational Biology and Health Care Computing": [
+  "mia-champion",
+  "wooyoung-kim",
+  "dong-si",
+  "michael-stiber",
+  "geethapriya-thamilarasu",
+  "zhao-wang"
+ ],
+ "Computer Science Education": [
+  "laurie-anderson",
+  "kaylea-champion",
+  "morteza-chini",
+  "vishesh-khemani",
+  "johnny-lin",
+  "yusuf-pisan",
+  "arkady-retik",
+  "jeff-stride",
+  "zhao-wang"
+ ],
+ "Cybersecurity": [
+  "kaylea-champion",
+  "morteza-chini",
+  "marc-dupuis",
+  "brent-lagesse",
+  "yang-peng",
+  "michael-stiber",
+  "geethapriya-thamilarasu"
+ ],
+ "Data Computing/Data Science/Scientific Computing": [
+  "kaylea-champion",
+  "min-chen",
+  "vishesh-khemani",
+  "johnny-lin",
+  "erika-parsons",
+  "dong-si",
+  "jeff-stride",
+  "zhao-wang"
+ ],
+ "Graphics, Multimedia, and Computer Games": [
+  "min-chen",
+  "yusuf-pisan",
+  "kelvin-sung"
+ ],
+ "Human Factors/Human Computer Interaction": [
+  "kaylea-champion",
+  "marc-dupuis",
+  "annuska-zolyomi"
+ ],
+ "Parallel, Distributed, Cloud, and Edge Computing": [
+  "munehiro-fukuda",
+  "vishesh-khemani",
+  "zhengquan-li",
+  "afra-mashhadi",
+  "yang-peng",
+  "geethapriya-thamilarasu"
+ ],
+ "Software Engineering": [
+  "kaylea-champion",
+  "morteza-chini",
+  "vishesh-khemani",
+  "jeffrey-kim",
+  "arkady-retik",
+  "jeff-stride"
+ ],
+ "Actuarial Science": [
+  "ariana-dundon",
+  "clark-musselman"
+ ],
+ "Applied and Computational Mathematics": [
+  "andrew-abian",
+  "emily-gismervig",
+  "thomas-humphries",
+  "milagros-loreto",
+  "clark-musselman"
+ ],
+ "Biomedical Engineering & Robotics": [
+  "imen-elloumi-hannachi",
+  "anita-li",
+  "pierre-mourad",
+  "jong-yoon"
+ ],
+ "Biomedical Systems and Devices": [
+  "kaibao-nie"
+ ],
+ "Computational Mechanics": [
+  "wolf-yeigh"
+ ],
+ "Design and Manufacturing": [
+  "bill-anderson"
+ ],
+ "Computer Engineering": [
+  "arnold-berger",
+  "madhava-vemuri"
+ ],
+ "Fluid Mechanics": [
+  "shima-abadi",
+  "miguel-balzan"
+ ],
+ "Materials Engineering and Characterization": [
+  "anita-li"
+ ],
+ "Mathematics Education": [
+  "rejoice-akapame",
+  "emily-gismervig",
+  "nicole-hoover",
+  "alexandria-musselman",
+  "linda-simonsen"
+ ],
+ "Microelectronics and Devices": [
+  "seungkeun-choi"
+ ],
+ "Ocean Sciences & Marine Engineering": [
+  "shima-abadi",
+  "bill-anderson"
+ ],
+ "Power & Energy": [
+  "seungkeun-choi",
+  "mahmoud-ghofrani"
+ ],
+ "Pure and Theoretical Mathematics": [
+  "alexandre-barchechat",
+  "ariana-dundon",
+  "elizabeth-field",
+  "casey-mann",
+  "jennifer-mcloud-mann",
+  "pietro-paparella"
+ ],
+ "Signal Processing": [
+  "kaibao-nie",
+  "tadesse-ghirmai"
+ ],
+ "Sustainability & Systems Analysis": [
+  "sharon-jones",
+  "wolf-yeigh"
+ ],
+ "Wireless, RF/Microwave, and Telecommunications": [
+  "konpal-ali",
+  "tadesse-ghirmai",
+  "yangqing-liu"
+ ],
+ "Astrophysics": [
+  "paola-rodriguez-hidalgo",
+  "joey-shapiro-key"
+ ],
+ "Biochemistry": [
+  "peter-c-anderson",
+  "hyung-kim",
+  "lori-robins"
+ ],
+ "Chemical Education": [
+  "charity-lovitt"
+ ],
+ "Climate Science": [
+  "eric-salathe"
+ ],
+ "Environmental Chemistry": [
+  "brandon-finley"
+ ],
+ "Physics Education Research": [
+  "alanna-pawlak",
+  "rachel-scherr"
+ ]
+}

@@ -24,6 +24,12 @@ unanswered for 15 minutes. Reverse any of them by answering that question.
 - Python pipeline (uv, pytest); front end is vanilla JS with D3 and Canvas, no build step.
 - Local open embedding models only; any LLM step uses the local `claude` CLI, never an API key.
 - Build a vertical slice on one unit before generalising.
+- 2026-11-07: until OpenAlex has a key, people are placed by public directory
+  and profile text (research keywords, interests, bio, dissertation title).
+- 2026-11-07: text model is `paraphrase-multilingual-MiniLM-L12-v2` (best on
+  the curated-area check among six local models, and multilingual).
+- 2026-11-07: default colouring is by department with a shape per
+  department; program and computed area are options.
 
 ## Non-goals (for now)
 

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__TITLE__</title>
+<style>/*__CSS__*/</style>
+</head>
+<body>
+<header class="bar">
+  <div class="brand">
+    <div class="titlerow">
+      <h1 id="title"></h1>
+      <button id="theme" class="ghost small" type="button">Dark</button>
+    </div>
+    <p id="subtitle" class="muted"></p>
+  </div>
+  <div class="controls" role="search">
+    <label class="field grow">
+      <span class="sr">Search people and topics</span>
+      <input id="q" type="search" placeholder="Search a name or topic, e.g. machine learning" autocomplete="off">
+    </label>
+    <label class="field">
+      <span>Department</span>
+      <select id="dept"><option value="">All</option></select>
+    </label>
+    <label class="field">
+      <span>Rank</span>
+      <select id="rank"><option value="">All</option></select>
+    </label>
+    <label class="field">
+      <span>Colour by</span>
+      <select id="colorby">
+        <option value="department">Department</option>
+        <option value="program">Program</option>
+        <option value="area">Research area (computed)</option>
+      </select>
+    </label>
+  </div>
+</header>
+<main class="layout">
+  <section class="mapwrap" aria-label="Research map">
+    <canvas id="map"></canvas>
+    <div id="tip" class="tip" role="tooltip" hidden></div>
+    <div class="zoombtns">
+      <button type="button" id="zin" aria-label="Zoom in">+</button>
+      <button type="button" id="zout" aria-label="Zoom out">−</button>
+      <button type="button" id="zreset" aria-label="Reset view">⟲</button>
+    </div>
+    <details id="legendbox" class="legend" open>
+      <summary>Legend</summary>
+      <div id="legend"></div>
+    </details>
+  </section>
+  <aside class="panel" id="panel" aria-live="polite"></aside>
+</main>
+<footer class="foot muted" id="foot"></footer>
+<script>/*__D3__*/</script>
+<script id="data" type="application/json">/*__DATA__*/</script>
+<script>/*__JS__*/</script>
+</body>
+</html>

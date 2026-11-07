@@ -1,0 +1,40 @@
+[project]
+name = "research-map"
+version = "0.1.0"
+description = "Build interactive research maps of universities"
+requires-python = ">=3.13"
+dependencies = [
+    "beautifulsoup4>=4.15.0",
+    "httpx>=0.28.1",
+    "igraph>=1.0.0",
+    "leidenalg>=0.12.0",
+    "numpy>=2.5.4",
+    "pyyaml>=6.0.3",
+    "scikit-learn>=1.9.1",
+    "sentence-transformers>=6.2.0",
+    "torch>=2.15.0",
+    "umap-learn>=0.5.12",
+]
+
+[build-system]
+requires = ["uv_build>=0.11.32,<0.12.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+]
+
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[project.scripts]
+research-map = "research_map.cli:main"

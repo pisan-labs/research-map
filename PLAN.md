@@ -7,6 +7,11 @@ updated. Still open: the OpenAlex API key (Q4), which needs your yes.
 
 Background and examples: [docs/survey.md](docs/survey.md).
 
+**Progress, 2026-11-07:** Phase 0 vertical slice built for UW Bothell STEM
+(`site/uwb-stem/index.html`, 87 faculty). OpenAlex is not wired in yet
+because there is no API key (Q4); the slice uses directory keywords and
+profile text instead. See "Phase 0 status" below.
+
 ## Goal
 
 A reusable generator: given a university (or one unit) and its faculty
@@ -110,6 +115,32 @@ neighbours make sense. Suggested: UW Bothell School of STEM.
 
 Done when `site/<slug>/index.html` opens offline, finds a person, shows
 sensible neighbours, and keyword search returns the right people.
+
+### Phase 0 status (2026-11-07)
+
+Done:
+
+- Roster scraped from the four STEM division pages: 89 full-time faculty, 87
+  on the map (2 have no research or teaching text and are named on the page).
+- Text per person: directory "Research:" line, profile research interests,
+  dissertation title, research sentences of the bio. Teaching-only people are
+  placed by teaching interests and drawn hollow.
+- Model: `paraphrase-multilingual-MiniLM-L12-v2`, not e5-small. On the
+  departments' own research-area lists, 48% of each person's top-5 neighbours
+  share an area (chance 8%); e5-small scored 40%, e5-base 40%, bge-small 46%,
+  SPECTER2 45%, all-mpnet 48%. It is multilingual and small.
+- UMAP layout, Leiden areas (6 broad, 14 fine), c-TF-IDF labels from
+  keyword text, 10 nearest people with shared terms.
+- Page: colour by department (with shapes), program or area; labels change
+  with zoom; tooltip; person card; department and rank filters; name and
+  keyword search; hollow markers; method note; `#p=<id>` links; light and
+  dark; phone layout. Playwright smoke test passes offline.
+
+Still to do in Phase 0:
+
+- OpenAlex works (needs the Q4 key), with ORCID-first matching.
+- Your review of 10 people's neighbours.
+- A `labels.yaml` override for weak computed labels ("strategies · space").
 
 ### Phase 1: generalise
 
