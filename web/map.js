@@ -64,34 +64,14 @@
   };
 
   // ------------------------------------------------------------ search
-  const norm = (s) => String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
-  P.forEach((p) => {
-    p._name = norm(p.name);
-    p._kw = norm([p.keywords, p.interests, p.listed.join(" "), p.terms.join(" "), p.oa_topics.join(" . ")].join(" . "));
-    p._ttl = p.titles.map(norm);
-    p._bio = norm(p.bio);
-  });
-  function search(q) {
-    const words = norm(q).split(/[\s,]+/).filter((w) => w.length > 1);
+  // Record-level search (web/search.js): titles, keywords, interests, topics,
+  // bio and the department's listed areas; people ranked by their best records.
+  const norm = RMSearch.norm;
+  const INDEX = RMSearch.buildIndex(P, { useListed: true });
+  function search(q, limit) {
+    const words = RMSearch.tokens(q);
     if (!words.length) return null;
-    const phrase = norm(q).trim();
-    const hits = [];
-    for (const p of P) {
-      let score = 0;
-      if (p._name.includes(phrase)) score += 10;
-      if (phrase.includes(" ") && p._kw.includes(phrase)) score += 6;
-      let all = true;
-      for (const w of words) {
-        const inName = p._name.includes(w), inKw = p._kw.includes(w), inBio = p._bio.includes(w);
-        const nTitles = p._ttl.reduce((n, t) => n + t.includes(w), 0);
-        if (!(inName || inKw || inBio || nTitles)) all = false;
-        // Titles: a few matching papers count, many do not keep adding (GTU: volume alone should not win).
-        score += (inName ? 3 : 0) + (inKw ? 2 : 0) + (inBio ? 1 : 0) + Math.min(nTitles, 4) * 0.5;
-      }
-      if (phrase.includes(" ")) score += Math.min(p._ttl.filter((t) => t.includes(phrase)).length, 4);
-      if (all && score > 0) hits.push({ p, score });
-    }
-    hits.sort((a, b) => b.score - a.score || a.p.name.localeCompare(b.p.name));
+    const hits = RMSearch.search(INDEX, q, { limit }).map((h) => ({ p: P[h.p], score: h.score, evidence: h.evidence }));
     return { words, hits };
   }
   let result = null;
@@ -281,11 +261,12 @@
   // ------------------------------------------------------------ panel
   const panel = $("panel");
   function chips(list) { return list.length ? `<ul class="chips">${list.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>` : ""; }
+  // Highlight words that start with a query stem ("network" marks "networks").
   function hl(text, words) {
     let out = esc(text);
     for (const w of words || []) {
       if (w.length < 2) continue;
-      out = out.replace(new RegExp("(" + w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")", "gi"), "<mark>$1</mark>");
+      out = out.replace(new RegExp("\\b(" + w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "[a-z]*)", "gi"), "<mark>$1</mark>");
     }
     return out;
   }
@@ -299,12 +280,23 @@
       <p class="sub muted">${n} faculty · as of ${esc(META.as_of)}</p>
       <p>Each point is a faculty member. People who describe similar research sit close together. Click a point to see that person's research and the ten people closest to them.</p>
       <p class="muted">Shapes mark departments. Hollow points have few publications and little profile text to go on, so their position is less certain.</p>
+      <h3>Find advisors for a project</h3>
+      <form id="projectform" class="project">
+        <label class="sr" for="project">Project description</label>
+        <textarea id="project" rows="4" placeholder="Paste a project idea or call for proposals, e.g. low-cost sensors to monitor stream water quality with machine learning"></textarea>
+        <button type="submit">Find people</button>
+      </form>
       <h3>Research areas (computed)</h3>
       <ul class="near">${areas}</ul>
       ${META.left_off.length ? `<p class="muted">Not on the map, because there is no research or teaching text or matched publication for them (they can still be found by search): ${META.left_off.map(esc).join(", ")}.</p>` : ""}
       <h3>How this map is made</h3>
       <p class="bio">${esc(META.method)}</p>
       <p class="bio">Sources: ${META.sources.map((u) => `<a href="${esc(u)}">${esc(u.replace(/^https?:\/\//, ""))}</a>`).join(", ")}. Corrections go to the directory page; the map is rebuilt from it.</p>`;
+    $("projectform").onsubmit = (e) => {
+      e.preventDefault();
+      const text = $("project").value.trim();
+      if (text) runProject(text);
+    };
     panel.querySelectorAll("[data-area]").forEach((b) => b.onclick = () => {
       const id = Number(b.dataset.area);
       setColorBy("area");
@@ -319,8 +311,8 @@
       .concat(p.links.map((l) => `<a href="${esc(l.href)}" target="_blank" rel="noopener">${esc(l.text)}</a>`))
       .concat(p.orcid ? [`<a href="https://orcid.org/${esc(p.orcid)}" target="_blank" rel="noopener">ORCID</a>`] : [])
       .concat(p.openalex.map((a, k) => `<a href="https://openalex.org/${esc(a)}" target="_blank" rel="noopener">OpenAlex${p.openalex.length > 1 ? " " + (k + 1) : ""}</a>`));
-    const works = p.works.map((w) =>
-      `<li><a href="${esc(w.u)}" target="_blank" rel="noopener">${hl(w.t, result ? result.words : [])}</a><span class="why">${esc(w.y || "")}${w.v ? " · " + esc(w.v) : ""}</span></li>`).join("");
+    const works = p.pubs.slice(0, 8).map(([t, y, v, u]) =>
+      `<li><a href="${esc(u)}" target="_blank" rel="noopener">${hl(t, result ? result.words : [])}</a><span class="why">${esc(y || "")}${v ? " · " + esc(v) : ""}</span></li>`).join("");
     const co = (p.coauthors || []).map(([j, n]) =>
       `<li><button type="button" data-i="${j}"><span class="who">${esc(P[j].name)}</span><span class="score">${n} paper${n === 1 ? "" : "s"}</span></button></li>`).join("");
     const near = p.near.map((n) => {
@@ -342,7 +334,7 @@
         ${p.oa_topics.length ? `<h3>Publication topics (OpenAlex)</h3>${chips(p.oa_topics)}` : ""}
         ${p.off ? "" : `<h3>Closest people</h3>${near ? `<ul class="near">${near}</ul>` : `<p class="muted">No one is close enough to show: this person's research is unlike the rest of the school's.</p>`}`}
         ${co ? `<h3>Co-authors on this map</h3><ul class="near">${co}</ul>` : ""}
-        ${p.works.length ? `<h3>Recent publications <span class="count">(${p.n_works} since 2011)</span></h3><ul class="pubs">${works}</ul>` : ""}
+        ${p.pubs.length ? `<h3>Recent publications <span class="count">(${p.n_works} since 2011)</span></h3><ul class="pubs">${works}</ul>` : ""}
         ${p.bio ? `<h3>Bio</h3><p class="bio">${hl(p.bio, words)}</p>` : ""}
         <h3>Links</h3><div class="links">${links.join("")}</div>
         ${p.sparse && !p.off ? `<p class="muted" style="margin-top:12px">Few publications and little profile text are available for this person, so the position is approximate.</p>` : ""}
@@ -352,17 +344,39 @@
     panel.scrollTop = 0;
   }
 
+  const KIND_LABEL = { title: "paper", keywords: "directory", interests: "profile", bio: "bio", topic: "topic", listed: "listed area" };
+  function evidenceLine(r, words) {
+    const label = r.kind === "title" ? `${r.y || ""}${r.v ? " · " + r.v : ""}` : KIND_LABEL[r.kind];
+    const text = hl(r.text.length > 170 ? r.text.slice(0, 170) + "…" : r.text, words);
+    return `<span class="ev"><span class="evk">${esc(label)}</span> ${text}</span>`;
+  }
+
   function renderHits() {
+    const project = result.mode === "project";
     const shown = result.hits.filter((h) => passesFilters(h.p));
-    panel.innerHTML = `<h2>${shown.length} match${shown.length === 1 ? "" : "es"}</h2>
-      <p class="sub muted">for “${esc(state.q)}”${state.dept || state.rank ? " within the filters" : ""}</p>
-      <ul class="hits">${shown.map(({ p }) => {
-        const hitTitle = p.titles.find((t) => result.words.every((w) => norm(t).includes(w))) || p.titles.find((t) => result.words.some((w) => norm(t).includes(w)));
-        const why = [p.keywords, p.interests].find((t) => result.words.some((w) => norm(t).includes(w))) || hitTitle || p.keywords || p.interests || "";
-        return `<li><button type="button" data-i="${p.i}"><b>${hl(p.name, result.words)}</b> <span class="muted">${esc(p.program)}</span><span class="why">${hl(why.slice(0, 160), result.words)}</span></button></li>`;
+    const head = project
+      ? `<h2>Possible advisors</h2><p class="sub muted">Top ${shown.length} for your project description${state.dept || state.rank ? ", within the filters" : ""}. Ranked by matching publications and profile text; read the evidence before contacting anyone.</p>
+         <button type="button" class="ghost back" id="clearproject">← Overview</button>`
+      : `<h2>${shown.length} match${shown.length === 1 ? "" : "es"}</h2>
+         <p class="sub muted">for “${esc(state.q)}”${state.dept || state.rank ? " within the filters" : ""}. Each result shows the records that matched.</p>`;
+    panel.innerHTML = head + `
+      <ul class="hits">${shown.map(({ p, evidence }) => {
+        const ev = evidence.slice(0, project ? 3 : 2).map((r) => evidenceLine(r, result.words)).join("");
+        return `<li><button type="button" data-i="${p.i}"><b>${hl(p.name, result.words)}</b> <span class="muted">${esc(p.program)}${p.off ? " · not on map" : ""}</span>${ev}</button></li>`;
       }).join("")}</ul>
       ${shown.length ? "" : `<p class="muted">No one matches. Try a broader word, or clear the filters.</p>`}`;
     panel.querySelectorAll("[data-i]").forEach((b) => b.onclick = () => select(Number(b.dataset.i), true));
+    if (project) $("clearproject").onclick = () => { result = null; state.q = ""; renderPanel(); draw(); };
+  }
+
+  function runProject(text) {
+    const r = search(text, 10);
+    $("q").value = "";
+    state.q = text;
+    result = r ? { ...r, set: new Set(r.hits.map((h) => h.p.i)), mode: "project" } : null;
+    state.sel = null;
+    renderPanel(); draw();
+    if (result && result.hits.length) zoomTo(result.hits.map((h) => h.p).filter((p) => !p.off), 3);
   }
 
   function renderPanel() {
@@ -434,7 +448,7 @@
     qTimer = setTimeout(() => {
       state.q = e.target.value.trim();
       const r = search(state.q);
-      result = r ? { ...r, set: new Set(r.hits.map((h) => h.p.i)) } : null;
+      result = r ? { ...r, set: new Set(r.hits.map((h) => h.p.i)), mode: "search" } : null;
       state.sel = null;
       renderPanel(); draw();
       if (result && result.hits.length) zoomTo(result.hits.map((h) => h.p).filter((p) => passesFilters(p) && !p.off), 3);
@@ -483,5 +497,5 @@
   const m = location.hash.match(/p=([^&]+)/);
   const start = m ? P.find((p) => p.id === decodeURIComponent(m[1])) : null;
   if (start) select(start.i, true); else renderPanel();
-  window.__rm = { state, P, select, search: (q) => { $("q").value = q; $("q").dispatchEvent(new Event("input")); } };
+  window.__rm = { state, P, select, runProject, search: (q) => { $("q").value = q; $("q").dispatchEvent(new Event("input")); } };
 })();

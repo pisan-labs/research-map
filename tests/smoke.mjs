@@ -46,12 +46,29 @@ for (const [q, expect] of [["machine learning", "Computing & Software Systems"],
   if (await page.$("#back")) await page.click("#back");
   await page.fill("#q", q);
   await page.waitForTimeout(400);
-  const hits = await page.evaluate(() => window.__rm.P.filter((p) => document.querySelector(`.hits [data-i="${p.i}"]`)).map((p) => p.department));
+  // Department mix of the top 10 results (record search matches anyone with one relevant paper).
+  const hits = await page.$$eval(".hits button", (els) => els.slice(0, 10).map((b) => window.__rm.P[Number(b.dataset.i)].department));
   const share = hits.filter((d) => d === expect).length / Math.max(hits.length, 1);
-  console.log(`"${q}": ${hits.length} hits, ${(share * 100).toFixed(0)}% in ${expect}`);
+  console.log(`"${q}": top ${hits.length}, ${(share * 100).toFixed(0)}% in ${expect}`);
   if (!hits.length || share < 0.5) fail(`keyword search "${q}" looks wrong`);
 }
+const ev = await page.$$eval(".hits .ev", (els) => els.length);
+if (!ev) fail("search results show no evidence lines");
 if (shots) await page.screenshot({ path: `${shots}/search.png` });
+
+// Advisor finder: a project paragraph returns ten people with evidence.
+await page.fill("#q", "");
+await page.waitForTimeout(300);
+if (await page.$("#back")) await page.click("#back");
+await page.fill("#project", "Low-cost sensors and machine learning to monitor stream water quality and detect pollution events");
+await page.click("#projectform button");
+await page.waitForTimeout(600);
+const adv = await page.$$eval(".hits li", (els) => els.length);
+const head = await page.textContent("#panel h2");
+console.log(`advisor finder: ${adv} people; first: ${await page.textContent(".hits li b")}`);
+if (!head.includes("Possible advisors") || adv !== 10) fail(`advisor finder returned ${adv} (${head})`);
+if (shots) await page.screenshot({ path: `${shots}/advisors.png` });
+await page.click("#clearproject");
 
 // Zoomed-in labels, then dark mode on a phone.
 await page.fill("#q", "");

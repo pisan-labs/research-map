@@ -22,7 +22,7 @@ def test_write_html_refuses_contact_details(tmp_path):
 
     web = tmp_path / "web"
     (web / "vendor").mkdir(parents=True)
-    for name in ("template.html", "map.css", "map.js", "vendor/d3.v7.9.0.min.js"):
+    for name in ("template.html", "map.css", "map.js", "search.js", "vendor/d3.v7.9.0.min.js"):
         (web / name).write_text("/*__DATA__*/" if name == "template.html" else "")
     with pytest.raises(ValueError):
         write_html({"meta": {"name": "x"}, "bio": "mail me@x.org"}, web, tmp_path / "out.html")
@@ -45,3 +45,10 @@ def test_components_and_recency():
     assert set(c) == {"self", "works", "venues", "courses"}
     assert c["works"] == [("T. A", 1.0)] and c["venues"] == [("V", 1.0)]
     assert Doc("y", {}).components(2026) == {}
+
+
+def test_privacy_scan_ignores_links_and_page_ranges():
+    blob = '{"u":"https://doi.org/10.1007/978-981-97-4581-2_3","t":"Proc. 383-390.4492 x"}'
+    assert privacy_problems(blob) == []
+    assert privacy_problems('{"b":"call 425.352.5000"}') == ["425.352.5000"]
+    assert privacy_problems('{"b":"call (425) 352-5000"}') == ["(425) 352-5000"]

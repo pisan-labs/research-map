@@ -50,7 +50,7 @@ one of the department-curated research areas, against chance.
 |---|---|
 | `config/<slug>.yaml` | one map: directory pages, who is included, opt-out list |
 | `pipeline/` | Python package `research_map` (roster, profiles, text, model, bundle, cli) |
-| `web/` | page template, `map.js`, `map.css`, vendored D3 v7.9.0 |
+| `web/` | page template, `map.js`, `search.js` (shared with the tests), `map.css`, vendored D3 v7.9.0 |
 | `rosters/` | scraped roster, profile text, curated areas (public data) |
 | `site/<slug>/index.html` | built map |
 | `data/` | cache (pages, embeddings, payload); gitignored |
@@ -59,5 +59,11 @@ one of the department-curated research areas, against chance.
 
 ```bash
 cd pipeline && uv run pytest -q
-node tests/smoke.mjs site/uwb-stem/index.html   # Playwright: offline load, search, person card, phone width
+node tests/search_unit.mjs                      # search module (web/search.js)
+node tests/search_eval.mjs uwb-stem --detail    # search test set: hit@10 and MRR per query
+node tests/smoke.mjs site/uwb-stem/index.html   # Playwright: offline load, search, advisors, card, phone width
 ```
+
+`build` also prints the search test set scores. The test queries are the
+department-curated research areas; add hand-written ones in
+`tests/<slug>-queries.json` as `[{"q": "...", "relevant": ["person-id", ...]}]`.

@@ -14,11 +14,12 @@ from .text import Doc
 
 SPARSE_WORDS = 25  # fewer words of profile text than this ...
 SPARSE_WORKS = 6  # ... and fewer works than this -> hollow marker (GTU: < 6 records)
-CARD_WORKS = 8  # recent works shown on the person card
 
 EMAIL = re.compile(r"[\w.+-]+@[\w-]+(\.[\w-]+)+")
-PHONE = re.compile(r"(?<!\d)(\+?1[ .-]?)?\(?\d{3}\)?[ .-]\d{3}[ .-]\d{4}(?!\d)")
-ID_LIKE = re.compile(r"(?<![\d.])\d{3}-\d{2}-\d{4}(?![\d])|(?<![\d.])\d{11}(?![\d])")
+# US-style phone numbers with one consistent separator: (425) 352-5000, 425-352-5000, 425.352.5000.
+PHONE = re.compile(r"(?<![\d./-])(?:\+?1[ .-]?)?(?:\(\d{3}\) ?\d{3}-\d{4}|\d{3}([.-])\d{3}\1\d{4})(?![\d./-])")
+ID_LIKE = re.compile(r"(?<![\d./-])\d{3}-\d{2}-\d{4}(?![\d./-])|(?<![\d./-])\d{11}(?![\d./-])")
+URL = re.compile(r"https?://[^\"\s]+")
 
 
 def scrub(text: str) -> str:
@@ -28,7 +29,8 @@ def scrub(text: str) -> str:
 
 def privacy_problems(blob: str) -> list[str]:
     """What the final page data must not contain (GTU checks every release too)."""
-    found = [m.group(0) for rx in (EMAIL, PHONE, ID_LIKE) for m in rx.finditer(blob)]
+    text = URL.sub(" ", blob)  # DOIs and links hold digit runs that are not contact details
+    found = [m.group(0) for rx in (EMAIL, PHONE, ID_LIKE) for m in rx.finditer(text)]
     return sorted(set(found))
 
 
@@ -96,12 +98,9 @@ def payload(
             "orcid": p.orcid,
             "openalex": openalex_ids.get(p.id, []),
             "n_works": d.n_works,
-            "works": [
-                {"t": w["title"], "y": w.get("year"), "v": w.get("venue", ""), "u": work_url(w)}
-                for w in d.works[:CARD_WORKS]
-            ],
-            # Every title, for search (record-level search comes in Phase 1).
-            "titles": [w["title"] for w in d.works],
+            # Every publication as [title, year, venue, link]: search records
+            # and the card's list (newest first).
+            "pubs": [[w["title"], w.get("year"), w.get("venue", ""), work_url(w)] for w in d.works],
             "oa_topics": [t for t, _ in topics.most_common(6)],
         }
 
@@ -171,7 +170,7 @@ def payload(
 def write_html(data: dict, web_dir: Path, out: Path) -> int:
     template = (web_dir / "template.html").read_text(encoding="utf-8")
     css = (web_dir / "map.css").read_text(encoding="utf-8")
-    js = (web_dir / "map.js").read_text(encoding="utf-8")
+    js = (web_dir / "search.js").read_text(encoding="utf-8") + "\n" + (web_dir / "map.js").read_text(encoding="utf-8")
     d3 = (web_dir / "vendor" / "d3.v7.9.0.min.js").read_text(encoding="utf-8")
     # "</" inside inline JSON would end the script tag early.
     blob = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")

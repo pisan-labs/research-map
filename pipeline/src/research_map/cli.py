@@ -267,7 +267,25 @@ def cmd_build(args: argparse.Namespace) -> int:
     size = bundle.write_html(payload, root / "web", out)
     (data / "payload.json").write_text(json.dumps(payload, indent=1))
     print(f"wrote {out.relative_to(root)} ({size / 1024:.0f} KB)", file=sys.stderr)
+    run_search_eval(root, cfg["slug"])
     return 0
+
+
+def run_search_eval(root: Path, slug: str) -> None:
+    """Print the search test set scores (tests/search_eval.mjs) if node is available."""
+    import shutil
+    import subprocess
+
+    script = root / "tests" / "search_eval.mjs"
+    if not shutil.which("node") or not script.exists():
+        print("search test set skipped (needs node)", file=sys.stderr)
+        return
+    res = subprocess.run(["node", str(script), slug, "--json"], capture_output=True, text=True, timeout=120)
+    if res.returncode != 0:
+        print(f"search test set failed: {res.stderr.strip()[:300]}", file=sys.stderr)
+        return
+    for name, m in json.loads(res.stdout).items():
+        print(f"search test set, {name}: hit@10 {m['hit10']:.2f}, MRR {m['mrr']:.2f}", file=sys.stderr)
 
 
 def main(argv: list[str] | None = None) -> int:

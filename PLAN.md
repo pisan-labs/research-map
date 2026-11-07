@@ -199,6 +199,17 @@ Still to do in Phase 0:
 
 ### Phase 1: generalise
 
+**Status 2026-11-07:** record-level search, the search test set and the
+advisor finder are built. On the 28 curated-area queries (the curated lists
+are kept out of the index while testing), record-level BM25 finds 68% of the
+listed people in the top 10 (MRR 0.83), against 38% (MRR 0.64) for the
+earlier person-level keyword search. Weight, decay and coverage variants all
+moved the result by 0.03 or less, so the defaults stay. The advisor finder
+is lexical: it ranks "air-quality sensor" papers well for a water-quality
+project but also matches "protein quality". In-page semantic search
+(Phase 2) is the fix GTU measured. Hand-written phrase queries for the test
+set still need someone who knows the faculty (Q14).
+
 - Record-level search: BM25 over work titles, courses and grants in the
   page; person score from best 8 records (1, 0.7, 0.49, …); evidence titles.
 - Search test set: curated-area queries plus 10–20 hand-written phrase
@@ -273,3 +284,4 @@ Q6: confirmed. Q12 and Q13 are new and open.
 11. Language and branding: English UI only or bilingual like GTU; generic look or per-university colours? (rec: English UI, multilingual model, generic look with configurable colours)
 12. LLM research profiles (ranking only, never shown): run them with the local `claude` CLI, which sends public titles to Anthropic under your subscription, or skip them? GTU kept everything on campus with an open-weight model; their measured gain was small (0.80 → 0.81 top-10). (rec: skip until record-level search is measured; then decide)
 13. Add grants as a component from the NSF and NIH award APIs (public, free, no key)? (rec: yes, in Phase 1)
+14. Hand-written test queries: could you write 10–20 project-style queries (a sentence each) with the people you would expect, into `tests/uwb-stem-queries.json`? The curated areas test short topic names only; phrase queries are where GTU saw semantic search help most. (rec: yes, before Phase 2)
