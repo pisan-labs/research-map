@@ -77,3 +77,12 @@ def test_uwt_names():
         "School of Interdisciplinary Arts and Sciences", "Sciences and Mathematics")
     assert split_uwt_department("Engineering & Technology, School of") == (
         "School of Engineering & Technology", "School of Engineering & Technology")
+
+
+def test_canonical_department():
+    from research_map.adapters import canonical_department
+
+    depts = ["Bioengineering", "Computer Science and Engineering"]
+    assert canonical_department("Department of Computer Science & Engineering", depts) == "Computer Science and Engineering"
+    assert canonical_department("Pediatrics, Bioengineering", depts) == "Bioengineering"
+    assert canonical_department("CMRR", depts) == "CMRR"

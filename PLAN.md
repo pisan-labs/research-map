@@ -263,8 +263,12 @@ who is kept is a title rule in the config.
 | UW Bothell STEM (`uwb-stem`) | built | 87 people; neighbour check 52%; search hit@10 0.75 |
 | UW Tacoma (`uwt`) | built | whole campus, 268 full-time faculty, 256 mapped; 195 matched in OpenAlex, 6,180 works; no curated areas, so no checks; areas named by hand |
 | UW College of Engineering (`uw-coe`) | roster done | 301 full-time faculty from the Faculty Finder, with research areas (also a test set: 68 areas with 2+ people); OpenAlex waits for the daily budget |
-| Northwestern McCormick | next | directory page found |
-| UCSD Jacobs | next | needs the InCommon intermediate certificate (in `config/certs/`) |
+| Northwestern McCormick (`nu-mccormick`) | roster done | 288 core faculty from the directory's XML feed; 170+ with research-area text |
+| UCSD Jacobs (`ucsd-jacobs`) | roster done | 288 faculty from the profiles list, 284 with research text; needs the InCommon intermediate certificate (in `config/certs/`) |
+
+OpenAlex costs about $0.30–0.45 per unit of 300 people (name searches are
+$0.001 each), so two units fit in one free daily budget ($1, resets at
+midnight UTC).
 
 Lessons so far: some university servers omit an intermediate certificate
 (fixed by shipping it, not by turning verification off); degree text must

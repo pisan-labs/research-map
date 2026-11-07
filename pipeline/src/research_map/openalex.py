@@ -173,6 +173,10 @@ def search_queries(name: str) -> list[str]:
     if len(toks) < 2:
         return [" ".join(toks)]
     qs = [f"{toks[0]} {toks[-1]}"] + [f"{n} {toks[-1]}" for nick in nicknames(name) for n in norm_name(nick)[:1]]
+    # Hyphenated or particle surnames as written ("Al-Masri", "De Cock"): "eyhab masri" can miss them.
+    words = re.sub(r"\([^)]*\)", " ", name).split()
+    if len(words) >= 2 and "-" in words[-1]:
+        qs.append(f"{toks[0]} {words[-1].lower()}")
     return list(dict.fromkeys(qs))
 
 

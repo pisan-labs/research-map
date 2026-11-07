@@ -194,10 +194,95 @@ def uwcoe_listing(fetcher: CachedFetcher, cfg: dict, refresh: bool):
     return people, areas
 
 
+# ---------------------------------------------------------------- Northwestern McCormick
+
+
+def nu_mccormick_listing(fetcher: CachedFetcher, cfg: dict, refresh: bool):
+    """McCormick's directory reads faculty-search-list.xml: one <faculty> per person with
+    facultyType (Core / Affiliated), departments, titles and researchAreas (HTML)."""
+    import html as htmllib
+    import xml.etree.ElementTree as ET
+
+    root = ET.fromstring(fetcher.get(cfg["listing_url"], refresh=refresh).encode("utf-8"))
+    people: list[Person] = []
+    for x in root.findall("faculty"):
+        name = _clean(x.findtext("fullName") or "")
+        if not name:
+            continue
+        titles = [_clean(t.text or "") for t in x.findall("titles/title")]
+        rank = next((t for t in titles if RANK_RE.search(t)), titles[0] if titles else "")
+        depts = [_clean(d.text or "") for d in x.findall("departments/department")]
+        dept = next((d for d in depts if d and not d.startswith("-")), "Other")
+        areas_html = htmllib.unescape(x.findtext("researchAreas") or "")
+        research = _clean(re.sub(r"<[^>]+>", " ", areas_html))
+        people.append(Person(id=roster.slugify(name), name=name, title=rank, department=dept, program=dept,
+                             category=_clean(x.findtext("facultyType") or ""), keywords=research,
+                             profile_url=urljoin(cfg["base_url"], x.findtext("pageLink") or "")))
+    print(f"  faculty feed: {len(people)} listed", file=sys.stderr)
+    return people, {}
+
+
+# ---------------------------------------------------------------- UC San Diego Jacobs School
+
+
+def _canon(text: str) -> str:
+    return re.sub(r"\s+", " ", re.sub(r"^department of ", "", text.lower().replace("&", "and"))).strip()
+
+
+def canonical_department(text: str, departments: list[str]) -> str:
+    """Map 'Department of Computer Science and Engineering' or 'Pediatrics, Bioengineering'
+    to the config's department name; otherwise the cleaned text."""
+    t = _canon(text)
+    for d in departments:
+        if _canon(d) in t:
+            return d
+    return _clean(re.sub(r"\(.*?\)", "", text)) or "Other"
+
+
+
+def ucsd_jacobs_listing(fetcher: CachedFetcher, cfg: dict, refresh: bool):
+    """jacobsschool.ucsd.edu/faculty/profiles: a paged (infinite-scroll) list; each row has
+    'Last, First', 'Rank, Department' lines and a research summary."""
+    base = cfg["listing_url"]
+    people: list[Person] = []
+    seen: set[str] = set()
+    for page in range(0, 200):
+        html = fetcher.get(f"{base}?page={page}", refresh=refresh)
+        soup = BeautifulSoup(html, "html.parser")
+        rows = [r for r in soup.select(".views-infinite-scroll-content-wrapper .row") if r.select_one("span.font-weight-bold a")]
+        new = 0
+        for r in rows:
+            a = r.select_one("span.font-weight-bold a")
+            href = urljoin(base, a.get("href", ""))
+            if href in seen:
+                continue
+            seen.add(href)
+            new += 1
+            name = uwt_name(a.get_text(" ", strip=True))
+            assoc = r.select_one(".faculty_list_associations")
+            lines = [x.strip() for x in assoc.get_text("\n", strip=True).split("\n") if x.strip()] if assoc else []
+            if any("deceased" in x.lower() for x in lines):
+                continue
+            first = next((x for x in lines if RANK_RE.search(x)), lines[0] if lines else "")
+            rank, _, dept = first.partition(",")
+            dept = canonical_department(dept, cfg.get("departments", []))
+            cols = r.find_all("div", class_="col-6")
+            research = _clean(cols[-1].get_text(" ")) if cols else ""
+            people.append(Person(id=roster.slugify(name), name=name, title=_clean(rank),
+                                 department=dept, program=dept,
+                                 category="", keywords=research, profile_url=href))
+        if not new:
+            break
+    print(f"  faculty profiles: {len(people)} listed", file=sys.stderr)
+    return people, {}
+
+
 ADAPTERS = {
     "uwb-stem": Adapter(uwb_listing, uwb_profiles.parse_profile),
     "uwt-directory": Adapter(uwt_listing, uwt_profile),
     "uwcoe-facultyfinder": Adapter(uwcoe_listing, None),
+    "nu-mccormick-xml": Adapter(nu_mccormick_listing, None),
+    "ucsd-jacobs": Adapter(ucsd_jacobs_listing, None),
 }
 
 

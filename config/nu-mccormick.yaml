@@ -1,0 +1,19 @@
+# Research map for Northwestern Engineering (McCormick School), from its faculty feed.
+slug: nu-mccormick
+name: Northwestern Engineering (McCormick)
+university: Northwestern University
+adapter: nu-mccormick-xml
+listing_url: https://www.mccormick.northwestern.edu/research-faculty/directory/faculty-search-list.xml
+base_url: https://www.mccormick.northwestern.edu/
+directory:
+  - department: All departments
+    url: https://www.mccormick.northwestern.edu/research-faculty/directory/
+openalex_institution: I111979921  # Northwestern University
+# Core faculty with professorial or lecturer ranks; no emeriti.
+include:
+  categories: [Core]
+  title_pattern: "professor|lecturer|chair"
+  exclude_title_pattern: "emerit|retired|adjunct|visiting"
+opt_out: []
+color_by: department
+search_model: all-MiniLM-L6-v2

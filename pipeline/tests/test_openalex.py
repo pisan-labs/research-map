@@ -41,3 +41,9 @@ def test_listed_at_checks_this_authors_institution():
     ]}
     assert _listed_at(w, {"A2"}, "I4210138624")
     assert not _listed_at(w, {"A1"}, "I4210138624")
+
+
+def test_search_queries_keep_hyphenated_surnames():
+    from research_map.openalex import search_queries
+
+    assert "eyhab al-masri" in search_queries("Eyhab Al-Masri")

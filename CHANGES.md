@@ -41,3 +41,5 @@
 2026-11-07 [decision] Large universities mapped one unit at a time from unit directories, engineering colleges first (default after 15 min).
 
 2026-11-07 [code] Site adapters; UW Tacoma map (256 people, 6,180 works); UW CoE roster (293); 64-dim search vectors; degree-field fallback; site index.
+
+2026-11-07 [code] Rosters for Northwestern McCormick (288, XML feed) and UCSD Jacobs (288); OpenAlex for UW CoE, McCormick, Jacobs waits for daily budget.

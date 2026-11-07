@@ -24,7 +24,7 @@ openalex_institution: I201448701  # University of Washington
 # Full-time faculty: professorial and lecturer ranks.
 include:
   title_pattern: "professor|lecturer|chair"  # endowed chairs list the chair name instead of a rank
-  exclude_title_pattern: "emerit|retired|affiliate|part[- ]time|adjunct|visiting|courtesy"
+  exclude_title_pattern: "emerit|retired|affiliate|part[- ]time|adjunct|visiting"
 opt_out: []
 color_by: department
 search_model: all-MiniLM-L6-v2
