@@ -19,3 +19,9 @@
 2026-11-07 [note] Centering person vectors: 48% -> 50% on curated-area check; adding courses w=0.15: 51%. Small, near noise at 87 people.
 
 2026-11-07 [decision] Full-time faculty only (Q6 confirmed); user is getting the OpenAlex key; user reviewed 10 people's neighbours.
+
+2026-11-07 [code] OpenAlex step: name matching within UW Bothell, works since 2011, candidates file for review; 59/89 matched, 2,306 works, ~$0.29.
+
+2026-11-07 [decision] Person vector weights self .40 / works .30 / venues .15 / courses .15, centred: 52% neighbours share a curated area (was 48%).
+
+2026-11-07 [code] Neighbour cut-off (90th percentile), e-mail/phone scrub with failing build check, off-map people searchable, publications on card.

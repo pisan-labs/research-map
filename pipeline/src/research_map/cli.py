@@ -3,15 +3,17 @@
 from __future__ import annotations
 
 import argparse
+import csv
 import datetime as dt
 import json
 import sys
 from dataclasses import asdict
 from pathlib import Path
 
+import numpy as np
 import yaml
 
-from . import bundle, model, roster
+from . import bundle, model, openalex, roster
 from .fetch import CachedFetcher
 from .profiles import parse_profile
 from .text import build_doc
@@ -74,6 +76,93 @@ def cmd_roster(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_openalex(args: argparse.Namespace) -> int:
+    cfg = load_config(args.config)
+    root = repo_root(args.config)
+    slug = cfg["slug"]
+    inst = cfg.get("openalex_institution")
+    if not inst:
+        print("config has no openalex_institution", file=sys.stderr)
+        return 1
+    data = root / "data" / slug
+    client = openalex.OpenAlexClient(data / "openalex", max_cost_usd=args.max_cost)
+    overrides = openalex.read_overrides(root / "config" / f"{slug}-openalex-overrides.csv")
+    people = roster.read_csv(root / "rosters" / f"{slug}.csv")
+
+    matches, works = [], {}
+    try:
+        for p in people:
+            m = openalex.match_person(client, p.id, p.name, p.orcid, inst, overrides,
+                                      cfg.get("openalex_fallback_institutions", []))
+            matches.append(m)
+            if not args.match_only:
+                works[p.id] = openalex.fetch_works(client, m.author_ids, args.since)
+    except openalex.BudgetExceeded as e:
+        print(f"stopped: {e}. Rerun tomorrow; cached responses are reused.", file=sys.stderr)
+        return 2
+    finally:
+        print(f"OpenAlex: {client.fresh_calls} fresh calls, ${client.spent:.4f}", file=sys.stderr)
+
+    out = root / "rosters" / f"{slug}-openalex-matches.csv"
+    with out.open("w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["id", "name", "how", "openalex_ids", "openalex_names", "works_count", "works_since"])
+        by_id = {p.id: p for p in people}
+        for m in matches:
+            w.writerow([m.person_id, by_id[m.person_id].name, m.how, "|".join(m.author_ids),
+                        "|".join(m.names), m.works_count, len(works.get(m.person_id, []))])
+    unmatched = [by_id[m.person_id].name for m in matches if not m.author_ids]
+    multi = [by_id[m.person_id].name for m in matches if len(m.author_ids) > 1]
+    print(f"matched {len(matches) - len(unmatched)}/{len(matches)}; "
+          f"{len(multi)} with several author records; wrote {out.relative_to(root)}", file=sys.stderr)
+    if unmatched:
+        print("unmatched: " + ", ".join(unmatched), file=sys.stderr)
+        cand_path = root / "rosters" / f"{slug}-openalex-candidates.csv"
+        try:
+            with cand_path.open("w", newline="", encoding="utf-8") as f:
+                w = csv.writer(f)
+                w.writerow(["id", "name", "candidate_id", "candidate_name", "works_count", "recent_affiliations"])
+                for m in matches:
+                    if m.author_ids or m.how == "none" and m.person_id in overrides:
+                        continue
+                    for c in openalex.candidates(client, by_id[m.person_id].name):
+                        w.writerow([m.person_id, by_id[m.person_id].name, c["id"], c["name"], c["works"], c["affiliations"]])
+            print(f"candidates for review: {cand_path.relative_to(root)} "
+                  f"(confirm in config/{slug}-openalex-overrides.csv)", file=sys.stderr)
+        except openalex.BudgetExceeded as e:
+            print(f"candidates incomplete: {e}", file=sys.stderr)
+    if works:
+        (data / "works.json").write_text(json.dumps(works))
+        n = sum(len(v) for v in works.values())
+        print(f"works since {args.since}: {n} ({n / max(len(works), 1):.0f} per person)", file=sys.stderr)
+    return 0
+
+
+def read_openalex_ids(path: Path) -> dict[str, list[str]]:
+    if not path.exists():
+        return {}
+    with path.open(newline="", encoding="utf-8") as f:
+        return {r["id"]: [x for x in r["openalex_ids"].split("|") if x] for r in csv.DictReader(f)}
+
+
+def coauthor_pairs(works: dict[str, list[dict]], oa_ids: dict[str, list[str]]) -> dict[str, dict[str, int]]:
+    """Papers shared by two people on the roster, counted once per paper."""
+    owner = {a: pid for pid, ids in oa_ids.items() for a in ids}
+    shared: dict[str, set[str]] = {}
+    for ws in works.values():
+        for w in ws:
+            people = sorted({owner[a] for a in w.get("authors", []) if a in owner})
+            for i, a in enumerate(people):
+                for b in people[i + 1 :]:
+                    shared.setdefault(f"{a}\t{b}", set()).add(w["id"])
+    out: dict[str, dict[str, int]] = {}
+    for key, ids in shared.items():
+        a, b = key.split("\t")
+        out.setdefault(a, {})[b] = len(ids)
+        out.setdefault(b, {})[a] = len(ids)
+    return out
+
+
 def cmd_build(args: argparse.Namespace) -> int:
     cfg = load_config(args.config)
     root = repo_root(args.config)
@@ -84,18 +173,32 @@ def cmd_build(args: argparse.Namespace) -> int:
     areas_path = root / "rosters" / f"{cfg['slug']}-areas.json"
     listed_areas = json.loads(areas_path.read_text()) if areas_path.exists() else {}
 
-    docs = [build_doc(p.id, p.keywords, profiles.get(p.id)) for p in people]
-    empty = [p for p, d in zip(people, docs) if not d.weighted]
+    works_path = data / "works.json"
+    works = json.loads(works_path.read_text()) if works_path.exists() else {}
+    if not works:
+        print("no data/<slug>/works.json: building from profile text only (run `openalex` first)", file=sys.stderr)
+    oa_ids = read_openalex_ids(root / "rosters" / f"{cfg['slug']}-openalex-matches.csv")
+
+    now = dt.date.today().year
+    docs = [build_doc(p.id, p.keywords, profiles.get(p.id), works.get(p.id)) for p in people]
+    empty = [i for i, d in enumerate(docs) if not d.components(now)]
+    left_off, left_off_docs = [people[i] for i in empty], [docs[i] for i in empty]
     if empty:
-        print(f"no text at all, left off: {', '.join(p.id for p in empty)}", file=sys.stderr)
-        keep = [i for i, d in enumerate(docs) if d.weighted]
+        print(f"no text at all, off the map (still searchable): {', '.join(p.id for p in left_off)}", file=sys.stderr)
+        keep = [i for i in range(len(docs)) if i not in set(empty)]
         people = [people[i] for i in keep]
         docs = [docs[i] for i in keep]
 
     embedder = model.Embedder(args.model, cache_dir=data)
-    vecs = model.person_vectors(docs, embedder)
+    vecs = model.person_vectors(docs, embedder, now=now)
     xy = model.layout(vecs, seed=args.seed)
     sim = model.similarity(vecs)
+    # Show a neighbour only if closer than 90% of all pairs (GTU hides weak matches too).
+    pairs = sim[np.triu_indices_from(sim, k=1)]
+    near_cutoff = float(np.quantile(pairs, 0.90))
+    coauthors = coauthor_pairs(works, oa_ids)
+    n_pairs = sum(len(v) for v in coauthors.values()) // 2
+    print(f"co-author pairs within the roster: {n_pairs}", file=sys.stderr)
     broad = model.leiden_areas(sim, k=8, resolution=args.broad, seed=args.seed)
     fine = model.leiden_areas(sim, k=6, resolution=args.fine, seed=args.seed)
     names = [p.name for p in people]
@@ -126,7 +229,11 @@ def cmd_build(args: argparse.Namespace) -> int:
         nbrs=nbrs,
         listed_areas=listed_areas,
         model_name=args.model,
-        left_off=[p.name for p in empty],
+        left_off=left_off,
+        left_off_docs=left_off_docs,
+        coauthors=coauthors,
+        near_cutoff=near_cutoff,
+        openalex_ids=oa_ids,
         as_of=dt.date.today().isoformat(),
     )
     out = root / "site" / cfg["slug"] / "index.html"
@@ -145,6 +252,13 @@ def main(argv: list[str] | None = None) -> int:
     r.add_argument("--refresh", action="store_true", help="refetch pages instead of using the cache")
     r.add_argument("--delay", type=float, default=1.0, help="seconds between requests")
     r.set_defaults(func=cmd_roster)
+
+    o = sub.add_parser("openalex", help="match people to OpenAlex and fetch their works")
+    o.add_argument("config", type=Path)
+    o.add_argument("--since", default="2011-01-01", help="earliest publication date")
+    o.add_argument("--max-cost", type=float, default=0.5, help="stop after this many USD of fresh calls")
+    o.add_argument("--match-only", action="store_true")
+    o.set_defaults(func=cmd_openalex)
 
     b = sub.add_parser("build", help="embed, lay out and write site/<slug>/index.html")
     b.add_argument("config", type=Path)

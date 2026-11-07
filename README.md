@@ -9,21 +9,32 @@ nearby points work on similar topics.
 
 ## First map: UW Bothell School of STEM
 
-`site/uwb-stem/index.html` is one self-contained file (about 450 KB) that
-works offline: open it in a browser, or host it anywhere. It shows the 87
-full-time STEM faculty who have research or teaching text on their public
-directory or profile pages.
+`site/uwb-stem/index.html` is one self-contained file (about 750 KB) that
+works offline: open it in a browser, or host it anywhere. It shows 87
+full-time STEM faculty, placed by their publications (OpenAlex), venues,
+profile text and courses; 2 more with no text are findable by search.
 
 ## Build
 
-Needs [uv](https://docs.astral.sh/uv/). Everything runs locally; no API keys.
+Needs [uv](https://docs.astral.sh/uv/). Embedding runs locally; the only key is a free OpenAlex key.
 
 ```bash
 cd pipeline
 uv sync
-uv run research-map roster ../config/uwb-stem.yaml   # scrape directory + profiles (cached in data/)
-uv run research-map build ../config/uwb-stem.yaml    # embed, lay out, write site/uwb-stem/index.html
+uv run research-map roster ../config/uwb-stem.yaml    # scrape directory + profiles (cached in data/)
+uv run research-map openalex ../config/uwb-stem.yaml  # match people, fetch works since 2011 (cached)
+uv run research-map build ../config/uwb-stem.yaml     # embed, lay out, write site/uwb-stem/index.html
 ```
+
+`openalex` needs an OpenAlex API key (free, $1/day of calls). In the cloud
+environment the network proxy adds it; locally set `OPENALEX_API_KEY`. It
+stops at `--max-cost` (default $0.50) and caches every response. It writes
+`rosters/<slug>-openalex-matches.csv` (who matched which author records, for
+review) and, for people it could not match safely,
+`rosters/<slug>-openalex-candidates.csv`. Confirm a candidate by adding a row
+to `config/<slug>-openalex-overrides.csv` (`id,openalex_ids,note`; ids
+separated by `|`, or `none` to skip a person). Works go to `data/` and are
+refetched cheaply from the cache.
 
 `roster` writes `rosters/<slug>.csv`, `rosters/<slug>-profiles.json` and
 `rosters/<slug>-areas.json` (the department's own research-area lists). These

@@ -19,12 +19,14 @@
     return "Other";
   }
   P.forEach((p, i) => { p.i = i; p.rank = rankOf(p.title); });
+  // People with no text at all are not drawn but can still be found by search.
+  const M = P.filter((p) => !p.off);
 
   // Stable group order per colour mode, computed once from all people, so a
   // filter never repaints the survivors. Largest group gets slot 1.
   function groupsFor(mode) {
     const key = mode === "area" ? (p) => String(p.area) : (p) => p[mode];
-    const counts = d3.rollup(P, (v) => v.length, key);
+    const counts = d3.rollup(M, (v) => v.length, key);
     const order = [...counts.keys()].sort((a, b) => counts.get(b) - counts.get(a) || String(a).localeCompare(String(b)));
     const label = (k) => {
       if (mode !== "area") return k;
@@ -65,7 +67,8 @@
   const norm = (s) => String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
   P.forEach((p) => {
     p._name = norm(p.name);
-    p._kw = norm([p.keywords, p.interests, p.listed.join(" "), p.terms.join(" ")].join(" . "));
+    p._kw = norm([p.keywords, p.interests, p.listed.join(" "), p.terms.join(" "), p.oa_topics.join(" . ")].join(" . "));
+    p._ttl = p.titles.map(norm);
     p._bio = norm(p.bio);
   });
   function search(q) {
@@ -80,9 +83,12 @@
       let all = true;
       for (const w of words) {
         const inName = p._name.includes(w), inKw = p._kw.includes(w), inBio = p._bio.includes(w);
-        if (!(inName || inKw || inBio)) all = false;
-        score += (inName ? 3 : 0) + (inKw ? 2 : 0) + (inBio ? 1 : 0);
+        const nTitles = p._ttl.reduce((n, t) => n + t.includes(w), 0);
+        if (!(inName || inKw || inBio || nTitles)) all = false;
+        // Titles: a few matching papers count, many do not keep adding (GTU: volume alone should not win).
+        score += (inName ? 3 : 0) + (inKw ? 2 : 0) + (inBio ? 1 : 0) + Math.min(nTitles, 4) * 0.5;
       }
+      if (phrase.includes(" ")) score += Math.min(p._ttl.filter((t) => t.includes(phrase)).length, 4);
       if (all && score > 0) hits.push({ p, score });
     }
     hits.sort((a, b) => b.score - a.score || a.p.name.localeCompare(b.p.name));
@@ -111,7 +117,7 @@
     W = Math.max(200, r.width); H = Math.max(200, r.height);
     DPR = window.devicePixelRatio || 1;
     canvas.width = Math.round(W * DPR); canvas.height = Math.round(H * DPR);
-    const xs = d3.extent(P, (p) => p.x), ys = d3.extent(P, (p) => p.y);
+    const xs = d3.extent(M, (p) => p.x), ys = d3.extent(M, (p) => p.y);
     // Keep the open legend (top-left) clear of points when there is room beside it.
     const lb = $("legendbox");
     const left = lb.open && W > 700 ? lb.offsetWidth + 24 : PAD;
@@ -154,7 +160,7 @@
     ctx.clearRect(0, 0, W, H);
     const k = T.k;
     const r = R * Math.min(1.6, Math.max(1, Math.sqrt(k) * 0.85));
-    const sel = state.sel !== null ? P[state.sel] : null;
+    const sel = state.sel !== null && !P[state.sel].off ? P[state.sel] : null;
 
     // Links from the selected person to their nearest people.
     if (sel) {
@@ -169,7 +175,7 @@
     }
 
     const nearSet = new Set(sel ? sel.near.map((n) => n.i) : []);
-    const order = [...P].sort((a, b) => (isActive(a) - isActive(b)) || (nearSet.has(a.i) - nearSet.has(b.i)));
+    const order = [...M].sort((a, b) => (isActive(a) - isActive(b)) || (nearSet.has(a.i) - nearSet.has(b.i)));
     for (const p of order) {
       const x = sx(p.x), y = sy(p.y);
       if (x < -20 || y < -20 || x > W + 20 || y > H + 20) continue;
@@ -188,7 +194,7 @@
     ctx.globalAlpha = 1;
 
     for (const idx of [state.hover, state.sel]) {
-      if (idx === null) continue;
+      if (idx === null || P[idx].off) continue;
       const p = P[idx];
       marker(sx(p.x), sy(p.y), r + 4, "circle");
       ctx.lineWidth = 2; ctx.strokeStyle = palette.hi; ctx.stroke();
@@ -217,7 +223,7 @@
 
     // Selected and hovered names always win the space.
     for (const idx of [state.sel, state.hover]) {
-      if (idx === null) continue;
+      if (idx === null || P[idx].off) continue;
       const p = P[idx];
       label(p.name, sx(p.x) + r + 7, sy(p.y), "600 13px system-ui, sans-serif", palette.ink, "left");
     }
@@ -228,7 +234,7 @@
       for (const a of DATA.topics) if (a.label && a.n > 1) label(a.label, sx(a.x), sy(a.y), "600 12px system-ui, sans-serif", palette.ink2);
     }
     if (k >= 2.4) {
-      const visible = P.filter((p) => isActive(p) && sx(p.x) > 0 && sx(p.x) < W && sy(p.y) > 0 && sy(p.y) < H);
+      const visible = M.filter((p) => isActive(p) && sx(p.x) > 0 && sx(p.x) < W && sy(p.y) > 0 && sy(p.y) < H);
       if (k >= 3.2 || visible.length < 40) {
         for (const p of visible) label(p.name, sx(p.x) + r + 5, sy(p.y), "12px system-ui, sans-serif", palette.ink2, "left");
       }
@@ -238,7 +244,7 @@
   // ------------------------------------------------------------ hit testing & tooltip
   function hit(mx, my) {
     let best = null, bd = 14 * 14;
-    for (const p of P) {
+    for (const p of M) {
       const dx = sx(p.x) - mx, dy = sy(p.y) - my, d = dx * dx + dy * dy;
       if (d < bd && (isActive(p) || d < 36)) { bd = d; best = p; }
     }
@@ -285,17 +291,17 @@
   }
 
   function renderOverview() {
-    const n = P.length;
+    const n = M.length;
     const areas = DATA.areas.filter((a) => a.label).map((a) =>
       `<li><button type="button" data-area="${a.id}"><span class="who">${esc(a.label)}</span><span class="score">${a.n}</span></button></li>`).join("");
     panel.innerHTML = `
       <h2>${esc(META.name)}</h2>
       <p class="sub muted">${n} faculty · as of ${esc(META.as_of)}</p>
       <p>Each point is a faculty member. People who describe similar research sit close together. Click a point to see that person's research and the ten people closest to them.</p>
-      <p class="muted">Shapes mark departments. Hollow points have little research text to go on, so their position is less certain.</p>
+      <p class="muted">Shapes mark departments. Hollow points have few publications and little profile text to go on, so their position is less certain.</p>
       <h3>Research areas (computed)</h3>
       <ul class="near">${areas}</ul>
-      ${META.left_off.length ? `<p class="muted">Not shown, because their directory and profile pages have no research or teaching text: ${META.left_off.map(esc).join(", ")}.</p>` : ""}
+      ${META.left_off.length ? `<p class="muted">Not on the map, because there is no research or teaching text or matched publication for them (they can still be found by search): ${META.left_off.map(esc).join(", ")}.</p>` : ""}
       <h3>How this map is made</h3>
       <p class="bio">${esc(META.method)}</p>
       <p class="bio">Sources: ${META.sources.map((u) => `<a href="${esc(u)}">${esc(u.replace(/^https?:\/\//, ""))}</a>`).join(", ")}. Corrections go to the directory page; the map is rebuilt from it.</p>`;
@@ -304,14 +310,19 @@
       setColorBy("area");
       state.focus = String(id);
       renderLegend(); draw();
-      zoomTo(P.filter((p) => p.area === id), 3);
+      zoomTo(M.filter((p) => p.area === id), 3);
     });
   }
 
   function renderPerson(p) {
     const links = [`<a href="${esc(p.url)}" target="_blank" rel="noopener">Directory profile</a>`]
       .concat(p.links.map((l) => `<a href="${esc(l.href)}" target="_blank" rel="noopener">${esc(l.text)}</a>`))
-      .concat(p.orcid ? [`<a href="https://orcid.org/${esc(p.orcid)}" target="_blank" rel="noopener">ORCID</a>`] : []);
+      .concat(p.orcid ? [`<a href="https://orcid.org/${esc(p.orcid)}" target="_blank" rel="noopener">ORCID</a>`] : [])
+      .concat(p.openalex.map((a, k) => `<a href="https://openalex.org/${esc(a)}" target="_blank" rel="noopener">OpenAlex${p.openalex.length > 1 ? " " + (k + 1) : ""}</a>`));
+    const works = p.works.map((w) =>
+      `<li><a href="${esc(w.u)}" target="_blank" rel="noopener">${hl(w.t, result ? result.words : [])}</a><span class="why">${esc(w.y || "")}${w.v ? " · " + esc(w.v) : ""}</span></li>`).join("");
+    const co = (p.coauthors || []).map(([j, n]) =>
+      `<li><button type="button" data-i="${j}"><span class="who">${esc(P[j].name)}</span><span class="score">${n} paper${n === 1 ? "" : "s"}</span></button></li>`).join("");
     const near = p.near.map((n) => {
       const q = P[n.i];
       const why = n.t.length ? "shared: " + n.t.join(", ") : esc(q.keywords || q.interests).slice(0, 90);
@@ -326,11 +337,15 @@
         ${p.keywords ? `<h3>Research (directory)</h3><p>${hl(p.keywords, words)}</p>` : ""}
         ${p.interests && p.interests !== p.keywords ? `<h3>Research interests (profile)</h3><p>${hl(p.interests, words)}</p>` : ""}
         ${p.listed.length ? `<h3>Listed research areas</h3>${chips(p.listed)}` : ""}
-        <h3>Distinctive terms</h3>${chips(p.terms)}
-        <h3>Closest people</h3><ul class="near">${near}</ul>
+        ${p.off ? `<p class="muted">Not on the map: the directory and profile pages have no research or teaching text for this person, and no publications were matched.</p>` : ""}
+        ${p.terms.length ? `<h3>Distinctive terms</h3>${chips(p.terms)}` : ""}
+        ${p.oa_topics.length ? `<h3>Publication topics (OpenAlex)</h3>${chips(p.oa_topics)}` : ""}
+        ${p.off ? "" : `<h3>Closest people</h3>${near ? `<ul class="near">${near}</ul>` : `<p class="muted">No one is close enough to show: this person's research is unlike the rest of the school's.</p>`}`}
+        ${co ? `<h3>Co-authors on this map</h3><ul class="near">${co}</ul>` : ""}
+        ${p.works.length ? `<h3>Recent publications <span class="count">(${p.n_works} since 2011)</span></h3><ul class="pubs">${works}</ul>` : ""}
         ${p.bio ? `<h3>Bio</h3><p class="bio">${hl(p.bio, words)}</p>` : ""}
         <h3>Links</h3><div class="links">${links.join("")}</div>
-        ${p.sparse ? `<p class="muted" style="margin-top:12px">Little research text is available for this person, so the position is approximate.</p>` : ""}
+        ${p.sparse && !p.off ? `<p class="muted" style="margin-top:12px">Few publications and little profile text are available for this person, so the position is approximate.</p>` : ""}
       </div>`;
     $("back").onclick = () => select(null);
     panel.querySelectorAll("[data-i]").forEach((b) => b.onclick = () => select(Number(b.dataset.i), true));
@@ -342,7 +357,8 @@
     panel.innerHTML = `<h2>${shown.length} match${shown.length === 1 ? "" : "es"}</h2>
       <p class="sub muted">for “${esc(state.q)}”${state.dept || state.rank ? " within the filters" : ""}</p>
       <ul class="hits">${shown.map(({ p }) => {
-        const why = [p.keywords, p.interests].find((t) => result.words.some((w) => norm(t).includes(w))) || p.keywords || p.interests || "";
+        const hitTitle = p.titles.find((t) => result.words.every((w) => norm(t).includes(w))) || p.titles.find((t) => result.words.some((w) => norm(t).includes(w)));
+        const why = [p.keywords, p.interests].find((t) => result.words.some((w) => norm(t).includes(w))) || hitTitle || p.keywords || p.interests || "";
         return `<li><button type="button" data-i="${p.i}"><b>${hl(p.name, result.words)}</b> <span class="muted">${esc(p.program)}</span><span class="why">${hl(why.slice(0, 160), result.words)}</span></button></li>`;
       }).join("")}</ul>
       ${shown.length ? "" : `<p class="muted">No one matches. Try a broader word, or clear the filters.</p>`}`;
@@ -359,7 +375,7 @@
     state.sel = i;
     try { history.replaceState(null, "", i === null ? location.pathname + location.search : "#p=" + encodeURIComponent(P[i].id)); } catch (_) { /* file:// in some browsers */ }
     renderPanel(); draw();
-    if (i !== null && pan) {
+    if (i !== null && pan && !P[i].off) {
       const p = P[i];
       zoomTo([p, ...p.near.slice(0, 5).map((n) => P[n.i])], 4);
     }
@@ -388,7 +404,7 @@
     if (rest.length) rows.push(`<div class="note">${swatch(palette.other, "circle")} Other: ${rest.length} smaller groups</div>`);
     const shapes = state.colorBy === "department" ? "" :
       `<div class="note">${DEPTS.map((d) => swatch(palette.ink2, shapeOf({ department: d })) + " " + esc(d)).join("<br>")}</div>`;
-    legend.innerHTML = rows.join("") + shapes + `<div class="note">${swatch(palette.ink2, "circle", true)} little research text</div>`;
+    legend.innerHTML = rows.join("") + shapes + `<div class="note">${swatch(palette.ink2, "circle", true)} few publications, little text</div>`;
     legend.querySelectorAll("[data-k]").forEach((b) => b.onclick = () => {
       state.focus = state.focus === b.dataset.k ? null : b.dataset.k;
       renderLegend(); draw();
@@ -421,7 +437,7 @@
       result = r ? { ...r, set: new Set(r.hits.map((h) => h.p.i)) } : null;
       state.sel = null;
       renderPanel(); draw();
-      if (result && result.hits.length) zoomTo(result.hits.map((h) => h.p).filter(passesFilters), 3);
+      if (result && result.hits.length) zoomTo(result.hits.map((h) => h.p).filter((p) => passesFilters(p) && !p.off), 3);
     }, 160);
   });
   $("q").addEventListener("keydown", (e) => {
@@ -451,8 +467,8 @@
 
   // ------------------------------------------------------------ start
   $("title").textContent = META.name + " research map";
-  $("subtitle").textContent = `${P.length} faculty · built ${META.as_of} from public directory pages`;
-  $("foot").innerHTML = `Data: public ${esc(META.university)} directory and profile pages, as of ${esc(META.as_of)}. Not a ranking or evaluation of anyone. Model: ${esc(META.model)}.`;
+  $("subtitle").textContent = `${M.length} faculty · built ${META.as_of} from public directory pages and OpenAlex`;
+  $("foot").innerHTML = `Data: public ${esc(META.university)} directory and profile pages, and publications from <a href="https://openalex.org">OpenAlex</a>, as of ${esc(META.as_of)}. Not a ranking or evaluation of anyone. Model: ${esc(META.model)}.`;
 
   let saved = null;
   try { saved = localStorage.getItem("rm-theme"); } catch (_) { /* storage blocked */ }

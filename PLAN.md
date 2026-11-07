@@ -166,14 +166,30 @@ Done:
 
 - Your review of 10 people's neighbours (done 2026-11-07).
 
+- OpenAlex (2026-11-07): 59 of 89 matched by name within UW Bothell (then
+  UW Seattle, single record only); 2,306 works since 2011, 79% with
+  abstracts. Common names with several records or over 500 works (Min Chen,
+  Zhao Wang, Jeffrey Kim) are left for review, not guessed. 27 people have
+  no UW-affiliated record; name-matched candidates are in
+  `rosters/uwb-stem-openalex-candidates.csv` to confirm by hand. Cost of the
+  whole step: about $0.29 of the free $1/day.
+- Person vector = self-description .40, works .30, venues .15, courses .15,
+  centred. Neighbours sharing a curated area: 52% (was 48%). Works alone
+  score 40%, but the curated lists come from self-descriptions, so this
+  check favours self text; re-tune on the search test set in Phase 1. Same
+  ranking of blends on MiniLM, all-mpnet and SPECTER2 (49%); MiniLM kept.
+- Neighbours shown only above the 90th percentile of all pair similarities.
+- E-mails and phone numbers scrubbed; the build fails if any remain.
+- People off the map (2) are searchable; search also covers work titles.
+- Person card: recent publications with links, OpenAlex topics, co-authors
+  on the map (19 pairs).
+- Labels from self text plus OpenAlex topic names (raw titles were noisy).
+
 Still to do in Phase 0:
 
-- OpenAlex works (you are getting the Q4 key), with ORCID-first matching;
-  hollow below 6 records.
-- Centre person vectors; hide neighbours below a cut-off.
-- Scrub e-mails and phone numbers from bios; privacy scan in the build.
-- Keep people who are off the map searchable.
-- A `labels.yaml` override for weak computed labels ("strategies · space").
+- You confirm OpenAlex candidates for the 27 unmatched and 3 ambiguous
+  people (overrides file).
+- A `labels.yaml` override for weak computed labels ("integrity · outcomes").
 
 ### Phase 1: generalise
 

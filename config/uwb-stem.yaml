@@ -3,7 +3,9 @@ slug: uwb-stem
 name: UW Bothell School of STEM
 university: University of Washington Bothell
 # OpenAlex institution id, used once an OpenAlex key is available.
-openalex_institution: null
+openalex_institution: I4210138624  # University of Washington Bothell
+# Tried when nobody matches at the main institution (some Bothell papers say "University of Washington").
+openalex_fallback_institutions: [I201448701]
 base_url: https://www.uwb.edu/
 directory:
   - department: Biological Sciences

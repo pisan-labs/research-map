@@ -1,0 +1,273 @@
+"""OpenAlex: match roster people to author records and fetch their works.
+
+The API key is not handled here. In the cloud environment a network proxy
+adds it to every request to api.openalex.org; locally, set OPENALEX_API_KEY
+and it is sent as a Bearer token.
+
+Every response is cached under data/<slug>/openalex/ keyed by URL, so reruns
+cost nothing. Fresh requests add up the `cost_usd` OpenAlex reports and stop
+when a spending cap is reached.
+"""
+
+from __future__ import annotations
+
+import csv
+import hashlib
+import json
+import os
+import re
+import time
+import unicodedata
+from dataclasses import dataclass, field
+from pathlib import Path
+from urllib.parse import urlencode
+
+import httpx
+
+API = "https://api.openalex.org"
+WORK_FIELDS = (
+    "id,doi,title,publication_year,type,abstract_inverted_index,primary_location,"
+    "topics,authorships,awards,is_retracted,is_paratext"
+)
+
+
+class BudgetExceeded(RuntimeError):
+    pass
+
+
+class OpenAlexClient:
+    def __init__(self, cache_dir: Path, max_cost_usd: float = 0.5, delay: float = 0.15):
+        self.cache_dir = cache_dir
+        self.max_cost = max_cost_usd
+        self.spent = 0.0
+        self.fresh_calls = 0
+        self.delay = delay
+        headers = {"User-Agent": "research-map/0.1 (+https://github.com/pisan-labs/research-map)"}
+        key = os.environ.get("OPENALEX_API_KEY", "")
+        if key and key != "proxy-injected":
+            headers["Authorization"] = f"Bearer {key}"
+        self.http = httpx.Client(headers=headers, timeout=60, follow_redirects=True)
+
+    def get(self, path: str, params: dict | None = None) -> dict:
+        url = f"{API}{path}" + (f"?{urlencode(params, safe=':,|*')}" if params else "")
+        cache = self.cache_dir / f"{hashlib.sha256(url.encode()).hexdigest()[:20]}.json"
+        if cache.exists():
+            return json.loads(cache.read_text())
+        if self.spent >= self.max_cost:
+            raise BudgetExceeded(f"spent ${self.spent:.4f}, cap ${self.max_cost}")
+        for attempt in range(4):
+            resp = self.http.get(url)
+            if resp.status_code == 429 or resp.status_code >= 500:
+                time.sleep(2**attempt)
+                continue
+            break
+        resp.raise_for_status()
+        data = resp.json()
+        self.fresh_calls += 1
+        self.spent += float((data.get("meta") or {}).get("cost_usd") or 0)
+        cache.parent.mkdir(parents=True, exist_ok=True)
+        cache.write_text(json.dumps(data))
+        time.sleep(self.delay)
+        return data
+
+
+# ---------------------------------------------------------------- names
+
+
+def norm_name(name: str) -> list[str]:
+    """Lowercase ASCII tokens; drops bracketed nicknames and degree suffixes."""
+    name = re.sub(r"\([^)]*\)", " ", name)
+    name = unicodedata.normalize("NFKD", name).encode("ascii", "ignore").decode()
+    toks = re.findall(r"[a-z]+", name.lower())
+    return [t for t in toks if t not in {"dr", "phd", "jr", "sr", "ii", "iii", "md", "pe"}]
+
+
+def nicknames(name: str) -> list[str]:
+    return [t.lower() for t in re.findall(r"\(([^)]+)\)", name)]
+
+
+def name_matches(roster_name: str, candidate: str) -> bool:
+    """Same family name and the same given name.
+
+    Given names match in full, by a bracketed nickname ("Zachary (Zak)"), or
+    when one is a prefix of the other and both have 4+ letters (Jeff /
+    Jeffrey). Initials alone are not enough: "Z. Wang" could be anyone. A
+    middle initial on both sides must agree.
+    """
+    r, c = norm_name(roster_name), norm_name(candidate)
+    if len(r) < 2 or len(c) < 2:
+        return False
+    last = r[-1]
+    if last not in c:
+        return False
+    firsts = [r[0]] + [n for nick in nicknames(roster_name) for n in norm_name(nick)]
+    c_rest = [t for t in c if t != last]
+    c_first = c_rest[0] if c_rest else ""
+    ok = any(
+        f == c_first or (len(f) >= 4 and len(c_first) >= 4 and (f.startswith(c_first) or c_first.startswith(f)))
+        for f in firsts
+    )
+    if not ok:
+        return False
+    r_mid = [t for t in r[1:-1]]
+    c_mid = c_rest[1:]
+    if r_mid and c_mid and r_mid[0][0] != c_mid[0][0]:
+        return False
+    return True
+
+
+# ---------------------------------------------------------------- matching
+
+
+@dataclass
+class Match:
+    person_id: str
+    author_ids: list[str] = field(default_factory=list)
+    names: list[str] = field(default_factory=list)
+    works_count: int = 0
+    how: str = ""  # orcid | search | override | none
+
+
+def short_id(url_or_id: str) -> str:
+    return url_or_id.rstrip("/").split("/")[-1]
+
+
+def read_overrides(path: Path) -> dict[str, list[str]]:
+    """CSV: id,openalex_ids,note. openalex_ids is 'A1|A2', or 'none' to skip a person."""
+    if not path.exists():
+        return {}
+    out = {}
+    with path.open(newline="", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            ids = row.get("openalex_ids", "").strip()
+            out[row["id"].strip()] = [] if ids.lower() == "none" else [short_id(x) for x in ids.split("|") if x.strip()]
+    return out
+
+
+def _search(client: OpenAlexClient, name: str, filt: str | None) -> list[dict]:
+    params = {
+        "search": " ".join(re.sub(r"\([^)]*\)", " ", name).split()),
+        "select": "id,display_name,display_name_alternatives,works_count,affiliations",
+        "per_page": 25,
+    }
+    if filt:
+        params["filter"] = filt
+    return client.get("/authors", params).get("results", [])
+
+
+def _name_hits(name: str, results: list[dict]) -> list[dict]:
+    return [a for a in results if name_matches(name, a["display_name"])]
+
+
+MAX_RECORDS = 3  # more author records than this for one name: likely several people
+MAX_WORKS = 500  # more works than this in total: likely merged people
+
+
+def candidates(client: OpenAlexClient, name: str) -> list[dict]:
+    """Name matches anywhere, for a person to confirm by hand (overrides file)."""
+    out = []
+    for a in _name_hits(name, _search(client, name, None))[:6]:
+        affs = sorted(
+            ((x["institution"]["display_name"], min(x.get("years") or [0]), max(x.get("years") or [0]))
+             for x in (a.get("affiliations") or [])),
+            key=lambda t: -t[2],
+        )[:3]
+        out.append({"id": short_id(a["id"]), "name": a["display_name"], "works": a.get("works_count", 0),
+                    "affiliations": "; ".join(f"{n} {lo}-{hi}" for n, lo, hi in affs)})
+    return out
+
+
+def match_person(client: OpenAlexClient, pid: str, name: str, orcid: str, institution: str,
+                 overrides: dict[str, list[str]], fallback_institutions: list[str] = ()) -> Match:
+    if pid in overrides:
+        ids = overrides[pid]
+        return Match(pid, ids, how="override" if ids else "none")
+    if orcid:
+        data = client.get(f"/authors/orcid:{orcid}", {"select": "id,display_name,works_count"})
+        if data.get("id"):
+            return Match(pid, [short_id(data["id"])], [data["display_name"]], data.get("works_count", 0), "orcid")
+    m = Match(pid, how="search")
+    hits = _name_hits(name, _search(client, name, f"affiliations.institution.id:{institution}"))
+    if not hits and fallback_institutions:
+        wider = _name_hits(name, _search(client, name, "affiliations.institution.id:" + "|".join(fallback_institutions)))
+        if len(wider) == 1:  # wider net: only an unambiguous single record
+            hits, m.how = wider, "search-wider"
+        elif wider:
+            m.how = "ambiguous"
+            return m
+    total = sum(a.get("works_count", 0) for a in hits)
+    if len(hits) > MAX_RECORDS or total > MAX_WORKS:
+        m.how = "ambiguous"
+        m.names = [a["display_name"] for a in hits]
+        m.works_count = total
+        return m
+    for a in hits:
+        m.author_ids.append(short_id(a["id"]))
+        m.names.append(a["display_name"])
+        m.works_count += a.get("works_count", 0)
+    if not m.author_ids and m.how != "ambiguous":
+        m.how = "none"
+    return m
+
+
+# ---------------------------------------------------------------- works
+
+
+def abstract_text(inverted: dict | None) -> str:
+    if not inverted:
+        return ""
+    pos: list[tuple[int, str]] = []
+    for word, idxs in inverted.items():
+        pos += [(i, word) for i in idxs]
+    return " ".join(w for _, w in sorted(pos))
+
+
+def fetch_works(client: OpenAlexClient, author_ids: list[str], since: str) -> list[dict]:
+    """All works by any of these author records, newest first, slimmed down."""
+    if not author_ids:
+        return []
+    out, cursor = [], "*"
+    while cursor:
+        data = client.get(
+            "/works",
+            {
+                "filter": f"author.id:{'|'.join(author_ids)},from_publication_date:{since}",
+                "select": WORK_FIELDS,
+                "per_page": 200,
+                "cursor": cursor,
+                "sort": "publication_date:desc",
+            },
+        )
+        for w in data.get("results", []):
+            if w.get("is_retracted") or w.get("is_paratext") or not w.get("title"):
+                continue
+            src = ((w.get("primary_location") or {}).get("source") or {})
+            out.append(
+                {
+                    "id": short_id(w["id"]),
+                    "doi": w.get("doi") or "",
+                    "title": re.sub(r"<[^>]+>", "", w["title"]).strip(),
+                    "year": w.get("publication_year"),
+                    "type": w.get("type", ""),
+                    "venue": src.get("display_name") or "",
+                    "abstract": abstract_text(w.get("abstract_inverted_index"))[:1500],
+                    "topics": [t["display_name"] for t in (w.get("topics") or [])[:3]],
+                    "authors": [short_id(a["author"]["id"]) for a in w.get("authorships", [])
+                                if (a.get("author") or {}).get("id")],
+                    "awards": [
+                        {"funder": a.get("funder_display_name", ""), "award": a.get("funder_award_id", "")}
+                        for a in (w.get("awards") or [])
+                    ],
+                }
+            )
+        cursor = (data.get("meta") or {}).get("next_cursor")
+        if not data.get("results"):
+            break
+    seen, uniq = set(), []
+    for w in out:
+        key = re.sub(r"\W+", " ", w["title"].lower()).strip()
+        if key in seen:
+            continue  # preprint and published version of the same paper
+        seen.add(key)
+        uniq.append(w)
+    return uniq

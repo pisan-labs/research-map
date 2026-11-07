@@ -57,18 +57,47 @@ class Embedder:
         return np.array([self.cache[k] for k in keys], dtype=np.float32)
 
 
-def person_vectors(docs: Sequence[Doc], embedder: Embedder) -> np.ndarray:
-    """Weighted mean of each person's field vectors, L2-normalised."""
-    flat: list[str] = []
-    owners: list[tuple[int, float]] = []
-    for i, d in enumerate(docs):
-        for text, w in d.weighted:
-            flat.append(text)
-            owners.append((i, w))
+def person_vectors(
+    docs: Sequence[Doc],
+    embedder: Embedder,
+    weights: dict[str, float] | None = None,
+    now: int | None = None,
+    center: bool = True,
+) -> np.ndarray:
+    """Weighted mean of each person's component vectors, optionally centred.
+
+    Each component (works, self-description, venues, courses) is its own
+    weighted mean, normalised, so a person with 200 papers and one with 5 get
+    the same say from their works. Components a person lacks are skipped.
+    Centring (subtracting the mean person) removes the direction everyone
+    shares, so similarity scores spread around 0.
+    """
+    import datetime as dt
+
+    from .text import COMPONENT_WEIGHTS
+
+    weights = weights or COMPONENT_WEIGHTS
+    now = now or dt.date.today().year
+    comps = [d.components(now) for d in docs]
+    flat = sorted({t for c in comps for items in c.values() for t, _ in items})
+    index = {t: i for i, t in enumerate(flat)}
     vecs = embedder.encode(flat)
     out = np.zeros((len(docs), vecs.shape[1]), dtype=np.float32)
-    for (i, w), v in zip(owners, vecs):
-        out[i] += w * v
+    for i, c in enumerate(comps):
+        total = 0.0
+        for name, items in c.items():
+            cw = weights.get(name, 0.0)
+            if cw <= 0:
+                continue
+            v = sum(w * vecs[index[t]] for t, w in items)
+            n = np.linalg.norm(v)
+            if n > 0:
+                out[i] += cw * v / n
+                total += cw
+        if total:
+            out[i] /= total
+    if center:
+        out -= out.mean(axis=0)
     norms = np.linalg.norm(out, axis=1, keepdims=True)
     norms[norms == 0] = 1.0
     return out / norms
