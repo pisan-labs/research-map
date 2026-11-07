@@ -192,9 +192,9 @@ Done:
 
 Still to do in Phase 0:
 
-- You confirm OpenAlex candidates for the people still unmatched (overrides
-  file), including the 3 probable but rejected matches (Lewis, Gliboff,
-  Champion) whose papers predate their current teaching-focused profiles.
+- Overrides confirmed 2026-11-07 for 7 people (Retik, Martensen, Khemani,
+  Price, Lewis, Gliboff, Champion): 65 of 89 matched, 2,195 works. Other
+  candidates remain in `rosters/uwb-stem-openalex-candidates.csv`.
 - A `labels.yaml` override for weak computed labels ("integrity · outcomes").
 
 ### Phase 1: generalise

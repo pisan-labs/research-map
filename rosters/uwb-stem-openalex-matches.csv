@@ -5,23 +5,23 @@ heather-galindo,Heather Galindo,search,A5021371143,Heather M. Galindo,11,7,0.39
 guy-hamilton,Guy Hamilton,none,,,0,0,
 kristina-hillesland,Kristina Hillesland,search,A5044235172,Kristina Linnea Hillesland,33,14,0.75
 jeffrey-jensen,Jeff Jensen,none,,,0,0,
-alaron-lewis,Alaron Lewis,rejected-topic,,Alaron A. Lewis,10,0,0.15
+alaron-lewis,Alaron Lewis,override,A5111386997,,0,5,0.15
 rick-mclaughlin,Rick McLaughlin,search-wider,A5036304574,Richard N. McLaughlin,26,26,0.81
 elizabeth-ostrowski,Elizabeth Ostrowski,search,A5070912354,Elizabeth A. Ostrowski,25,15,0.60
-michele-price,Michele B. Price,none,,,0,0,
+michele-price,Michele B. Price,override,A5013186329,,0,1,0.57
 han-wei-shih,Han-Wei Shih,search,A5059810372,Han-Wei Shih,12,11,0.61
 douglas-wacker,Douglas Wacker,search,A5052890080,Douglas W. Wacker,30,13,0.77
 jesse-zaneveld,Jesse Zaneveld,search,A5037261939|A5001411177,Jesse Zaneveld|Zaneveld Jesse,76,49,0.69
 laurie-anderson,Laurie Anderson,search,A5156708641,Laurie Anderson,1,1,0.54
 murat-ayhan,Murat Seçkin Ayhan,search,A5039273153,Murat Seçkin Ayhan,25,21,0.70
 kaylea-champion,Kaylea Champion,search,A5032792363,Kaylea Champion,36,27,0.64
-mia-champion,Mia Champion,rejected-topic,,Mia Champion,1,0,0.29
+mia-champion,Mia Champion,override,A5123020517,,0,1,0.29
 min-chen,Min Chen,strict,A5100337209|A5062581654|A5100337178|A5066425157|A5102836844|A5100773296|A5124676969|A5144350795|A5150998110|A5128785020|A5133309789,Min Chen|Min Chen|Min Chen|Chen Min|Min Chen|Min Chen|Min Chen|Min Chen|Min Chen|Min Chen|Min Chen,1831,49,0.62
 morteza-chini,Morteza Chini,search,A5063762889,Morteza Chini,1,1,0.23
 dharma-dailey,Dharma Dailey,search,A5108213960,Dharma Dailey,34,25,0.52
 marc-dupuis,Marc Dupuis,search,A5003202268|A5102725128,Marc Dupuis|Marc Dupuis,152,124,0.70
 munehiro-fukuda,Munehiro Fukuda,search,A5090114871,Munehiro Fukuda,75,39,0.71
-vishesh-khemani,Vishesh Khemani,none,,,0,0,
+vishesh-khemani,Vishesh Khemani,override,A5050047493,,0,1,0.26
 jeffrey-kim,Jeffrey Kim,ambiguous,,Jeffrey J. Kim|Jeffrey Y. Kim|Jeffrey D. Kim,0,0,
 wooyoung-kim,Wooyoung Kim,search,A5118844306,Wooyoung Kim,234,149,0.60
 nancy-kool,Nancy Kool,none,,,0,0,
@@ -33,7 +33,7 @@ clark-olson,Clark Olson,search,A5111439232,Clark F. Olson,74,8,0.57
 erika-parsons,Erika F. Parsons,search-wider,A5016933439,Erika Parsons,1,1,0.45
 yang-peng,Yang Peng,search,A5061651732|A5136234476,Yang Peng|Yang Peng,101,74,0.59
 yusuf-pisan,Yusuf Pisan,search,A5040691713,Yusuf Pisan,71,29,0.68
-arkady-retik,Arkady Retik,none,,,0,0,
+arkady-retik,Arkady Retik,override,A5033744147,,0,8,0.67
 zachary-rubin,Zachary (Zak) Rubin,none,,,0,0,
 dong-si,Dong Si,search,A5080683855|A5020281527,Dong Si|Dong Si,99,95,0.55
 michael-stiber,Michael Stiber,search,A5043729892,Michael Stiber,77,14,0.71
@@ -60,7 +60,7 @@ nicole-hoover,Nicole Hoover,search,A5138969782,Nicole Hoover,2,2,0.21
 thomas-humphries,Thomas Humphries,search,A5016648384,Thomas Humphries,30,24,0.64
 milagros-loreto,Milagros Loreto,search,A5036050052,Milagros Loreto,8,4,0.61
 casey-mann,Casey Mann,search,A5014808372|A5158163856,Casey Mann|Casey Mann,17,11,0.64
-brian-martensen,Brian Martensen,none,,,0,0,
+brian-martensen,Brian Martensen,override,A5004171571,,0,5,0.37
 jennifer-mcloud-mann,Jennifer McLoud-Mann,search,A5004133819,Jennifer McLoud-Mann,14,8,0.45
 alexandria-musselman,Alexandria Musselman,none,,,0,0,
 clark-musselman,Clark Musselman,search-wider,A5001866771,Clark Musselman,2,1,0.40
@@ -83,7 +83,7 @@ charity-lovitt,Charity Lovitt,search,A5043029241,Charity Flener Lovitt,25,19,0.7
 lori-robins,Lori Robins,search,A5062624181,Lori I. Robins,44,24,0.63
 muralidhara-thimmaiah,Muralidhara Thimmaiah,none,,,0,0,
 eric-salathe,Eric Salathé Jr.,search,A5036951533,Eric P. Salathé,162,43,0.82
-matthew-gliboff,Matthew Gliboff,rejected-topic,,Matthew Gliboff,6,0,0.09
+matthew-gliboff,Matthew Gliboff,override,A5058022549,,0,6,0.09
 alanna-pawlak,Alanna Pawlak,none,,,0,0,
 paola-rodriguez-hidalgo,Paola Rodríguez Hidalgo,search,A5083345063,Paola Rodríguez Hidalgo,60,49,0.71
 rachel-scherr,Rachel Scherr,search,A5064151081,Rachel E. Scherr,140,90,0.80
