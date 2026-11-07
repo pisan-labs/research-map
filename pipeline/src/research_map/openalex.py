@@ -86,13 +86,37 @@ def nicknames(name: str) -> list[str]:
     return [t.lower() for t in re.findall(r"\(([^)]+)\)", name)]
 
 
+# Common English short forms. A prefix rule ("Zhao" ~ "Zhaoming") matched
+# different people, so only these pairs count as the same given name.
+NICKNAMES = {
+    "jeff": {"jeffrey", "jeffery", "geoffrey"}, "bill": {"william"}, "will": {"william"},
+    "rick": {"richard", "ricardo", "eric", "frederick"}, "rich": {"richard"}, "dick": {"richard"},
+    "bob": {"robert"}, "rob": {"robert"}, "zak": {"zachary"}, "zach": {"zachary"},
+    "alex": {"alexander", "alexandre", "alexandra", "alexandria"}, "mike": {"michael"},
+    "jim": {"james"}, "tom": {"thomas"}, "dan": {"daniel"}, "dave": {"david"}, "steve": {"steven", "stephen"},
+    "chris": {"christopher", "christine", "christina"}, "kate": {"katherine", "kathryn", "katharine"},
+    "liz": {"elizabeth"}, "beth": {"elizabeth"}, "andy": {"andrew"}, "matt": {"matthew"},
+    "tony": {"anthony"}, "joe": {"joseph"}, "ben": {"benjamin"}, "sam": {"samuel", "samantha"},
+    "nick": {"nicholas"}, "pat": {"patrick", "patricia"}, "sue": {"susan"}, "jen": {"jennifer"},
+    "jenny": {"jennifer"}, "ed": {"edward"}, "ted": {"edward", "theodore"}, "greg": {"gregory"},
+    "ken": {"kenneth"}, "larry": {"lawrence"}, "tim": {"timothy"}, "wolf": {"wolfgang", "bjong"},
+    "joey": {"joanna", "josephine"}, "jong": {"jong"},
+}
+
+
+def same_given_name(a: str, b: str) -> bool:
+    if a == b:
+        return True
+    return b in NICKNAMES.get(a, ()) or a in NICKNAMES.get(b, ())
+
+
 def name_matches(roster_name: str, candidate: str) -> bool:
     """Same family name and the same given name.
 
     Given names match in full, by a bracketed nickname ("Zachary (Zak)"), or
-    when one is a prefix of the other and both have 4+ letters (Jeff /
-    Jeffrey). Initials alone are not enough: "Z. Wang" could be anyone. A
-    middle initial on both sides must agree.
+    through the NICKNAMES table (Jeff / Jeffrey). Initials alone are not
+    enough: "Z. Wang" could be anyone. A middle initial on both sides must
+    agree.
     """
     r, c = norm_name(roster_name), norm_name(candidate)
     if len(r) < 2 or len(c) < 2:
@@ -103,11 +127,7 @@ def name_matches(roster_name: str, candidate: str) -> bool:
     firsts = [r[0]] + [n for nick in nicknames(roster_name) for n in norm_name(nick)]
     c_rest = [t for t in c if t != last]
     c_first = c_rest[0] if c_rest else ""
-    ok = any(
-        f == c_first or (len(f) >= 4 and len(c_first) >= 4 and (f.startswith(c_first) or c_first.startswith(f)))
-        for f in firsts
-    )
-    if not ok:
+    if not any(same_given_name(f, c_first) for f in firsts):
         return False
     r_mid = [t for t in r[1:-1]]
     c_mid = c_rest[1:]
@@ -125,7 +145,10 @@ class Match:
     author_ids: list[str] = field(default_factory=list)
     names: list[str] = field(default_factory=list)
     works_count: int = 0
-    how: str = ""  # orcid | search | override | none
+    how: str = ""  # orcid | search | search-wider | strict | override | none | ambiguous
+    # For common names with several records: keep only works where this
+    # author is listed with an institution in `strict_lineage`.
+    strict_lineage: str = ""
 
 
 def short_id(url_or_id: str) -> str:
@@ -144,15 +167,28 @@ def read_overrides(path: Path) -> dict[str, list[str]]:
     return out
 
 
+def search_queries(name: str) -> list[str]:
+    """First + last name, and nickname + last: middle initials hide records."""
+    toks = norm_name(name)
+    if len(toks) < 2:
+        return [" ".join(toks)]
+    qs = [f"{toks[0]} {toks[-1]}"] + [f"{n} {toks[-1]}" for nick in nicknames(name) for n in norm_name(nick)[:1]]
+    return list(dict.fromkeys(qs))
+
+
 def _search(client: OpenAlexClient, name: str, filt: str | None) -> list[dict]:
-    params = {
-        "search": " ".join(re.sub(r"\([^)]*\)", " ", name).split()),
-        "select": "id,display_name,display_name_alternatives,works_count,affiliations",
-        "per_page": 25,
-    }
-    if filt:
-        params["filter"] = filt
-    return client.get("/authors", params).get("results", [])
+    seen: dict[str, dict] = {}
+    for q in search_queries(name):
+        params = {
+            "search": q,
+            "select": "id,display_name,display_name_alternatives,works_count,affiliations",
+            "per_page": 25,
+        }
+        if filt:
+            params["filter"] = filt
+        for a in client.get("/authors", params).get("results", []):
+            seen.setdefault(a["id"], a)
+    return list(seen.values())
 
 
 def _name_hits(name: str, results: list[dict]) -> list[dict]:
@@ -189,17 +225,23 @@ def match_person(client: OpenAlexClient, pid: str, name: str, orcid: str, instit
     m = Match(pid, how="search")
     hits = _name_hits(name, _search(client, name, f"affiliations.institution.id:{institution}"))
     if not hits and fallback_institutions:
-        wider = _name_hits(name, _search(client, name, "affiliations.institution.id:" + "|".join(fallback_institutions)))
+        filt = "affiliations.institution.lineage:" + "|".join(fallback_institutions)
+        wider = _name_hits(name, _search(client, name, filt))
         if len(wider) == 1:  # wider net: only an unambiguous single record
             hits, m.how = wider, "search-wider"
         elif wider:
             m.how = "ambiguous"
+            m.names = [a["display_name"] for a in wider]
             return m
     total = sum(a.get("works_count", 0) for a in hits)
     if len(hits) > MAX_RECORDS or total > MAX_WORKS:
-        m.how = "ambiguous"
+        # Several records or merged people: take them all, but only the works
+        # where this author is listed at the institution (fetch_works checks).
+        m.how = "strict"
+        m.strict_lineage = institution
         m.names = [a["display_name"] for a in hits]
         m.works_count = total
+        m.author_ids = [short_id(a["id"]) for a in hits]
         return m
     for a in hits:
         m.author_ids.append(short_id(a["id"]))
@@ -222,16 +264,35 @@ def abstract_text(inverted: dict | None) -> str:
     return " ".join(w for _, w in sorted(pos))
 
 
-def fetch_works(client: OpenAlexClient, author_ids: list[str], since: str) -> list[dict]:
-    """All works by any of these author records, newest first, slimmed down."""
+def _listed_at(w: dict, author_ids: set[str], institution: str) -> bool:
+    """True if one of these authors is listed with this institution on the work."""
+    for a in w.get("authorships", []):
+        if short_id((a.get("author") or {}).get("id") or "") in author_ids:
+            for inst in a.get("institutions", []):
+                ids = {short_id(inst.get("id") or "")} | {short_id(x) for x in inst.get("lineage") or []}
+                if institution in ids:
+                    return True
+    return False
+
+
+def fetch_works(client: OpenAlexClient, author_ids: list[str], since: str, strict_institution: str = "") -> list[dict]:
+    """All works by any of these author records, newest first, slimmed down.
+
+    With strict_institution, only works where one of these authors is listed
+    at that institution (for common names whose records mix people).
+    """
     if not author_ids:
         return []
+    ids = set(author_ids)
+    filt = f"author.id:{'|'.join(author_ids)},from_publication_date:{since}"
+    if strict_institution:
+        filt += f",institutions.id:{strict_institution}"
     out, cursor = [], "*"
     while cursor:
         data = client.get(
             "/works",
             {
-                "filter": f"author.id:{'|'.join(author_ids)},from_publication_date:{since}",
+                "filter": filt,
                 "select": WORK_FIELDS,
                 "per_page": 200,
                 "cursor": cursor,
@@ -240,6 +301,8 @@ def fetch_works(client: OpenAlexClient, author_ids: list[str], since: str) -> li
         )
         for w in data.get("results", []):
             if w.get("is_retracted") or w.get("is_paratext") or not w.get("title"):
+                continue
+            if strict_institution and not _listed_at(w, ids, strict_institution):
                 continue
             src = ((w.get("primary_location") or {}).get("source") or {})
             out.append(

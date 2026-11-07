@@ -96,21 +96,48 @@ def cmd_openalex(args: argparse.Namespace) -> int:
                                       cfg.get("openalex_fallback_institutions", []))
             matches.append(m)
             if not args.match_only:
-                works[p.id] = openalex.fetch_works(client, m.author_ids, args.since)
+                works[p.id] = openalex.fetch_works(client, m.author_ids, args.since, m.strict_lineage)
     except openalex.BudgetExceeded as e:
         print(f"stopped: {e}. Rerun tomorrow; cached responses are reused.", file=sys.stderr)
         return 2
     finally:
         print(f"OpenAlex: {client.fresh_calls} fresh calls, ${client.spent:.4f}", file=sys.stderr)
 
+    by_id = {p.id: p for p in people}
+    agreement: dict[str, float] = {}
+    if works:
+        # Topic check: own description vs matched papers. UW-wide matches that
+        # disagree are probably a namesake, so they go to review instead.
+        profiles_path = root / "rosters" / f"{slug}-profiles.json"
+        profiles = json.loads(profiles_path.read_text()) if profiles_path.exists() else {}
+        embedder = model.Embedder(args.model, cache_dir=data)
+        now = dt.date.today().year
+        for m in matches:
+            p = by_id[m.person_id]
+            doc = build_doc(p.id, p.keywords, profiles.get(p.id), works.get(p.id))
+            a = model.self_works_agreement(doc, embedder, now)
+            if a is None:
+                continue
+            agreement[p.id] = a
+            if m.how == "search-wider" and a < args.min_agreement:
+                print(f"  rejected {p.name}: papers do not match their description "
+                      f"(agreement {a:.2f} < {args.min_agreement}); see candidates", file=sys.stderr)
+                m.how, m.author_ids = "rejected-topic", []
+                works[p.id] = []
+        low = [f"{by_id[k].name} {v:.2f}" for k, v in sorted(agreement.items(), key=lambda kv: kv[1])
+               if v < args.min_agreement and dict((m.person_id, m.how) for m in matches)[k] != "rejected-topic"]
+        if low:
+            print("low agreement, kept (check by hand): " + ", ".join(low), file=sys.stderr)
+
     out = root / "rosters" / f"{slug}-openalex-matches.csv"
     with out.open("w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
-        w.writerow(["id", "name", "how", "openalex_ids", "openalex_names", "works_count", "works_since"])
-        by_id = {p.id: p for p in people}
+        w.writerow(["id", "name", "how", "openalex_ids", "openalex_names", "works_count", "works_since", "agreement"])
         for m in matches:
+            a = agreement.get(m.person_id)
             w.writerow([m.person_id, by_id[m.person_id].name, m.how, "|".join(m.author_ids),
-                        "|".join(m.names), m.works_count, len(works.get(m.person_id, []))])
+                        "|".join(m.names), m.works_count, len(works.get(m.person_id, [])),
+                        "" if a is None else f"{a:.2f}"])
     unmatched = [by_id[m.person_id].name for m in matches if not m.author_ids]
     multi = [by_id[m.person_id].name for m in matches if len(m.author_ids) > 1]
     print(f"matched {len(matches) - len(unmatched)}/{len(matches)}; "
@@ -258,6 +285,9 @@ def main(argv: list[str] | None = None) -> int:
     o.add_argument("--since", default="2011-01-01", help="earliest publication date")
     o.add_argument("--max-cost", type=float, default=0.5, help="stop after this many USD of fresh calls")
     o.add_argument("--match-only", action="store_true")
+    o.add_argument("--model", default=model.DEFAULT_MODEL, help="embedding model for the topic check")
+    o.add_argument("--min-agreement", type=float, default=0.30,
+                   help="UW-wide matches whose papers agree less than this with the profile go to review")
     o.set_defaults(func=cmd_openalex)
 
     b = sub.add_parser("build", help="embed, lay out and write site/<slug>/index.html")

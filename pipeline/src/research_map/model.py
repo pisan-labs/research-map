@@ -344,3 +344,21 @@ def listed_area_agreement(
     chance = sum(bool(areas[ids[a]] & areas[ids[b]]) for a, b in pairs) / len(pairs)
     precision = hits / max(total, 1)
     return {"people": len(have), "precision": precision, "chance": chance, "lift": precision / max(chance, 1e-9)}
+
+
+def self_works_agreement(doc: Doc, embedder: Embedder, now: int) -> float | None:
+    """Cosine between a person's own description and their matched works.
+
+    A low value flags a possible wrong-person match (a namesake's papers), or
+    a profile about teaching while the papers are older research.
+    """
+    c = doc.components(now)
+    if "self" not in c or "works" not in c:
+        return None
+    out = []
+    for key in ("self", "works"):
+        texts = [t for t, _ in c[key]]
+        w = np.array([x for _, x in c[key]], dtype=np.float32)
+        v = (embedder.encode(texts) * w[:, None]).sum(axis=0)
+        out.append(v / (np.linalg.norm(v) or 1.0))
+    return float(out[0] @ out[1])

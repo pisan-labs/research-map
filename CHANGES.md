@@ -25,3 +25,5 @@
 2026-11-07 [decision] Person vector weights self .40 / works .30 / venues .15 / courses .15, centred: 52% neighbours share a curated area (was 48%).
 
 2026-11-07 [code] Neighbour cut-off (90th percentile), e-mail/phone scrub with failing build check, off-map people searchable, publications on card.
+
+2026-11-07 [code] OpenAlex matching: first+last search, UW-wide fallback, nickname table, strict UWB-only works for mixed records, topic check; 58/89, 2 wrong matches removed.
