@@ -23,6 +23,23 @@ A new university needs a config and, unless an existing one fits, an
 adapter in `pipeline/src/research_map/adapters.py` that lists people and
 parses profile pages.
 
+## Hosting
+
+- **Netlify**: https://uw-research-maps.netlify.app serves `site/` (no build
+  step; `netlify.toml`). Deploy after a build, from the repo root:
+
+  ```bash
+  env -u NETLIFY_SITE_ID npx netlify deploy --prod --dir site --site uw-research-maps --no-build
+  ```
+
+  (`env -u` matters where a `NETLIFY_SITE_ID` for another site is set.)
+- **Supabase** (project not created yet: the free plan's two active projects
+  are in use). Schema and search function: `supabase/migrations/`; search
+  API: `supabase/functions/search/`. `research-map load CONFIG` writes a
+  built map into the database (`SUPABASE_DB_URL`);
+  `tests/search_eval_db.py` runs the search test set against it.
+- **Pipeline**: runs on halflife for now; Render later.
+
 ## First map: UW Bothell School of STEM
 
 `site/uwb-stem/index.html` is one self-contained file (about 2.3 MB) that

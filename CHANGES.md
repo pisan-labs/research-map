@@ -47,3 +47,9 @@
 2026-11-07 [scope] UC Santa Barbara replaces UC San Diego; UCSB College of Engineering roster (170, research areas from profiles).
 
 2026-11-07 [plan] Target hosting Netlify + Supabase + Render: migration order and service roles added to PLAN.md.
+
+2026-11-07 [decision] Hosting: Netlify and Supabase now (new projects), pipeline on halflife, no Render yet. Netlify and Supabase CLIs installed via npm (pinned).
+
+2026-11-07 [code] Netlify site uw-research-maps live. Supabase schema, loader, hybrid search SQL function and Edge Function written; tested on local Postgres.
+
+2026-11-07 [note] Supabase project not created: free plan limit of 2 active projects per owner reached (upvoteme, dsa).

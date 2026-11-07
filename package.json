@@ -1,8 +1,14 @@
 {
   "private": true,
   "name": "research-map-tests",
-  "description": "Node tools for tests only: search evaluation with the same query model the page loads.",
+  "description": "Node tools: search evaluation (transformers.js) and deploy CLIs (Netlify, Supabase).",
   "devDependencies": {
-    "@huggingface/transformers": "4.3.1"
+    "@huggingface/transformers": "4.3.1",
+    "netlify-cli": "27.14.2",
+    "supabase": "2.122.0"
+  },
+  "scripts": {
+    "netlify": "netlify",
+    "supabase": "supabase"
   }
 }

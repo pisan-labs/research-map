@@ -378,6 +378,15 @@ def run_search_eval(root: Path, slug: str) -> None:
         print(f"search test set, {name}: hit@10 {m['hit10']:.2f}, MRR {m['mrr']:.2f}", file=sys.stderr)
 
 
+def cmd_load(args: argparse.Namespace) -> int:
+    from . import db
+
+    cfg = load_config(args.config)
+    n = db.load(cfg, repo_root(args.config), embed=not args.no_embed)
+    print(f"loaded {cfg['slug']}: {n['people']} people, {n['works']} works, {n['records']} search records", file=sys.stderr)
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="research-map")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -409,6 +418,11 @@ def main(argv: list[str] | None = None) -> int:
     b.add_argument("--broad", type=float, default=1.5, help="Leiden resolution for broad areas")
     b.add_argument("--fine", type=float, default=3.0, help="Leiden resolution for fine topics")
     b.set_defaults(func=cmd_build)
+
+    ld = sub.add_parser("load", help="load a built map into Postgres/Supabase (SUPABASE_DB_URL)")
+    ld.add_argument("config", type=Path)
+    ld.add_argument("--no-embed", action="store_true", help="skip gte-small vectors for server search")
+    ld.set_defaults(func=cmd_load)
 
     args = ap.parse_args(argv)
     return args.func(args)

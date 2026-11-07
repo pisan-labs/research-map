@@ -146,6 +146,15 @@ works; 25,000 vectors of 384 floats are about 40 MB. A Render cron job with
 2 GB RAM is paid (billed by run time), so it needs your yes; until then the
 pipeline can run on halflife, which already runs scheduled jobs.
 
+Status 2026-11-07: step 1 done (Netlify site `uw-research-maps`, live at
+https://uw-research-maps.netlify.app). Step 2 is blocked: the Supabase free
+plan allows two active projects per owner and both are in use (Q19). The
+schema, loader and search function are written and tested on a local
+Postgres with pgvector: server search scores hit@10 0.69 / MRR 0.82 keyword
+only (page: 0.68 / 0.83) and 0.72 / 0.84 hybrid with gte-small (page with
+all-MiniLM: 0.75 / 0.84). The Edge Function is written, not yet deployed or
+tested. Decisions: pipeline on halflife (Q17), no Render yet.
+
 Migration order (each step leaves a working system):
 
 1. Netlify: publish `site/` as it is. Smallest step; maps get URLs.
@@ -375,6 +384,7 @@ Q6: confirmed. Q12 and Q13 are new and open.
 13. Add grants as a component from the NSF and NIH award APIs (public, free, no key)? (rec: yes, in Phase 1)
 14. Hand-written test queries: declined 2026-11-07. The curated areas remain the only search test set; `tests/<slug>-queries.json` is supported if someone writes them later.
 15. Units for UW Seattle, Northwestern and UC San Diego: engineering colleges first? (default adopted 2026-11-07; name other units to change)
-16. Hosting order: Netlify static first, then Supabase data and search, then the Render pipeline? (rec: yes)
-17. Pipeline host: Render cron job (paid, needs your yes) or halflife until the rest is in place? (rec: halflife now, Render once steps 1–3 work)
-18. Accounts: are there existing Netlify, Render and Supabase projects to use, or should new ones be created (with your yes before anything is created or deployed)?
+16. Hosting order: Netlify static first, then Supabase data and search, then the Render pipeline? (answered: yes)
+17. Pipeline host: (answered: halflife; no Render yet)
+18. Accounts: (answered: create new Netlify and Supabase projects; Netlify done)
+19. Supabase project slot: pause `upvoteme` or `dsa`, upgrade the YP org to Pro (paid), or use a schema in an existing project? (open; no recommendation without knowing which projects are in use)
