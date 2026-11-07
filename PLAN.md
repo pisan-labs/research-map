@@ -1,8 +1,9 @@
 # Plan: university research map
 
-Status: **draft, 2026-11-07.** The defaults below depend on the open
-questions at the end. Where a question is unanswered, the default marked
-"(rec)" is the working assumption.
+Status: **defaults adopted, 2026-11-07.** No answers to the questions at the
+end arrived within 15 minutes, so each "(rec)" default is now the working
+decision. To reverse one, answer that question by number and the plan will be
+updated. Still open: the OpenAlex API key (Q4), which needs your yes.
 
 Background and examples: [docs/survey.md](docs/survey.md).
 
@@ -152,7 +153,8 @@ Pick from these after Phase 1; each is independent.
 
 ## Open questions
 
-Answer by number. Defaults apply where marked (rec).
+Answer by number. Every "(rec)" default below was adopted on 2026-11-07;
+answering a question overrides its default. Q4's API key is still open.
 
 1. First target for the slice? (rec: UW Bothell School of STEM)
 2. One map, or a tool you will run for many universities? (rec: a tool, grown from the slice)
