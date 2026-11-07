@@ -1,9 +1,10 @@
 # Plan: university research map
 
-Status: **defaults adopted, 2026-11-07.** No answers to the questions at the
-end arrived within 15 minutes, so each "(rec)" default is now the working
-decision. To reverse one, answer that question by number and the plan will be
-updated. Still open: the OpenAlex API key (Q4), which needs your yes.
+Status: **defaults adopted, 2026-11-07; revised the same day after GTU's
+build notes** (see "Lessons from GTU's build notes"). Each "(rec)" default
+is the working decision; answer a question by number to reverse it. Q4: you
+are getting the OpenAlex key. Q6 confirmed: full-time faculty only. New
+questions: Q12 and Q13.
 
 Background and examples: [docs/survey.md](docs/survey.md).
 
@@ -18,6 +19,29 @@ A reusable generator: given a university (or one unit) and its faculty
 roster, build an interactive research map in the spirit of the GTU map. Each
 point is a researcher; nearby points work on similar things. Output is one
 self-contained HTML file that works offline and can be hosted anywhere.
+
+## Lessons from GTU's build notes
+
+Source: [How the Research Map was built](https://tanitim.gtu.edu.tr/arastirma-haritasi/nasil-yapildi.html)
+(read 2026-11-07). The survey already covered their vectors, layout and page.
+What the notes add, and what it changes here:
+
+| GTU finding | Change to this plan |
+|---|---|
+| Averaging a person's work hides their few but important papers; search must rank **records** (titles), then people | Search moves from person text to record-level: each work is indexed, a person's score is their best 8 records with weights 1, 0.7, 0.49, …, and results show the matching titles as evidence (Phase 1) |
+| Meaning + keyword (BM25) together beat either alone: top-10 hit rate 0.72 (keyword only) → 0.80 (hybrid) → 0.81 (+ LLM profiles). Keywords catch acronyms (GNSS, Li-ion); meaning catches phrase queries ("biosensors for disease diagnosis": 0.19 → 0.89) | In-page BM25 over records first (offline, no model), then add in-page semantic search and blend 50/50. A query that names several concepts is scored by how many it covers |
+| "Don't tune without measuring": many improvements did nothing once measured | Two fixed checks run on every build: (a) neighbours vs the departments' curated areas (exists); (b) a search test set with top-10 hit rate and MRR. UW Bothell's curated area lists give (b) for free: the query is the area name, the relevant people are its listed members. Add 10–20 hand-written phrase queries |
+| LLM-written profiles help ranking a little; never shown as evidence; grounded in titles, JSON schema, temperature 0, human review before anything is shown | Optional Phase 2 step, ranking only, with the same rules. Needs a decision on sending public titles to the local `claude` CLI (Q12) |
+| Person vector has 5 parts: titles 0.45, venues 0.15, courses 0.15, supervised theses 0.15, projects 0.10 | Ours, once OpenAlex is in: works (title + abstract) 0.40, self-description (directory keywords, interests, bio) 0.20, venues 0.15, courses 0.15, grants 0.10, all re-tuned with check (a). Theses: no public source here. Grants: NSF and NIH award APIs, free, no key (Q13) |
+| PCA to 96 dims, then remove the Turkish/English direction | Measured on our slice: subtracting the mean vector raises check (a) from 48% to 50% and makes similarity scores centre on 0; PCA adds nothing at 87 people. Adopt centering now. Language-direction removal only when a map mixes languages (second university, Phase 1) |
+| Neighbours below cosine 0.45 are not shown | After centering, hide neighbours below a cut-off set from the score distribution, rather than always showing 10 |
+| Fewer than 6 records: hollow marker. Too few records: off the map but still found by search | Same thresholds once records exist. People left off the map (2 now) must still be searchable; today they are not |
+| No e-mails or phone numbers on the page; every release scanned for ID-like numbers | Scrub e-mails and phone numbers from bios before bundling (one bio now carries an e-mail address); release scan in the build |
+| Main real use: students matched to industry project ideas by finding possible advisors | Promote "describe a project, get advisors with evidence titles" from Phase 2 to Phase 1; add students looking for advisors to the audience |
+| Map page works alone; an optional campus search service adds better search, and the page falls back to built-in search when the service is down. Read-only public API, rate-limited | Keep the no-server default. If a service is ever added, use the same fallback design so the file still works offline |
+| One-command update script backs up and rolls back the web server config | Phase 3 refresh script follows the same rule |
+| Privacy-preserving visit counts: no IPs, a daily-rotated salted hash | Only if the map is hosted somewhere we control; not for GitHub Pages |
+| 800 people, 40k titles: 16 MB page (7.5 MB compressed) | Keep the 5 MB per 1,000 people budget; ship titles, not vectors |
 
 ## Architecture
 
@@ -34,11 +58,13 @@ config.yaml ┘                                                                 
 | Roster | CSV: name, department, unit, title, ORCID / OpenAlex ID (optional) | OpenAlex has no departments, and its "last known institution" includes students and alumni, so a roster defines who is on the map |
 | Fetch | OpenAlex works per person, last 15 years, cached as JSONL under `data/` (gitignored) | Free API key needed. About 1,000 list calls a day on the free budget, enough for a few thousand people per day |
 | Match | ORCID first, then name + institution search, then a manual `overrides.csv`; print an unmatched report | Disambiguation is the main data-quality risk |
-| Embed | Local `sentence-transformers`, title + abstract per work. Person vector = recency-weighted mean (GTU weights: 1.0 / 0.6 / 0.35) | No paid API. Model choice below |
+| Embed | Local `sentence-transformers`, one vector per work (title + abstract), per venue, per course, per grant, plus the self-description fields. Person vector = weighted mean of components (weights above), works weighted by recency (last 10 years 1.0, the 10 before 0.6, older 0.35), then centred | No paid API. Model choice below |
 | Layout | UMAP, cosine | Choice below |
 | Areas | Leiden on a k-nearest-neighbour graph, two resolutions: broad areas and fine topics | Gives labels that change with zoom |
 | Labels | Distinctive terms (c-TF-IDF) plus the most common OpenAlex topic names; optional naming pass with the local `claude` CLI; `labels.yaml` to override by hand | Never the Anthropic API with a key |
-| Extras | 10 nearest people per person (with shared terms), co-author pairs within the roster | Precomputed, so the page needs no vectors |
+| Extras | Up to 10 nearest people per person (with shared terms), hidden below a similarity cut-off; co-author pairs within the roster | Precomputed, so the page needs no vectors |
+| Search index | Records (work titles, courses, grants) with BM25 statistics, inlined; later a compact vector per record for semantic search | Person score from best 8 records; evidence titles shown |
+| Checks | Neighbours vs curated areas; search test set (top-10 hit rate, MRR); privacy scan (e-mails, phone and ID-like numbers) | Printed on every build; the privacy scan fails the build |
 | Bundle | Inline JSON, JS, CSS into one HTML; size budget about 5 MB per 1,000 people | GTU is 16 MB for 800 people because it ships every title and vector |
 
 Front end: vanilla JS, D3 v7 for zoom and scales, Canvas 2D for drawing
@@ -51,13 +77,14 @@ managed with `uv`, tests with `pytest`, page smoke test with Playwright.
 
 | Option | Strength | Weakness |
 |---|---|---|
-| `intfloat/multilingual-e5-small` (rec) | Multilingual, small (CPU-friendly), close to what GTU used | Not tuned for science |
-| `intfloat/multilingual-e5-base` / `BAAI/bge-m3` | Better quality, multilingual | 2–5× slower on CPU |
-| SPECTER2 | Trained on scientific papers (title + abstract) | English only |
+| `paraphrase-multilingual-MiniLM-L12-v2` (chosen) | Multilingual, small; 48% on check (a), tied best | General-purpose, not science-tuned |
+| `intfloat/multilingual-e5-small` / `-base` (GTU used e5-base) | Multilingual | 40% on check (a) with our profile text |
+| SPECTER2 | Trained on scientific papers (title + abstract) | English only; 45% on profile text, worth re-testing on OpenAlex abstracts |
+| `BAAI/bge-m3` (GTU's search model) | Strong multilingual retrieval, long input | About 2 GB; slow on CPU. Candidate for record-level semantic search, not person vectors |
 | OpenAlex topic vectors only | No ML, consistent across universities | Coarse (about 4,500 topics); misses specifics |
 
-Recommendation: e5-small for the slice; compare with SPECTER2 on the same
-people and keep whichever gives neighbours you judge better.
+Re-run the comparison once OpenAlex works are in: profile text and paper
+abstracts may favour different models.
 
 **Layout**
 
@@ -79,9 +106,10 @@ people and keep whichever gives neighbours you judge better.
 
 | Option | Strength | Weakness |
 |---|---|---|
-| In-page keyword search over titles, abstracts, topics (rec for V1) | Works offline, instant | Misses synonyms |
-| In-page semantic search (transformers.js, same model) | Finds "machine learning" for "deep nets"; still offline | 30–120 MB download on first search |
-| Small search server (GTU live site) | Best quality | A server to run and secure |
+| Keyword search over person text (V1, done) | Works offline, instant | Misses synonyms; ranks people, not evidence |
+| Record-level BM25 in the page, person = best 8 records, evidence titles (rec for Phase 1) | Offline; finds people with one relevant paper; GTU's baseline | Misses synonyms and phrasing |
+| + in-page semantic search blended 50/50 (rec for Phase 2) | GTU's measured gain (0.72 → 0.80 top-10); still offline | 30–120 MB model download on first search |
+| Small search server (GTU live site), page falls back to built-in search | Larger models; API | A server to run and secure |
 
 **Hosting**
 
@@ -136,17 +164,32 @@ Done:
   keyword search; hollow markers; method note; `#p=<id>` links; light and
   dark; phone layout. Playwright smoke test passes offline.
 
+- Your review of 10 people's neighbours (done 2026-11-07).
+
 Still to do in Phase 0:
 
-- OpenAlex works (needs the Q4 key), with ORCID-first matching.
-- Your review of 10 people's neighbours.
+- OpenAlex works (you are getting the Q4 key), with ORCID-first matching;
+  hollow below 6 records.
+- Centre person vectors; hide neighbours below a cut-off.
+- Scrub e-mails and phone numbers from bios; privacy scan in the build.
+- Keep people who are off the map searchable.
 - A `labels.yaml` override for weak computed labels ("strategies · space").
 
 ### Phase 1: generalise
 
+- Record-level search: BM25 over work titles, courses and grants in the
+  page; person score from best 8 records (1, 0.7, 0.49, …); evidence titles.
+- Search test set: curated-area queries plus 10–20 hand-written phrase
+  queries; top-10 hit rate and MRR printed on every build.
+- "Describe a project, get advisors" (GTU's main real use): a text box that
+  runs the same record-level search on a paragraph and lists people with
+  their matching titles.
+- Person-vector components: venues, courses, grants (Q13); re-tune weights
+  and re-compare models on check (a).
 - Config per university: OpenAlex institution ID, roster path, colours, name.
 - Run on a second, different university (for example GTU's public data, or a
-  non-US one) to shake out assumptions.
+  non-US one) to shake out assumptions. If its records mix languages, remove
+  the language direction from the vectors, as GTU does.
 - Department × area matrix (GTU's lower panel).
 - Shareable URL state (selected person, filters, zoom).
 
@@ -158,8 +201,9 @@ Pick from these after Phase 1; each is independent.
   co-authored" pairs as collaboration candidates.
 - Year-range filter; colour by "new in the last 3 years".
 - Department footprints (density contours).
-- "Paste a call for proposals" search returning people with evidence titles.
-- In-page semantic search (transformers.js).
+- In-page semantic search (transformers.js), blended 50/50 with BM25.
+- LLM research profiles for ranking only (Q12): grounded in titles, JSON
+  schema, temperature 0, never shown without human review.
 - Topics-over-time streamgraph.
 - Collaboration world map from the same co-author data.
 - Shared base map so different universities can be compared.
@@ -169,6 +213,10 @@ Pick from these after Phase 1; each is independent.
 - Scheduled rebuild on halflife; new people placed into the existing layout
   (UMAP transform or alignment to the previous map) so the map does not
   reshuffle each time.
+- One-command publish that backs up whatever it changes and rolls back on
+  failure (GTU's lesson from a shared web server).
+- Visit counts only if hosted on a server we control: no IPs, daily-rotated
+  salted hash, bots excluded.
 
 ## Risks
 
@@ -179,22 +227,27 @@ Pick from these after Phase 1; each is independent.
 | Teaching-focused and new faculty have few papers | Hollow markers; optionally add course titles from the catalogue, as GTU does |
 | Weak OpenAlex coverage in arts, humanities, books | Flag those people; allow roster-supplied keywords |
 | Free OpenAlex budget | Cache everything; fetch incrementally; ID lookups are free |
-| Privacy | Public data only; faculty only by default; opt-out list in config |
+| Privacy | Public data only; faculty only by default; opt-out list in config; e-mails and phone numbers scrubbed; build fails on ID-like numbers |
+| Model-written text taken as fact | LLM profiles used for ranking only; users always see real titles (GTU rule) |
+| Search quality claims without evidence | Search test set and curated-area check on every build |
 | Use of university names and logos | Generic look by default; logo only with permission |
 
 ## Open questions
 
 Answer by number. Every "(rec)" default below was adopted on 2026-11-07;
-answering a question overrides its default. Q4's API key is still open.
+answering a question overrides its default. Q4: you are getting the key.
+Q6: confirmed. Q12 and Q13 are new and open.
 
 1. First target for the slice? (rec: UW Bothell School of STEM)
 2. One map, or a tool you will run for many universities? (rec: a tool, grown from the slice)
-3. Main audience: public and prospective students, faculty looking for collaborators, research office and leadership, or industry partners? (rec: faculty and research office)
+3. Main audience: public and prospective students, faculty looking for collaborators, research office and leadership, or industry partners? (rec: faculty and research office, plus students looking for advisors, which was GTU's main real use)
 4. Data: OpenAlex plus a roster CSV? (rec: yes). OpenAlex needs a free key tied to an email address. Create one yourself, or say yes and I request one for pisan@uw.edu (OpenAlex emails you a confirmation link).
 5. Do you have rosters with departments (and ORCIDs), or should I scrape public directories? (rec: scrape for the slice)
 6. Who goes on the map: faculty only, or also postdocs, research staff, graduate students? (rec: faculty, with an opt-out list)
 7. Points: people, papers, or both with a toggle? (rec: people; papers later)
 8. Which extra views matter most from Phase 2? (rec: department × area matrix, then co-author links on the map)
-9. Search: keyword only, in-page semantic, or a server? (rec: keyword for V1, in-page semantic in Phase 2)
+9. Search: keyword only, in-page semantic, or a server? (rec: record-level BM25 in Phase 1, blended with in-page semantic in Phase 2, no server)
 10. Hosting and refresh: single HTML file, where hosted, one-off or scheduled? (rec: single HTML, local or GitHub Pages, one-off first)
 11. Language and branding: English UI only or bilingual like GTU; generic look or per-university colours? (rec: English UI, multilingual model, generic look with configurable colours)
+12. LLM research profiles (ranking only, never shown): run them with the local `claude` CLI, which sends public titles to Anthropic under your subscription, or skip them? GTU kept everything on campus with an open-weight model; their measured gain was small (0.80 → 0.81 top-10). (rec: skip until record-level search is measured; then decide)
+13. Add grants as a component from the NSF and NIH award APIs (public, free, no key)? (rec: yes, in Phase 1)

@@ -15,9 +15,9 @@ Adopted 2026-11-07 as defaults, since the questions in PLAN.md went
 unanswered for 15 minutes. Reverse any of them by answering that question.
 
 - First target: UW Bothell School of STEM, faculty only, with an opt-out list.
-- A reusable tool for many universities, aimed at faculty and the research office.
+- A reusable tool for many universities, aimed at faculty, the research office, and students looking for advisors.
 - Points are people; papers may come later.
-- Keyword search first; next views are the unit × area table, then co-author links.
+- Keyword search first, then record-level search (rank works, then people, show evidence titles), as GTU found person averages hide key papers; next views are the unit × area table, then co-author links.
 - English UI, multilingual model, plain look with configurable colours.
 - Output is one self-contained HTML file per map, kept local or on GitHub Pages, built one-off at first; no server needed.
 - Data: university roster CSV plus OpenAlex works.
@@ -30,6 +30,10 @@ unanswered for 15 minutes. Reverse any of them by answering that question.
   the curated-area check among six local models, and multilingual).
 - 2026-11-07: default colouring is by department with a shape per
   department; program and computed area are options.
+- 2026-11-07: full-time faculty only (confirmed).
+- 2026-11-07: after GTU's build notes, every change is measured on two
+  checks (curated-area neighbours, search test set); person vectors are
+  centred; e-mails and phone numbers never reach the page.
 
 ## Non-goals (for now)
 

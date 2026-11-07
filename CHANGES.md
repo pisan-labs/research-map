@@ -13,3 +13,9 @@
 2026-11-07 [decision] Model switched to paraphrase-multilingual-MiniLM-L12-v2: 48% top-5 share a curated area vs 40% for e5-small.
 
 2026-11-07 [note] Slice uses directory and profile text; OpenAlex waits for an API key (Q4).
+
+2026-11-07 [plan] PLAN.md revised from GTU build notes: record-level hybrid search, search test set, centred vectors, privacy scrub, advisor matching to Phase 1.
+
+2026-11-07 [note] Centering person vectors: 48% -> 50% on curated-area check; adding courses w=0.15: 51%. Small, near noise at 87 people.
+
+2026-11-07 [decision] Full-time faculty only (Q6 confirmed); user is getting the OpenAlex key; user reviewed 10 people's neighbours.

@@ -69,6 +69,7 @@ was already used up, so a key is needed. Hugging Face model downloads work.
 ## 5. Sources
 
 - GTU Research Map: <https://tanitim.gtu.edu.tr/arastirma-haritasi/?lang=en>
+- GTU build notes (method, search evaluation, lessons): <https://tanitim.gtu.edu.tr/arastirma-haritasi/nasil-yapildi.html>; summarised in PLAN.md, "Lessons from GTU's build notes"
 - PeopleMap: <https://arxiv.org/abs/2006.06105>, <https://arxiv.org/abs/2009.00091>
 - REMatch: <https://smsf.cs.arizona.edu/~kobourov/rematch.pdf>
 - Cartolabe: <https://arxiv.org/pdf/2003.00975>, <https://www.aviz.fr/Research/Cartolabe>
