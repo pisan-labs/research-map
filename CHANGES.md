@@ -43,3 +43,7 @@
 2026-11-07 [code] Site adapters; UW Tacoma map (256 people, 6,180 works); UW CoE roster (293); 64-dim search vectors; degree-field fallback; site index.
 
 2026-11-07 [code] Rosters for Northwestern McCormick (288, XML feed) and UCSD Jacobs (288); OpenAlex for UW CoE, McCormick, Jacobs waits for daily budget.
+
+2026-11-07 [scope] UC Santa Barbara replaces UC San Diego; UCSB College of Engineering roster (170, research areas from profiles).
+
+2026-11-07 [plan] Target hosting Netlify + Supabase + Render: migration order and service roles added to PLAN.md.

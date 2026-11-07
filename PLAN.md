@@ -119,6 +119,43 @@ abstracts may favour different models.
 | Static folder (HTML + JSON) | Smaller first load, data fetched lazily | Needs a web server; no file:// |
 | Server app | Live search, logins, updates | Hosting and maintenance |
 
+## Target hosting: Netlify, Render, Supabase (decided 2026-11-07)
+
+The final system runs on Netlify, Render and Supabase. The single-file map
+stays the unit of output (it works offline and anywhere); the services add
+a shared data store, server-side search and scheduled refreshes.
+
+```
+Render cron (Python pipeline)            Supabase                         Netlify
+roster -> OpenAlex -> embed -> build --> Postgres + pgvector  <-- search -- map pages (static)
+   |                                     Edge Function: search API          site/index.html
+   +-- writes site/<slug>/index.html ----------------------------------->  deploy hook
+```
+
+| Piece | Service | What it does |
+|---|---|---|
+| Map pages and index | Netlify | Static `site/` deployed from GitHub; a deploy preview per PR. No build step on Netlify: the pipeline produces the files |
+| Data store | Supabase Postgres | Tables for units, people, profiles, works, author matches, overrides, labels, curated areas, record embeddings (pgvector) and builds. Public read through views with row-level security; writes only from the pipeline's service role. Replaces the CSV/JSON/YAML files in `rosters/` and `config/` over time |
+| Search API | Supabase Edge Function | Record-level hybrid search on the server: Postgres full-text ranking plus pgvector cosine, the same blend and best-8 person score as `web/search.js`. Edge Functions can embed the query with the built-in `gte-small` model, so records would be embedded with `thenlper/gte-small` (384 dims, English). Removes the 23 MB in-browser download; the page falls back to its built-in search when the API is unreachable (GTU's pattern). Multilingual units would need a larger model in a Render web service instead |
+| Pipeline | Render cron job (Docker: Python + uv) | Monthly: roster, OpenAlex, embeddings, build, upsert to Supabase, publish `site/`, call Netlify's deploy hook. Needs about 2 GB RAM for the embedding models. OpenAlex key, Supabase service key and deploy hook as Render secrets |
+| Corrections | Supabase Auth + a small admin page on Netlify | Confirm OpenAlex candidates, edit area names, opt-outs: rows in override tables instead of edits to files in git |
+| Visit counts (optional) | Supabase table + Edge Function | GTU-style: no IPs, daily-salted hash |
+
+Sizes fit the free tiers: five units are about 1,300 people and 25,000
+works; 25,000 vectors of 384 floats are about 40 MB. A Render cron job with
+2 GB RAM is paid (billed by run time), so it needs your yes; until then the
+pipeline can run on halflife, which already runs scheduled jobs.
+
+Migration order (each step leaves a working system):
+
+1. Netlify: publish `site/` as it is. Smallest step; maps get URLs.
+2. Supabase schema and a loader from the current files; the pipeline writes
+   both during the move.
+3. Search Edge Function with `gte-small`; `tests/search_eval.mjs` gains an
+   API engine so server and in-page search are measured on the same queries.
+4. Render cron job for the pipeline, ending with the Netlify deploy hook.
+5. Admin page for corrections; `rosters/` and override files retire.
+
 ## Phases
 
 ### Phase 0: vertical slice (the first working map)
@@ -245,12 +282,13 @@ project descriptions is not measured.
 
 ### More universities (started 2026-11-07)
 
-Order: UW Tacoma and UW Seattle, then Northwestern and UC San Diego.
+Order: UW Tacoma and UW Seattle, then Northwestern and UC Santa Barbara
+(UC San Diego was dropped on 2026-11-07).
 
 Scope (default adopted after 15 minutes without an answer; change by
 saying which units): large universities are mapped one unit at a time from
 that unit's own faculty directory, starting with the engineering college at
-each (UW College of Engineering, Northwestern McCormick, UCSD Jacobs).
+each (UW College of Engineering, Northwestern McCormick, UCSB College of Engineering).
 Whole-campus rosters taken from OpenAlex were rejected: OpenAlex cannot tell
 faculty from students, postdocs and clinical staff, has no departments, and
 UW alone would be tens of thousands of people.
@@ -264,7 +302,7 @@ who is kept is a title rule in the config.
 | UW Tacoma (`uwt`) | built | whole campus, 268 full-time faculty, 256 mapped; 195 matched in OpenAlex, 6,180 works; no curated areas, so no checks; areas named by hand |
 | UW College of Engineering (`uw-coe`) | roster done | 301 full-time faculty from the Faculty Finder, with research areas (also a test set: 68 areas with 2+ people); OpenAlex waits for the daily budget |
 | Northwestern McCormick (`nu-mccormick`) | roster done | 288 core faculty from the directory's XML feed; 170+ with research-area text |
-| UCSD Jacobs (`ucsd-jacobs`) | roster done | 288 faculty from the profiles list, 284 with research text; needs the InCommon intermediate certificate (in `config/certs/`) |
+| UC Santa Barbara College of Engineering (`ucsb-coe`) | roster done | 170 faculty from the faculty page; profile pages give research areas for 146 (38 areas with 2+ people: a search test set). Replaced UC San Diego on 2026-11-07 |
 
 OpenAlex costs about $0.30–0.45 per unit of 300 people (name searches are
 $0.001 each), so two units fit in one free daily budget ($1, resets at
@@ -337,3 +375,6 @@ Q6: confirmed. Q12 and Q13 are new and open.
 13. Add grants as a component from the NSF and NIH award APIs (public, free, no key)? (rec: yes, in Phase 1)
 14. Hand-written test queries: declined 2026-11-07. The curated areas remain the only search test set; `tests/<slug>-queries.json` is supported if someone writes them later.
 15. Units for UW Seattle, Northwestern and UC San Diego: engineering colleges first? (default adopted 2026-11-07; name other units to change)
+16. Hosting order: Netlify static first, then Supabase data and search, then the Render pipeline? (rec: yes)
+17. Pipeline host: Render cron job (paid, needs your yes) or halflife until the rest is in place? (rec: halflife now, Render once steps 1–3 work)
+18. Accounts: are there existing Netlify, Render and Supabase projects to use, or should new ones be created (with your yes before anything is created or deployed)?

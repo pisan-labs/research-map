@@ -21,7 +21,7 @@ CERTS_DIR = Path(__file__).resolve().parents[3] / "config" / "certs"
 def ssl_context(extra_dir: Path = CERTS_DIR) -> ssl.SSLContext:
     """System trust plus extra intermediate certificates from config/certs/.
 
-    Some university servers (tacoma.uw.edu, jacobsschool.ucsd.edu) omit the
+    Some university servers (e.g. tacoma.uw.edu) omit the
     intermediate certificate. Browsers fetch it on their own; here it is added
     to the trust store instead, so verification stays on.
     """

@@ -17,7 +17,7 @@ nearby points work on similar topics.
 | UW Tacoma (whole campus) | `config/uwt.yaml` | 256 |
 | UW College of Engineering | `config/uw-coe.yaml` | roster only so far (301) |
 | Northwestern Engineering (McCormick) | `config/nu-mccormick.yaml` | roster only so far (288) |
-| UC San Diego Jacobs School | `config/ucsd-jacobs.yaml` | roster only so far (288) |
+| UC Santa Barbara College of Engineering | `config/ucsb-coe.yaml` | roster only so far (170) |
 
 A new university needs a config and, unless an existing one fits, an
 adapter in `pipeline/src/research_map/adapters.py` that lists people and

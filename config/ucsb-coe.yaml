@@ -1,0 +1,24 @@
+# Research map for the UC Santa Barbara College of Engineering, from its faculty page.
+slug: ucsb-coe
+name: UC Santa Barbara College of Engineering
+university: University of California, Santa Barbara
+adapter: ucsb-coe
+listing_url: https://engineering.ucsb.edu/people/faculty
+base_url: https://engineering.ucsb.edu/
+directory:
+  - department: All departments
+    url: https://engineering.ucsb.edu/people/faculty
+departments:
+  - Chemical Engineering
+  - Computer Science
+  - Electrical and Computer Engineering
+  - Materials
+  - Mechanical Engineering
+  - Technology Management
+openalex_institution: I154570441  # University of California, Santa Barbara
+include:
+  title_pattern: "professor|lecturer|chair"
+  exclude_title_pattern: "emerit|retired|adjunct|visiting|affiliate"
+opt_out: []
+color_by: department
+search_model: all-MiniLM-L6-v2

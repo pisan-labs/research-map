@@ -1,0 +1,400 @@
+{
+ "Materials & Interfaces": [
+  "mahdi-m-abu-omar",
+  "christopher-m-bates",
+  "bradley-chmelka",
+  "phillip-christopher",
+  "glenn-h-fredrickson",
+  "michael-gordon",
+  "songi-han",
+  "matthew-helgeson",
+  "j-tyler-mefford",
+  "galan-moody",
+  "angela-pitenis",
+  "susannah-scott",
+  "rachel-segalman",
+  "todd-squires"
+ ],
+ "Energy Efficiency & Sustainability": [
+  "mahdi-m-abu-omar",
+  "mahnoosh-alizadeh",
+  "bradley-chmelka",
+  "phillip-christopher",
+  "michael-gordon",
+  "eric-mcfarland",
+  "j-tyler-mefford",
+  "michelle-o-malley",
+  "angela-pitenis",
+  "susannah-scott",
+  "rachel-segalman"
+ ],
+ "Big Data": [
+  "divyakant-agrawal"
+ ],
+ "Cloud Data": [
+  "divyakant-agrawal"
+ ],
+ "Distributed Algorithms": [
+  "divyakant-agrawal",
+  "daniel-lokshtanov",
+  "qian-yu"
+ ],
+ "Social Network Modeling": [
+  "divyakant-agrawal",
+  "christopher-kruegel"
+ ],
+ "Electronic and Photonic Materials": [
+  "elaheh-ahmadi",
+  "daniel-blumenthal",
+  "michael-chabinyc",
+  "steven-denbaars",
+  "sriram-krishnamoorthy",
+  "bolin-liao",
+  "greg-mazur",
+  "richard-mirin",
+  "shuji-nakamura",
+  "chris-palmstr-m",
+  "jeff-sakamoto",
+  "james-speck",
+  "susanne-stemmer",
+  "chris-g-van-de-walle"
+ ],
+ "Control Systems": [
+  "mahnoosh-alizadeh",
+  "katie-byl",
+  "shiv-chandrasekaran",
+  "jason-marden",
+  "yasamin-mostofi",
+  "andrew-teel",
+  "enoch-yeung"
+ ],
+ "Data Security": [
+  "prabhanjan-ananth",
+  "christopher-kruegel",
+  "maryam-majedi",
+  "giovanni-vigna"
+ ],
+ "Cryptographic Hardware and Embedded Systems": [
+  "prabhanjan-ananth"
+ ],
+ "Computational Science and Engineering": [
+  "prabhanjan-ananth",
+  "irene-j-beyerlein",
+  "glenn-h-fredrickson",
+  "fr-d-ric-gibou",
+  "robert-mcmeeking",
+  "eckart-meiburg",
+  "igor-mezi",
+  "jeff-moehlis",
+  "linda-petzold",
+  "eric-vigoda",
+  "yon-visell",
+  "niels-volkmann",
+  "xifeng-yan",
+  "tao-yang"
+ ],
+ "Thermal Sciences & Fluid Mechanics": [
+  "bassam-bamieh",
+  "ted-bennett",
+  "fr-d-ric-gibou",
+  "ousmane-kodio",
+  "bolin-liao",
+  "paolo-luzzatto-fegiz",
+  "eckart-meiburg",
+  "carl-meinhart",
+  "jeff-moehlis",
+  "megan-valentine",
+  "yangying-zhu"
+ ],
+ "Materials & Structures": [
+  "ananya-renuka-balakrishna",
+  "matthew-r-begley",
+  "glenn-beltz",
+  "samantha-daly",
+  "fr-d-ric-gibou",
+  "elliot-hawkes",
+  "ousmane-kodio",
+  "robert-mcmeeking",
+  "megan-valentine",
+  "henry-t-yang",
+  "frank-w-zok"
+ ],
+ "Operating Systems and Distributed Systems": [
+  "jonathan-balkind",
+  "bassam-bamieh",
+  "amr-el-abbadi",
+  "chandra-krintz",
+  "dahlia-malkhi",
+  "ambuj-singh",
+  "rich-wolski"
+ ],
+ "Algorithms and Architectures": [
+  "jonathan-balkind",
+  "murphy-niu",
+  "eric-vigoda"
+ ],
+ "Programming Languages and Software Engineering": [
+  "jonathan-balkind",
+  "tevfik-bultan",
+  "yu-feng",
+  "ben-hardekopf",
+  "chandra-krintz",
+  "jianwen-su",
+  "william-wang"
+ ],
+ "Dynamic Systems and Control": [
+  "bassam-bamieh",
+  "francesco-bullo",
+  "glenn-h-fredrickson",
+  "elliot-hawkes",
+  "jo-o-hespanha",
+  "igor-mezi",
+  "jeff-moehlis",
+  "tyler-susko",
+  "yon-visell",
+  "henry-t-yang"
+ ],
+ "Micro & Nano Technology": [
+  "bassam-bamieh",
+  "kaustav-banerjee",
+  "matthew-r-begley",
+  "glenn-beltz",
+  "glenn-h-fredrickson",
+  "bolin-liao",
+  "robert-mcmeeking",
+  "carl-meinhart",
+  "igor-mezi",
+  "jeff-moehlis",
+  "galan-moody",
+  "sumita-pennathur",
+  "linda-petzold",
+  "megan-valentine",
+  "henry-t-yang",
+  "yangying-zhu"
+ ],
+ "Computer Engineering": [
+  "kaustav-banerjee",
+  "yogananda-isukapalli",
+  "peng-li",
+  "dmitri-strukov",
+  "luke-theogarajan",
+  "li-c-wang",
+  "zheng-zhang"
+ ],
+ "Photonics & Electronics": [
+  "kaustav-banerjee",
+  "kerem-amsar",
+  "jonathan-klamkin",
+  "richard-mirin",
+  "umesh-mishra",
+  "mark-rodwell",
+  "loai-salem",
+  "jon-schuller"
+ ],
+ "Macromolecular and Biomolecular Materials": [
+  "christopher-m-bates",
+  "michael-chabinyc",
+  "craig-hawker",
+  "cyrus-r-safinya",
+  "omar-a-saleh",
+  "rachel-segalman",
+  "luke-theogarajan"
+ ],
+ "Solid Mechanics": [
+  "matthew-r-begley",
+  "glenn-beltz",
+  "irene-j-beyerlein",
+  "samantha-daly",
+  "fr-d-ric-gibou",
+  "elliot-hawkes",
+  "ousmane-kodio",
+  "robert-mcmeeking",
+  "megan-valentine",
+  "henry-t-yang"
+ ],
+ "Micro- and Nanoscale Engineering": [
+  "matthew-r-begley",
+  "glenn-beltz",
+  "irene-j-beyerlein",
+  "kerem-amsar",
+  "elliot-hawkes",
+  "bolin-liao",
+  "robert-mcmeeking"
+ ],
+ "Bioengineering": [
+  "matthew-r-begley",
+  "marley-dewey",
+  "siddarth-dey",
+  "songi-han",
+  "dorit-hanein",
+  "matthew-helgeson",
+  "catherine-klapperich",
+  "ousmane-kodio",
+  "robert-mcmeeking",
+  "carl-meinhart",
+  "igor-mezi",
+  "carolyn-mills",
+  "nina-miolane",
+  "jeff-moehlis",
+  "arnab-mukherjee",
+  "michelle-o-malley",
+  "sumita-pennathur",
+  "linda-petzold",
+  "angela-pitenis",
+  "kevin-plaxco",
+  "beth-pruitt",
+  "james-b-rawlings",
+  "m-scott-shell",
+  "spencer-l-smith",
+  "ryan-stowers",
+  "megan-valentine",
+  "niels-volkmann"
+ ],
+ "Systems Biology": [
+  "matthew-r-begley",
+  "dorit-hanein",
+  "ousmane-kodio",
+  "carl-meinhart",
+  "igor-mezi",
+  "carolyn-mills",
+  "jeff-moehlis",
+  "sumita-pennathur",
+  "linda-petzold",
+  "angela-pitenis",
+  "beth-pruitt",
+  "spencer-l-smith",
+  "ryan-stowers",
+  "megan-valentine",
+  "enoch-yeung"
+ ],
+ "Networking": [
+  "elizabeth-belding",
+  "jo-o-hespanha",
+  "chandra-krintz",
+  "subhash-suri"
+ ],
+ "Fluid Dynamics": [
+  "ted-bennett",
+  "emilie-dressaire",
+  "fr-d-ric-gibou",
+  "paolo-luzzatto-fegiz",
+  "eckart-meiburg",
+  "sumita-pennathur"
+ ],
+ "Visual Computing and Interaction": [
+  "michael-beyeler",
+  "shiyu-chang",
+  "tobias-h-llerer",
+  "jennifer-jacobs",
+  "kate-kharitonova",
+  "b-s-manjunath",
+  "xin-eric-wang"
+ ],
+ "Structural Materials and Solid Mechanics": [
+  "irene-j-beyerlein",
+  "jeff-sakamoto",
+  "frank-w-zok"
+ ],
+ "Machine Learning and Data Mining": [
+  "yuheng-bu",
+  "shiyu-chang",
+  "wenbo-guo",
+  "arpit-gupta",
+  "tobias-h-llerer",
+  "haewon-jeong",
+  "kate-kharitonova",
+  "bongjin-kim",
+  "murphy-niu",
+  "james-preiss",
+  "yao-qin",
+  "xin-eric-wang",
+  "tao-yang",
+  "enoch-yeung",
+  "qian-yu"
+ ],
+ "Robotics": [
+  "francesco-bullo",
+  "glenn-h-fredrickson",
+  "elliot-hawkes",
+  "tobia-marcucci",
+  "igor-mezi",
+  "diba-mirza",
+  "jeff-moehlis",
+  "james-preiss",
+  "tyler-susko",
+  "yon-visell"
+ ],
+ "Security and Cryptography": [
+  "tevfik-bultan",
+  "wenbo-guo",
+  "arpit-gupta",
+  "christopher-kruegel",
+  "dahlia-malkhi",
+  "giovanni-vigna"
+ ],
+ "Inorganic Materials": [
+  "rapha-le-cl-ment",
+  "ram-seshadri",
+  "susanne-stemmer",
+  "chris-g-van-de-walle",
+  "anton-van-der-ven",
+  "stephen-wilson"
+ ],
+ "Database and Information Systems": [
+  "amr-el-abbadi",
+  "ambuj-singh",
+  "jianwen-su",
+  "tao-yang"
+ ],
+ "Modeling": [
+  "glenn-h-fredrickson",
+  "j-tyler-mefford",
+  "james-b-rawlings",
+  "m-scott-shell",
+  "todd-squires",
+  "niels-volkmann"
+ ],
+ "Theory & Simulation": [
+  "glenn-h-fredrickson",
+  "j-tyler-mefford",
+  "james-b-rawlings",
+  "m-scott-shell",
+  "todd-squires"
+ ],
+ "Structural Materials": [
+  "daniel-s-gianola",
+  "daniel-oropeza",
+  "tresa-pollock",
+  "anton-van-der-ven",
+  "frank-w-zok"
+ ],
+ "Communications & Signal Processing": [
+  "dorit-hanein",
+  "yogananda-isukapalli",
+  "hua-lee",
+  "upamanyu-madhow",
+  "b-s-manjunath",
+  "nina-miolane",
+  "yasamin-mostofi",
+  "ramtin-pedarsani",
+  "pradeep-sen",
+  "yon-visell"
+ ],
+ "Social Computing": [
+  "tobias-h-llerer",
+  "haewon-jeong"
+ ],
+ "Secure Hardware Design": [
+  "bongjin-kim",
+  "giovanni-vigna"
+ ],
+ "Algorithms and Theory": [
+  "daniel-lokshtanov",
+  "murphy-niu",
+  "james-preiss",
+  "subhash-suri"
+ ],
+ "Computer Graphics": [
+  "ling-qi-yan"
+ ]
+}

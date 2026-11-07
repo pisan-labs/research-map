@@ -5,4 +5,4 @@ server certificate's Authority Information Access field.
 
 | File | Issuer URL | Needed by |
 |---|---|---|
-| incommon-ovg2c.pem | http://repository.emsign.com/certs/EEEMIncommonOVG2C.crt | www.tacoma.uw.edu, jacobsschool.ucsd.edu |
+| incommon-ovg2c.pem | http://repository.emsign.com/certs/EEEMIncommonOVG2C.crt | www.tacoma.uw.edu |

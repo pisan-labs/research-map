@@ -33,7 +33,10 @@ unanswered for 15 minutes. Reverse any of them by answering that question.
 - 2026-11-07: full-time faculty only (confirmed).
 - 2026-11-07: more universities: UW Tacoma (whole campus), then one unit at
   a time at large universities, engineering colleges first (UW Seattle,
-  Northwestern, UCSD), each from its own faculty directory.
+  Northwestern, UC Santa Barbara), each from its own faculty directory.
+- 2026-11-07: target hosting is Netlify (static map pages), Supabase
+  (Postgres + pgvector data store, search Edge Function, auth for
+  corrections) and Render (scheduled pipeline). See PLAN.md.
 - 2026-11-07: search ranks records then people, with evidence; optional
   in-page search by meaning uses an English model (23 MB, downloaded on
   request) because multilingual ones are 118 MB. The map vectors stay

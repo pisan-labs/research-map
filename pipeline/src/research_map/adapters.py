@@ -222,7 +222,7 @@ def nu_mccormick_listing(fetcher: CachedFetcher, cfg: dict, refresh: bool):
     return people, {}
 
 
-# ---------------------------------------------------------------- UC San Diego Jacobs School
+# ---------------------------------------------------------------- shared helpers
 
 
 def _canon(text: str) -> str:
@@ -239,42 +239,45 @@ def canonical_department(text: str, departments: list[str]) -> str:
     return _clean(re.sub(r"\(.*?\)", "", text)) or "Other"
 
 
+# ---------------------------------------------------------------- UC Santa Barbara College of Engineering
 
-def ucsd_jacobs_listing(fetcher: CachedFetcher, cfg: dict, refresh: bool):
-    """jacobsschool.ucsd.edu/faculty/profiles: a paged (infinite-scroll) list; each row has
-    'Last, First', 'Rank, Department' lines and a research summary."""
+
+def ucsb_coe_listing(fetcher: CachedFetcher, cfg: dict, refresh: bool):
+    """engineering.ucsb.edu/people/faculty lists everyone on one page (name, rank, department);
+    each profile page adds a 'Research Areas' field, used as keywords and as curated areas."""
     base = cfg["listing_url"]
+    soup = BeautifulSoup(fetcher.get(base, refresh=refresh), "html.parser")
+    departments = cfg.get("departments", [])
     people: list[Person] = []
-    seen: set[str] = set()
-    for page in range(0, 200):
-        html = fetcher.get(f"{base}?page={page}", refresh=refresh)
-        soup = BeautifulSoup(html, "html.parser")
-        rows = [r for r in soup.select(".views-infinite-scroll-content-wrapper .row") if r.select_one("span.font-weight-bold a")]
-        new = 0
-        for r in rows:
-            a = r.select_one("span.font-weight-bold a")
-            href = urljoin(base, a.get("href", ""))
-            if href in seen:
-                continue
-            seen.add(href)
-            new += 1
-            name = uwt_name(a.get_text(" ", strip=True))
-            assoc = r.select_one(".faculty_list_associations")
-            lines = [x.strip() for x in assoc.get_text("\n", strip=True).split("\n") if x.strip()] if assoc else []
-            if any("deceased" in x.lower() for x in lines):
-                continue
-            first = next((x for x in lines if RANK_RE.search(x)), lines[0] if lines else "")
-            rank, _, dept = first.partition(",")
-            dept = canonical_department(dept, cfg.get("departments", []))
-            cols = r.find_all("div", class_="col-6")
-            research = _clean(cols[-1].get_text(" ")) if cols else ""
-            people.append(Person(id=roster.slugify(name), name=name, title=_clean(rank),
-                                 department=dept, program=dept,
-                                 category="", keywords=research, profile_url=href))
-        if not new:
-            break
-    print(f"  faculty profiles: {len(people)} listed", file=sys.stderr)
-    return people, {}
+    areas: dict[str, list[str]] = {}
+    for li in soup.select("li"):
+        a = li.select_one(".views-field-title a")
+        td = li.select_one(".views-field-field-people-title-dept")
+        if a is None or td is None:
+            continue
+        name = _clean(a.get_text(" "))
+        lines = [_clean(x) for x in td.get_text("\n").split("\n") if _clean(x)]
+        rank = next((x for x in lines if RANK_RE.search(x)), lines[0] if lines else "")
+        dept_line = next((x for x in lines if any(_canon(d) in _canon(x) for d in departments)), "")
+        dept = canonical_department(dept_line, departments) if dept_line else "Other"
+        url = urljoin(base, a["href"])
+        research = ""
+        try:
+            prof = BeautifulSoup(fetcher.get(url, refresh=refresh), "html.parser")
+            field = prof.select_one(".field-name-field-people-research-areas")
+            if field is not None:
+                research = _clean(field.get_text(" ").replace(" ,", ","))
+        except Exception as e:  # a missing profile should not stop the roster
+            print(f"  profile failed for {name}: {e}", file=sys.stderr)
+        pid = roster.slugify(name)
+        people.append(Person(id=pid, name=name, title=rank, department=dept, program=dept,
+                             category="", keywords=research, profile_url=url))
+        for area in [x.strip() for x in research.split(",") if x.strip()]:
+            areas.setdefault(area, [])
+            if pid not in areas[area]:
+                areas[area].append(pid)
+    print(f"  faculty page: {len(people)} listed", file=sys.stderr)
+    return people, areas
 
 
 ADAPTERS = {
@@ -282,7 +285,7 @@ ADAPTERS = {
     "uwt-directory": Adapter(uwt_listing, uwt_profile),
     "uwcoe-facultyfinder": Adapter(uwcoe_listing, None),
     "nu-mccormick-xml": Adapter(nu_mccormick_listing, None),
-    "ucsd-jacobs": Adapter(ucsd_jacobs_listing, None),
+    "ucsb-coe": Adapter(ucsb_coe_listing, None),
 }
 
 
