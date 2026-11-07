@@ -195,7 +195,9 @@ Still to do in Phase 0:
 - Overrides confirmed 2026-11-07 for 7 people (Retik, Martensen, Khemani,
   Price, Lewis, Gliboff, Champion): 65 of 89 matched, 2,195 works. Other
   candidates remain in `rosters/uwb-stem-openalex-candidates.csv`.
-- A `labels.yaml` override for weak computed labels ("integrity · outcomes").
+- Done 2026-11-07: `config/uwb-stem-labels.yaml` names all 6 areas and 11
+  of 12 topics by hand, keyed by a member so renumbering does not misplace
+  them; drafted from members' research text, for you to edit.
 
 ### Phase 1: generalise
 

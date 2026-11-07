@@ -286,7 +286,7 @@
         <textarea id="project" rows="4" placeholder="Paste a project idea or call for proposals, e.g. low-cost sensors to monitor stream water quality with machine learning"></textarea>
         <button type="submit">Find people</button>
       </form>
-      <h3>Research areas (computed)</h3>
+      <h3>Research areas</h3>
       <ul class="near">${areas}</ul>
       ${META.left_off.length ? `<p class="muted">Not on the map, because there is no research or teaching text or matched publication for them (they can still be found by search): ${META.left_off.map(esc).join(", ")}.</p>` : ""}
       <h3>How this map is made</h3>

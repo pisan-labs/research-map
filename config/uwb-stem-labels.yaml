@@ -1,0 +1,23 @@
+# Hand-written names for computed areas, used instead of the automatic
+# distinctive-term labels. Each entry names the cluster that contains
+# `member` (a person id), so it survives rebuilds that renumber clusters.
+# level: area (broad, shown zoomed out) or topic (fine, shown zoomed in).
+# Drafted 2026-11-07 from the members' own research descriptions; edit freely.
+- {level: area, member: casey-mann, label: "Mathematics and mathematics education"}
+- {level: area, member: shima-abadi, label: "Engineering, signals and physical sciences"}
+- {level: area, member: cynthia-chang, label: "Ecology, evolution and molecular life sciences"}
+- {level: area, member: yang-peng, label: "Networks, distributed systems and security"}
+- {level: area, member: kelvin-sung, label: "Software engineering, HCI, games and CS education"}
+- {level: area, member: dong-si, label: "AI, computational biology and health computing"}
+
+- {level: topic, member: emily-gismervig, label: "Mathematics and STEM education"}
+- {level: topic, member: kelvin-sung, label: "Software engineering, HCI and games"}
+- {level: topic, member: cynthia-chang, label: "Ecology, evolution and biodiversity"}
+- {level: topic, member: yang-peng, label: "Distributed systems, wireless networks and power"}
+- {level: topic, member: dong-si, label: "AI and computational biology"}
+- {level: topic, member: brent-lagesse, label: "Cybersecurity and pervasive computing"}
+- {level: topic, member: kaibao-nie, label: "Signal processing, waves and astrophysics"}
+- {level: topic, member: casey-mann, label: "Geometry, topology and optimization"}
+- {level: topic, member: charity-lovitt, label: "Chemistry and materials"}
+- {level: topic, member: han-wei-shih, label: "Molecular and cellular biology"}
+- {level: topic, member: jong-yoon, label: "Robotics, devices and fabrication"}

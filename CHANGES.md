@@ -31,3 +31,5 @@
 2026-11-07 [decision] Confirmed 7 OpenAlex matches by hand (overrides file); 65/89 matched. Phase 1 approved: record-level search, test set, advisor matching.
 
 2026-11-07 [code] Record-level search (web/search.js), search test set (curated areas), advisor finder: hit@10 0.68 vs 0.38, MRR 0.83 vs 0.64.
+
+2026-11-07 [code] Hand-written area and topic names (config/uwb-stem-labels.yaml), keyed by a member person; drafted by Claude for review.

@@ -52,3 +52,13 @@ def test_privacy_scan_ignores_links_and_page_ranges():
     assert privacy_problems(blob) == []
     assert privacy_problems('{"b":"call 425.352.5000"}') == ["425.352.5000"]
     assert privacy_problems('{"b":"call (425) 352-5000"}') == ["(425) 352-5000"]
+
+
+def test_label_overrides_follow_members(tmp_path):
+    from research_map.cli import apply_label_overrides
+
+    f = tmp_path / "labels.yaml"
+    f.write_text("- {level: area, member: bob, label: Robotics}\n- {level: area, member: cy, label: Dup}\n- {level: area, member: zed, label: Gone}\n")
+    clusters, names = [0, 1, 1], {0: ["a"], 1: ["b"]}
+    apply_label_overrides(f, ["ann", "bob", "cy"], {"area": (clusters, names)})
+    assert names == {0: ["a"], 1: ["Robotics"]}

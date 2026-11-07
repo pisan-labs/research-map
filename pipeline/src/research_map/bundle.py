@@ -156,8 +156,8 @@ def payload(
                 "publish in, their own description on the public directory and profile pages "
                 "(research keywords, interests, bio, dissertation title) and the courses they teach. "
                 f"Text is embedded with {model_name}. UMAP places people with similar vectors close "
-                "together. Areas are Leiden communities on the nearest-neighbour graph, labelled with "
-                "distinctive terms. Closest people are shown only when they are closer than 90% of "
+                "together. Areas are Leiden communities on the nearest-neighbour graph, named by hand from their members' "
+                "research where a name has been written, otherwise by distinctive terms. Closest people are shown only when they are closer than 90% of "
                 "all pairs."
             ),
         },

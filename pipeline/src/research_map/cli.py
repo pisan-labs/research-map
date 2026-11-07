@@ -190,6 +190,37 @@ def coauthor_pairs(works: dict[str, list[dict]], oa_ids: dict[str, list[str]]) -
     return out
 
 
+def apply_label_overrides(path: Path, ids: list[str], levels: dict) -> None:
+    """Replace computed labels with hand-written ones from config/<slug>-labels.yaml.
+
+    Each entry names the cluster containing `member`, so cluster renumbering
+    between builds does not misplace a label.
+    """
+    if not path.exists():
+        return
+    index = {pid: i for i, pid in enumerate(ids)}
+    used: dict[tuple[str, int], str] = {}
+    for e in yaml.safe_load(path.read_text()) or []:
+        level, member, label = e.get("level"), e.get("member"), e.get("label")
+        if level not in levels or not label:
+            print(f"labels: skipped bad entry {e}", file=sys.stderr)
+            continue
+        if member not in index:
+            print(f"labels: {member} is not on the map; '{label}' unused", file=sys.stderr)
+            continue
+        clusters, names = levels[level]
+        c = clusters[index[member]]
+        if (level, c) in used:
+            print(f"labels: '{label}' and '{used[(level, c)]}' name the same {level}; keeping the first", file=sys.stderr)
+            continue
+        used[(level, c)] = label
+        names[c] = [label]
+    for level, (clusters, _) in levels.items():
+        unnamed = sorted({c for c in clusters if (level, c) not in used and clusters.count(c) > 1})
+        if unnamed:
+            print(f"labels: {len(unnamed)} {level}(s) still use computed labels", file=sys.stderr)
+
+
 def cmd_build(args: argparse.Namespace) -> int:
     cfg = load_config(args.config)
     root = repo_root(args.config)
@@ -233,6 +264,8 @@ def cmd_build(args: argparse.Namespace) -> int:
     nbrs = model.nearest(sim, 10)
     broad_labels = model.cluster_labels(docs, broad, names=names)
     fine_labels = model.cluster_labels(docs, fine, names=names)
+    apply_label_overrides(root / "config" / f"{cfg['slug']}-labels.yaml", [p.id for p in people],
+                          {"area": (broad, broad_labels), "topic": (fine, fine_labels)})
     print(f"areas: {len(set(broad))} broad, {len(set(fine))} fine", file=sys.stderr)
     check = model.listed_area_agreement([p.id for p in people], nbrs, listed_areas)
     print(
