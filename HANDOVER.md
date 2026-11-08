@@ -39,10 +39,33 @@ UC San Diego was dropped by the user in favour of UC Santa Barbara.
      should pick up Eleanor O'Rourke)
    - `research-map openalex ../config/uwt.yaml --max-cost 0.3` (finishes
      the candidates file; Eyhab Al-Masri should now match)
-2. **Check by hand** the low-agreement matches each run prints, and in
-   particular UW CoE `daniel-grossman` (strict mode mixes a "Daniel
-   Grossman" record from health research with the CS "Dan Grossman"; if
-   wrong, pin `A5103045316` in `config/uw-coe-openalex-overrides.csv`).
+   - `research-map openalex ../config/uw-coe.yaml --max-cost 0.45`: the
+     works cache was in the previous container, so UW CoE must be fetched
+     again before it can be built; it also applies the new overrides.
+     All four runs together exceed $1, so spread them over two days.
+2. **Check by hand** the low-agreement matches each run prints.
+   UW CoE was checked on 2026-11-08 (free single-record lookups, no key):
+   `config/uw-coe-openalex-overrides.csv` pins 17 people. Strict mode had
+   merged every same-name record with any UW affiliation, so namesakes'
+   UW papers leaked in (Daniel Grossman, James Lee, Kevin Lin, Michael
+   Taylor, Joshua Smith, Xu Chen and others); Andrew Davidson set to none.
+   Still to check, with paper titles (needs the key):
+   - `abhishek-gupta`: two ~170-work CS records, both UW 2023-2026, plus
+     dentistry namesakes; pin the right ones.
+   - `sheng-wang` (A5100371324 pharmacology, A5100371286 medicine) and
+     `ying-zheng` (A5089319540 medicine, A5101482643 chemistry): possible
+     namesakes.
+   - `jenq-neng-hwang`: only small records found (15 works since 2011);
+     the main record is missing. `peter-mackenzie-helnwein`: one stray
+     work (agreement 0.11); main record missing.
+   - `jose-lopez` (Mechanical Engineering): every record is José A. López,
+     hematology (UW Medicine). Probably an adjunct listed as "Professor";
+     ask the user whether to keep him.
+   Checked and kept: `jorge-marchand` (0.13), `hal-perkins` (0.25),
+   `soraya-bailey` (0.29), and strict matches whose records all share
+   one field. Idea: in strict mode, check each record's topics against
+   the person's profile, not just the person's overall agreement, which
+   would catch this automatically; measure it on UW CoE.
 3. **Build** `uw-coe`, `nu-mccormick`, `ucsb-coe`, `uwt`
    (`research-map build ../config/<slug>.yaml`; about 2-10 min each on CPU).
 4. **Name areas by hand**: `config/<slug>-labels.yaml` (see the UWB and UWT
@@ -103,7 +126,11 @@ UC San Diego was dropped by the user in favour of UC Santa Barbara.
 ## Gotchas
 
 - **OpenAlex key**: saved as a network secret on the cloud environment
-  "EnvFull"; the proxy injects it for `api.openalex.org`. On halflife set
+  "EnvFull"; the proxy injects it for `api.openalex.org`. Only sessions
+  started after the secret was added get it (the same holds for the
+  Netlify and Supabase settings): a session from 2026-11-07 morning gets
+  "Authentication required". Single-record lookups (`/authors/A...`)
+  are free and work without a key. On halflife set
   `OPENALEX_API_KEY`. Responses are cached under `data/<slug>/openalex/`,
   but `data/` is not in git, so a fresh container refetches (costs budget).
 - **Netlify**: this environment sets `NETLIFY_SITE_ID` for another site;

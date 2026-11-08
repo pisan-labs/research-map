@@ -57,3 +57,5 @@
 2026-11-08 [code] UW CoE OpenAlex: 274/301 matched, 23,620 works with the final name rules. McCormick map built (pre-fix matches; rematch pending).
 
 2026-11-08 [doc] HANDOVER.md written for the next session; scheduled runs and PR watch cancelled at the user's request.
+
+2026-11-08 [code] UW CoE matches checked by hand (free lookups): 17 overrides; strict mode had merged UW namesakes from other fields. 6 people still open (HANDOVER.md).
