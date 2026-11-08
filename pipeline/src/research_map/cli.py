@@ -31,6 +31,13 @@ def load_config(path: Path) -> dict:
     return cfg
 
 
+def read_people(root: Path, cfg: dict) -> list:
+    """The saved roster, minus the config's opt-out list (applied here too, so
+    an opt-out takes effect without scraping the directory again)."""
+    opt_out = set(cfg["opt_out"])
+    return [p for p in roster.read_csv(root / "rosters" / f"{cfg['slug']}.csv") if p.id not in opt_out]
+
+
 def cmd_roster(args: argparse.Namespace) -> int:
     cfg = load_config(args.config)
     root = repo_root(args.config)
@@ -84,7 +91,7 @@ def cmd_openalex(args: argparse.Namespace) -> int:
     data = root / "data" / slug
     client = openalex.OpenAlexClient(data / "openalex", max_cost_usd=args.max_cost)
     overrides = openalex.read_overrides(root / "config" / f"{slug}-openalex-overrides.csv")
-    people = roster.read_csv(root / "rosters" / f"{slug}.csv")
+    people = read_people(root, cfg)
 
     matches, works = [], {}
     try:
@@ -273,7 +280,7 @@ def cmd_build(args: argparse.Namespace) -> int:
     cfg = load_config(args.config)
     root = repo_root(args.config)
     data = root / "data" / cfg["slug"]
-    people = roster.read_csv(root / "rosters" / f"{cfg['slug']}.csv")
+    people = read_people(root, cfg)
     prof_path = root / "rosters" / f"{cfg['slug']}-profiles.json"
     profiles = json.loads(prof_path.read_text()) if prof_path.exists() else {}
     areas_path = root / "rosters" / f"{cfg['slug']}-areas.json"

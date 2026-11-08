@@ -59,3 +59,5 @@
 2026-11-08 [doc] HANDOVER.md written for the next session; scheduled runs and PR watch cancelled at the user's request.
 
 2026-11-08 [code] UW CoE matches checked by hand (free lookups): 17 overrides; strict mode had merged UW namesakes from other fields. 6 people still open (HANDOVER.md).
+
+2026-11-08 [decision] Jose Lopez opted out of uw-coe (hematology; likely adjunct); default after 15 min. openalex and build now apply opt_out without a rescrape.

@@ -59,8 +59,10 @@ UC San Diego was dropped by the user in favour of UC Santa Barbara.
      the main record is missing. `peter-mackenzie-helnwein`: one stray
      work (agreement 0.11); main record missing.
    - `jose-lopez` (Mechanical Engineering): every record is José A. López,
-     hematology (UW Medicine). Probably an adjunct listed as "Professor";
-     ask the user whether to keep him.
+     hematology (UW Medicine), probably an adjunct listed as "Professor".
+     Opted out in `config/uw-coe.yaml` (recommended default, adopted
+     2026-11-08 without an answer; delete the entry to bring him back).
+     `openalex` and `build` now apply `opt_out` too, so no rescrape is needed.
    Checked and kept: `jorge-marchand` (0.13), `hal-perkins` (0.25),
    `soraya-bailey` (0.29), and strict matches whose records all share
    one field. Idea: in strict mode, check each record's topics against

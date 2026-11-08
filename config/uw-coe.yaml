@@ -25,6 +25,7 @@ openalex_institution: I201448701  # University of Washington
 include:
   title_pattern: "professor|lecturer|chair"  # endowed chairs list the chair name instead of a rank
   exclude_title_pattern: "emerit|retired|affiliate|part[- ]time|adjunct|visiting"
-opt_out: []
+# Jose Lopez: every OpenAlex record is hematology (UW Medicine); likely an adjunct listed as "Professor".
+opt_out: [jose-lopez]
 color_by: department
 search_model: all-MiniLM-L6-v2
