@@ -53,3 +53,7 @@
 2026-11-07 [code] Netlify site uw-research-maps live. Supabase schema, loader, hybrid search SQL function and Edge Function written; tested on local Postgres.
 
 2026-11-07 [note] Supabase project not created: free plan limit of 2 active projects per owner reached (upvoteme, dsa).
+
+2026-11-08 [code] UW CoE OpenAlex: 274/301 matched, 23,620 works with the final name rules. McCormick map built (pre-fix matches; rematch pending).
+
+2026-11-08 [doc] HANDOVER.md written for the next session; scheduled runs and PR watch cancelled at the user's request.

@@ -309,8 +309,8 @@ who is kept is a title rule in the config.
 |---|---|---|
 | UW Bothell STEM (`uwb-stem`) | built | 87 people; neighbour check 52%; search hit@10 0.75 |
 | UW Tacoma (`uwt`) | built | whole campus, 268 full-time faculty, 256 mapped; 195 matched in OpenAlex, 6,180 works; no curated areas, so no checks; areas named by hand |
-| UW College of Engineering (`uw-coe`) | roster done | 301 full-time faculty from the Faculty Finder, with research areas (also a test set: 68 areas with 2+ people); OpenAlex waits for the daily budget |
-| Northwestern McCormick (`nu-mccormick`) | roster done | 288 core faculty from the directory's XML feed; 170+ with research-area text |
+| UW College of Engineering (`uw-coe`) | OpenAlex done (274 matched, 23,620 works), map not built | 301 full-time faculty from the Faculty Finder, with research areas (also a test set: 68 areas with 2+ people); OpenAlex waits for the daily budget |
+| Northwestern McCormick (`nu-mccormick`) | map built, not deployed; rematch needed with the 2026-11-08 name rules | 288 core faculty from the directory's XML feed; 170+ with research-area text |
 | UC Santa Barbara College of Engineering (`ucsb-coe`) | roster done | 170 faculty from the faculty page; profile pages give research areas for 146 (38 areas with 2+ people: a search test set). Replaced UC San Diego on 2026-11-07 |
 
 OpenAlex costs about $0.30–0.45 per unit of 300 people (name searches are
