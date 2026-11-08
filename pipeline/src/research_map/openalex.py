@@ -55,8 +55,14 @@ class OpenAlexClient:
             return json.loads(cache.read_text())
         if self.spent >= self.max_cost:
             raise BudgetExceeded(f"spent ${self.spent:.4f}, cap ${self.max_cost}")
-        for attempt in range(4):
-            resp = self.http.get(url)
+        for attempt in range(5):
+            try:
+                resp = self.http.get(url)
+            except httpx.TransportError:  # connection reset, timeout: retry with backoff
+                if attempt == 4:
+                    raise
+                time.sleep(2**attempt)
+                continue
             if resp.status_code == 429 or resp.status_code >= 500:
                 time.sleep(2**attempt)
                 continue

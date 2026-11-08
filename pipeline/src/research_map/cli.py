@@ -338,6 +338,7 @@ def cmd_build(args: argparse.Namespace) -> int:
         coauthors=coauthors,
         near_cutoff=near_cutoff,
         openalex_ids=oa_ids,
+        page_pubs=int(cfg.get("page_pubs", 60)),
         as_of=dt.date.today().isoformat(),
     )
     add_search_vectors(payload, args.search_model if args.search_model is not None

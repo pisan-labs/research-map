@@ -69,6 +69,7 @@ def payload(
     coauthors: dict[str, dict[str, int]] | None = None,
     near_cutoff: float = -1.0,
     openalex_ids: dict[str, list[str]] | None = None,
+    page_pubs: int = 60,
 ) -> dict:
     listed_by_person: dict[str, list[str]] = {}
     for area, ids in listed_areas.items():
@@ -97,10 +98,10 @@ def payload(
             "links": [{"text": t, "href": h} for t, h in prof.get("links", [])],
             "orcid": p.orcid,
             "openalex": openalex_ids.get(p.id, []),
-            "n_works": d.n_works,
+            "n_works": d.n_works,  # all works; "pubs" below may be capped for page size
             # Every publication as [title, year, venue, link]: search records
             # and the card's list (newest first).
-            "pubs": [[w["title"], w.get("year"), w.get("venue", ""), work_url(w)] for w in d.works],
+            "pubs": [[w["title"], w.get("year"), w.get("venue", ""), work_url(w)] for w in d.works[:page_pubs]],
             "oa_topics": [t for t, _ in topics.most_common(6)],
         }
 
