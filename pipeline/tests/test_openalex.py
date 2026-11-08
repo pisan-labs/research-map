@@ -29,7 +29,7 @@ def test_search_queries_drop_middle_initials():
     from research_map.openalex import search_queries
 
     assert search_queries("Erika F. Parsons") == ["erika parsons"]
-    assert search_queries("Zachary (Zak) Rubin") == ["zachary rubin", "zak rubin"]
+    assert search_queries("Zachary (Zak) Rubin")[:2] == ["zachary rubin", "zak rubin"]
 
 
 def test_listed_at_checks_this_authors_institution():
@@ -47,3 +47,22 @@ def test_search_queries_keep_hyphenated_surnames():
     from research_map.openalex import search_queries
 
     assert "eyhab al-masri" in search_queries("Eyhab Al-Masri")
+
+
+def test_search_queries_keep_apostrophe_surnames():
+    from research_map.openalex import search_queries
+
+    assert "eleanor o'rourke" in search_queries("Eleanor O'Rourke")
+
+
+def test_family_name_must_end_candidate_name_and_short_forms_searched():
+    from research_map.openalex import search_queries
+
+    from research_map.openalex import _name_hits, name_match_kind
+
+    assert name_match_kind("Simon Peter", "Simon Peter Horslen") == "loose"
+    assert name_match_kind("Yan Chen", "Chen Yan") == "exact"
+    hits = _name_hits("Simon Peter", [{"display_name": "Simon Peter Horslen"}, {"display_name": "Simon Peter"}])
+    assert [h["display_name"] for h in hits] == ["Simon Peter"]
+    assert _name_hits("Pedram Khalili", [{"display_name": "Pedram Khalili Amiri"}])
+    assert "dan grossman" in search_queries("Daniel Grossman")

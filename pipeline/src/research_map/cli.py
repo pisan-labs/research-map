@@ -121,7 +121,14 @@ def cmd_openalex(args: argparse.Namespace) -> int:
                     works[p.id] = []
                 continue
             agreement[p.id] = a
-            if m.how == "search-wider" and a < args.min_agreement:
+            if m.how in ("search", "strict") and a < args.min_agreement_home:
+                # Even at the home institution: papers almost unrelated to the person's own
+                # description mean a namesake (UW Seattle is large enough to have several).
+                print(f"  rejected {p.name}: papers do not match their description "
+                      f"(agreement {a:.2f} < {args.min_agreement_home}); see candidates", file=sys.stderr)
+                m.how, m.author_ids = "rejected-topic", []
+                works[p.id] = []
+            elif m.how == "search-wider" and a < args.min_agreement:
                 print(f"  rejected {p.name}: papers do not match their description "
                       f"(agreement {a:.2f} < {args.min_agreement}); see candidates", file=sys.stderr)
                 m.how, m.author_ids = "rejected-topic", []
@@ -406,6 +413,8 @@ def main(argv: list[str] | None = None) -> int:
     o.add_argument("--model", default=model.DEFAULT_MODEL, help="embedding model for the topic check")
     o.add_argument("--min-agreement", type=float, default=0.30,
                    help="UW-wide matches whose papers agree less than this with the profile go to review")
+    o.add_argument("--min-agreement-home", type=float, default=0.10,
+                   help="home-institution matches below this go to review (namesakes at large universities)")
     o.set_defaults(func=cmd_openalex)
 
     b = sub.add_parser("build", help="embed, lay out and write site/<slug>/index.html")

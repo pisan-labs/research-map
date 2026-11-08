@@ -116,30 +116,39 @@ def same_given_name(a: str, b: str) -> bool:
     return b in NICKNAMES.get(a, ()) or a in NICKNAMES.get(b, ())
 
 
-def name_matches(roster_name: str, candidate: str) -> bool:
-    """Same family name and the same given name.
+def _given_ok(roster_name: str, given: list[str]) -> bool:
+    r = norm_name(roster_name)
+    firsts = [r[0]] + [n for nick in nicknames(roster_name) for n in norm_name(nick)]
+    if not given or not any(same_given_name(f, given[0]) for f in firsts):
+        return False
+    r_mid, c_mid = r[1:-1], given[1:]
+    return not (r_mid and c_mid and r_mid[0][0] != c_mid[0][0])
 
-    Given names match in full, by a bracketed nickname ("Zachary (Zak)"), or
-    through the NICKNAMES table (Jeff / Jeffrey). Initials alone are not
-    enough: "Z. Wang" could be anyone. A middle initial on both sides must
-    agree.
+
+def name_match_kind(roster_name: str, candidate: str) -> str:
+    """'exact' (family name last, or a reversed 'Family Given' record), 'loose' (family name
+    elsewhere: 'Pedram Khalili Amiri', 'Jarrod Call LCSW'), or '' (no match).
+
+    Given names match in full, by a bracketed nickname ("Zachary (Zak)"), or through the
+    NICKNAMES table (Jeff / Jeffrey); initials alone never do. Middle initials must agree.
     """
     r, c = norm_name(roster_name), norm_name(candidate)
     if len(r) < 2 or len(c) < 2:
-        return False
+        return ""
     last = r[-1]
-    if last not in c:
-        return False
-    firsts = [r[0]] + [n for nick in nicknames(roster_name) for n in norm_name(nick)]
-    c_rest = [t for t in c if t != last]
-    c_first = c_rest[0] if c_rest else ""
-    if not any(same_given_name(f, c_first) for f in firsts):
-        return False
-    r_mid = [t for t in r[1:-1]]
-    c_mid = c_rest[1:]
-    if r_mid and c_mid and r_mid[0][0] != c_mid[0][0]:
-        return False
-    return True
+    if c[-1] == last and _given_ok(roster_name, c[:-1]):
+        return "exact"
+    if c[0] == last and _given_ok(roster_name, c[1:]):
+        return "exact"  # reversed: "Chen Yan" for Yan Chen
+    if last in c[1:-1]:
+        i = c.index(last, 1)
+        if _given_ok(roster_name, c[:i]):
+            return "loose"
+    return ""
+
+
+def name_matches(roster_name: str, candidate: str) -> bool:
+    return bool(name_match_kind(roster_name, candidate))
 
 
 # ---------------------------------------------------------------- matching
@@ -179,9 +188,11 @@ def search_queries(name: str) -> list[str]:
     if len(toks) < 2:
         return [" ".join(toks)]
     qs = [f"{toks[0]} {toks[-1]}"] + [f"{n} {toks[-1]}" for nick in nicknames(name) for n in norm_name(nick)[:1]]
-    # Hyphenated or particle surnames as written ("Al-Masri", "De Cock"): "eyhab masri" can miss them.
+    # Short forms people publish under ("Daniel Grossman" publishes as "Dan Grossman").
+    qs += [f"{short} {toks[-1]}" for short, full in NICKNAMES.items() if toks[0] in full and short != toks[0]]
+    # Hyphenated or apostrophe surnames as written ("Al-Masri", "O'Rourke"): "eyhab masri" can miss them.
     words = re.sub(r"\([^)]*\)", " ", name).split()
-    if len(words) >= 2 and "-" in words[-1]:
+    if len(words) >= 2 and re.search(r"[-'’]", words[-1]):
         qs.append(f"{toks[0]} {words[-1].lower()}")
     return list(dict.fromkeys(qs))
 
@@ -202,7 +213,14 @@ def _search(client: OpenAlexClient, name: str, filt: str | None) -> list[dict]:
 
 
 def _name_hits(name: str, results: list[dict]) -> list[dict]:
-    return [a for a in results if name_matches(name, a["display_name"])]
+    """Exact name matches if there are any; otherwise the loose ones.
+
+    "Simon Peter" has an exact record, so "Simon Peter Horslen" is dropped;
+    "Pedram Khalili" has only "Pedram Khalili Amiri", which is kept.
+    """
+    kinds = [(a, name_match_kind(name, a["display_name"])) for a in results]
+    exact = [a for a, k in kinds if k == "exact"]
+    return exact or [a for a, k in kinds if k == "loose"]
 
 
 MAX_RECORDS = 3  # more author records than this for one name: likely several people
