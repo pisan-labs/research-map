@@ -15,13 +15,15 @@ from pathlib import Path
 
 from . import model
 
+SCHEMA = "app_research_map"  # see supabase/migrations
 SERVER_SEARCH_MODEL = "thenlper/gte-small"  # matches Supabase.ai Session("gte-small")
 
 
 def connection_string() -> str:
     url = os.environ.get("SUPABASE_DB_URL") or os.environ.get("DATABASE_URL") or ""
     if not url:
-        raise SystemExit("set SUPABASE_DB_URL (Supabase: Project Settings > Database > connection string)")
+        raise SystemExit("set SUPABASE_DB_URL (the session pooler URI from the dashboard's Connect dialog;\n"
+                         "the direct host is IPv6-only). Never commit it.")
     return url
 
 
@@ -71,6 +73,8 @@ def load(cfg: dict, root: Path, embed: bool = True) -> dict:
             links.append((slug, p["id"], wid))
 
     with psycopg.connect(connection_string()) as conn, conn.cursor() as cur:
+        # The shared HintWise project: this app's tables live in their own schema.
+        cur.execute(f"set search_path = {SCHEMA}, extensions")
         cur.execute("delete from units where slug = %s", (slug,))  # cascades to the unit's rows
         cur.execute(
             "insert into units (slug, name, university, openalex_institution, as_of, people_count, works_count, meta)"

@@ -1,8 +1,16 @@
 -- Research map data store. Public, read-only for the anon role (all data is
 -- from public directories and OpenAlex); writes only with the service role
 -- used by the pipeline.
+--
+-- Lives in the shared HintWise Supabase project (arktxlrlyceffyozdwhq), so
+-- everything is additive and stays inside schema app_research_map (one schema
+-- per app, pisanuw/claude-built-apps docs/platform.md section 1). Nothing here
+-- touches public or any other app's schema.
 
-create extension if not exists vector;
+create schema if not exists app_research_map;
+create extension if not exists vector with schema extensions;
+-- Unqualified names below are created in app_research_map; vector resolves from extensions.
+set search_path = app_research_map, extensions;
 
 create table units (
   slug text primary key,
@@ -87,12 +95,12 @@ create table search_records (
   venue text,
   url text,
   tsv tsvector generated always as (to_tsvector('english', text)) stored,
-  embedding vector(384),
+  embedding extensions.vector(384),
   foreign key (unit_slug, person_id) references people(unit_slug, id) on delete cascade
 );
 create index search_records_unit on search_records (unit_slug);
 create index search_records_tsv on search_records using gin (tsv);
-create index search_records_embedding on search_records using hnsw (embedding vector_cosine_ops);
+create index search_records_embedding on search_records using hnsw (embedding extensions.vector_cosine_ops);
 
 -- Corrections that today live in config files (OpenAlex overrides, area names, opt-outs).
 create table overrides (
@@ -124,3 +132,14 @@ create policy "public read" on areas for select using (true);
 create policy "public read" on neighbours for select using (true);
 create policy "public read" on search_records for select using (true);
 -- overrides: no public policy (read and written by the pipeline and, later, signed-in editors).
+
+-- Data API access: read-only for anon and authenticated (RLS above still
+-- applies); the schema must also be appended to the project's exposed schemas.
+grant usage on schema app_research_map to anon, authenticated, service_role;
+grant select on all tables in schema app_research_map to anon, authenticated;
+grant all on all tables in schema app_research_map to service_role;
+grant usage, select on all sequences in schema app_research_map to service_role;
+alter default privileges in schema app_research_map grant select on tables to anon, authenticated;
+alter default privileges in schema app_research_map grant all on tables to service_role;
+alter default privileges in schema app_research_map grant usage, select on sequences to service_role;
+alter default privileges in schema app_research_map grant execute on functions to anon, authenticated, service_role;

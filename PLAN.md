@@ -387,4 +387,4 @@ Q6: confirmed. Q12 and Q13 are new and open.
 16. Hosting order: Netlify static first, then Supabase data and search, then the Render pipeline? (answered: yes)
 17. Pipeline host: (answered: halflife; no Render yet)
 18. Accounts: (answered: create new Netlify and Supabase projects; Netlify done)
-19. Supabase project slot: pause `upvoteme` or `dsa`, upgrade the YP org to Pro (paid), or use a schema in an existing project? (open; no recommendation without knowing which projects are in use)
+19. Supabase project slot: pause `upvoteme` or `dsa`, upgrade the YP org to Pro (paid), or use a schema in an existing project? (2026-11-09: proposed by the Plabs session: schema `app_research_map` in the shared HintWise project `arktxlrlyceffyozdwhq`; repo side done, applying it waits for the user's yes)

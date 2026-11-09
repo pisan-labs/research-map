@@ -33,10 +33,12 @@ parses profile pages.
   ```
 
   (`env -u` matters where a `NETLIFY_SITE_ID` for another site is set.)
-- **Supabase** (project not created yet: the free plan's two active projects
-  are in use). Schema and search function: `supabase/migrations/`; search
-  API: `supabase/functions/search/`. `research-map load CONFIG` writes a
-  built map into the database (`SUPABASE_DB_URL`);
+- **Supabase**: planned in the shared HintWise project (`arktxlrlyceffyozdwhq`),
+  schema `app_research_map` only; not applied yet. Schema and search
+  function: `supabase/migrations/`; search API:
+  `supabase/functions/research-map-search/`. `research-map load CONFIG`
+  writes a built map into that schema (`SUPABASE_DB_URL`, the session pooler
+  URI; never commit it);
   `tests/search_eval_db.py` runs the search test set against it.
 - **Pipeline**: runs on halflife for now; Render later.
 

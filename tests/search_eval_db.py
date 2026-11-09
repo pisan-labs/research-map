@@ -20,6 +20,7 @@ from research_map import db, model  # noqa: E402
 slug = sys.argv[1] if len(sys.argv) > 1 else "uwb-stem"
 areas = json.loads((root / "rosters" / f"{slug}-areas.json").read_text())
 with psycopg.connect(db.connection_string()) as conn:
+    conn.execute(f"set search_path = {db.SCHEMA}, extensions")
     ids = {r[0] for r in conn.execute("select id from people where unit_slug = %s", (slug,))}
     queries = [(q, set(i for i in v if i in ids)) for q, v in areas.items()]
     queries = [(q, rel) for q, rel in queries if len(rel) >= 2]

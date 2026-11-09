@@ -1,18 +1,23 @@
+-- In schema app_research_map (see the init migration); vector lives in extensions.
+set search_path = app_research_map, extensions;
+
 -- Record-level hybrid search, mirroring web/search.js: each record scores
 -- alpha * meaning + (1 - alpha) * keyword (both scaled to the best record for
 -- the query), times a weight per record kind; a person's score is their best
 -- 8 records with weights 1, 0.7, 0.49, ...; the top 3 records are evidence.
 -- p_qvec: the query embedded with gte-small (normalised); null = keywords only.
-create or replace function search_people(
+create or replace function app_research_map.search_people(
   p_unit text,
   p_query text,
-  p_qvec vector(384) default null,
+  p_qvec extensions.vector(384) default null,
   p_alpha real default 0.5,
   p_limit int default 20,
   p_use_listed boolean default true
 )
 returns table (person_id text, score real, evidence jsonb)
 language sql stable
+-- Fixed search_path: callers (PostgREST, the Edge Function) have their own.
+set search_path = app_research_map, extensions, pg_catalog
 as $$
   with q as (
     -- OR of the query's terms: long project descriptions should not require every word.
@@ -73,4 +78,5 @@ as $$
   limit p_limit
 $$;
 
-grant execute on function search_people(text, text, vector, real, int, boolean) to anon, authenticated;
+grant execute on function app_research_map.search_people(text, text, extensions.vector, real, int, boolean)
+  to anon, authenticated, service_role;

@@ -65,3 +65,7 @@
 2026-11-09 [plan] OpenAlex key still missing in this session; user approved two one-shot fresh-session runs (day 1 UW CoE+UCSB 11-10 00:17 UTC, day 2 McCormick+UWT 11-11 00:17 UTC).
 
 2026-11-09 [code] openalex: strict matches now drop author records whose papers disagree with the profile (per-record check; --record-margin, --no-record-check); unmeasured, day-1 run measures it on UW CoE.
+
+2026-11-09 [decision] Supabase (Q19): Plabs session proposes schema app_research_map in the shared HintWise project; repo side done and tested locally; applying it waits for the user.
+
+2026-11-09 [code] Migrations moved into schema app_research_map (pgvector in extensions, grants, fixed function search_path); Edge Function renamed research-map-search; loader and DB eval set search_path.

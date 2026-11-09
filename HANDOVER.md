@@ -86,19 +86,35 @@ UC San Diego was dropped by the user in favour of UC Santa Barbara.
    its config (measure the search test set on a unit that has one first).
 7. **Redeploy Netlify** (user approved keeping this site updated):
    `env -u NETLIFY_SITE_ID npx netlify deploy --prod --dir site --site uw-research-maps --no-build`
-8. **Supabase** is blocked on the user (open question below). When a
-   project exists: apply `supabase/migrations/*.sql`, run
-   `research-map load ../config/<slug>.yaml` with `SUPABASE_DB_URL`, deploy
-   `supabase/functions/search` (written, never run), test with
-   `tests/search_eval_db.py`.
+8. **Supabase: shared HintWise project, schema `app_research_map`**
+   (proposed by the Plabs session on 2026-11-09; **waiting for the user's
+   yes** before anything touches the project, which hosts live apps).
+   The repo side is done and tested on a local Postgres 16 + pgvector with
+   Supabase-like roles: migrations create only `app_research_map` (8
+   tables, RLS, `search_people`) and pgvector in `extensions`; anon can read
+   and search but not write or see `overrides`; `load` writes into the schema.
+   Steps after the yes:
+   a. Apply `supabase/migrations/*.sql` (each file in one transaction).
+   b. Expose the schema: GET `/v1/projects/arktxlrlyceffyozdwhq/postgrest`,
+      then PATCH `db_schema` with `app_research_map` **appended** to the
+      current list (`public,graphql_public,wcv,platform` on 2026-11-09;
+      dropping `wcv` breaks a live app). That GET returns `jwt_secret`:
+      never print the object whole.
+   c. Deploy the Edge Function as `research-map-search` (not `search`).
+   d. On halflife, run `research-map load ../config/<slug>.yaml` with
+      `SUPABASE_DB_URL` = the session pooler URI (user
+      `postgres.arktxlrlyceffyozdwhq`, port 5432, host from the dashboard's
+      Connect dialog; the direct host is IPv6-only; the user holds the
+      password). Then `tests/search_eval_db.py <slug>`.
+   Conventions: pisanuw/claude-built-apps `docs/platform.md` section 1.
+   Netlify: research-map.hintwise.org is now the primary domain of
+   uw-research-maps (2026-11-09); the deploy command is unchanged.
 
 ## Open questions for the user
 
-- **Supabase project slot** (PLAN Q19): the free plan allows two active
-  projects per owner across all orgs; `upvoteme` and `dsa` are active.
-  Options: pause one (free, reversible), upgrade org YP to Pro (paid, needs
-  a yes), or use a schema in an existing project. No recommendation given:
-  depends on whether `upvoteme` is in use.
+- **Supabase** (PLAN Q19): the Plabs session proposed the shared HintWise
+  project, schema `app_research_map` (default taken there on 2026-11-09).
+  Needs the user's yes before step 8 touches it.
 - Area names for UWB and UWT were drafted by Claude from members' research;
   the user has not reviewed them.
 

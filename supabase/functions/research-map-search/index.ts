@@ -1,11 +1,15 @@
-// Search API for the research maps: GET/POST /functions/v1/search?unit=uwb-stem&q=...
+// Search API for the research maps: GET/POST /functions/v1/research-map-search?unit=uwb-stem&q=...
+// Deployed under this name because the Supabase project is shared (HintWise);
+// the data lives in schema app_research_map, which must be in the exposed schemas.
 // Embeds the query with Supabase's built-in gte-small model (the pipeline embeds
 // records with the same model, thenlper/gte-small) and calls the search_people
 // SQL function (record-level hybrid search, see migrations). Public, read-only.
 import { createClient } from "jsr:@supabase/supabase-js@2";
 
 const session = new Supabase.ai.Session("gte-small");
-const supabase = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_ANON_KEY")!);
+const supabase = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_ANON_KEY")!, {
+  db: { schema: "app_research_map" },
+});
 
 const CORS = {
   "Access-Control-Allow-Origin": "*",
