@@ -87,8 +87,11 @@ UC San Diego was dropped by the user in favour of UC Santa Barbara.
 7. **Redeploy Netlify** (user approved keeping this site updated):
    `env -u NETLIFY_SITE_ID npx netlify deploy --prod --dir site --site uw-research-maps --no-build`
 8. **Supabase: shared HintWise project, schema `app_research_map`**
-   (proposed by the Plabs session on 2026-11-09; **waiting for the user's
-   yes** before anything touches the project, which hosts live apps).
+   (proposed by the Plabs session; **approved by the user 2026-11-09 15:25
+   Lisbon**). Not applied yet: no session on EnvFull has a Supabase
+   management token (`SUPABASE_ACCESS_TOKEN` unset, proxy injects none; a
+   helper session started 15:36 confirmed it). Needs the token added to
+   EnvFull, then a new session runs a-c below.
    The repo side is done and tested on a local Postgres 16 + pgvector with
    Supabase-like roles: migrations create only `app_research_map` (8
    tables, RLS, `search_people`) and pgvector in `extensions`; anon can read

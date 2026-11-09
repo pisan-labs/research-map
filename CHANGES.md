@@ -69,3 +69,5 @@
 2026-11-09 [decision] Supabase (Q19): Plabs session proposes schema app_research_map in the shared HintWise project; repo side done and tested locally; applying it waits for the user.
 
 2026-11-09 [code] Migrations moved into schema app_research_map (pgvector in extensions, grants, fixed function search_path); Edge Function renamed research-map-search; loader and DB eval set search_path.
+
+2026-11-09 [note] User approved applying app_research_map to the shared Supabase project; blocked: no Supabase management token reaches EnvFull sessions (helper session confirmed). Nothing applied.
