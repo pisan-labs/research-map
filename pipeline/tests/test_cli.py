@@ -8,3 +8,25 @@ def test_read_people_applies_opt_out(tmp_path):
     roster.write_csv(people, tmp_path / "rosters" / "x.csv")
     cfg = {"slug": "x", "opt_out": ["c-d"]}
     assert [p.id for p in cli.read_people(tmp_path, cfg)] == ["a-b"]
+
+
+def test_check_strict_records_drops_namesake(capsys):
+    import argparse
+
+    import numpy as np
+
+    from research_map.openalex import Match
+
+    class FakeEmbedder:  # "robot" texts point one way, "tumour" texts another
+        def encode(self, texts):
+            return np.array([[1.0, 0.0] if "robot" in t.lower() else [0.0, 1.0] for t in texts], dtype=np.float32)
+
+    p = Person("j-s", "J S", "Professor", "D", "D", "", "robot learning", "")
+    m = Match("j-s", ["A1", "A2"], ["J. S", "J. S"], 0, "strict")
+    works = {"j-s": [{"title": f"Robot grasping {i}", "year": 2024, "authors": ["A1"]} for i in range(4)]
+             + [{"title": f"Tumour imaging {i}", "year": 2024, "authors": ["A2"]} for i in range(4)]}
+    args = argparse.Namespace(min_agreement_home=0.10, record_margin=0.20)
+    cli.check_strict_records(m, p, None, works, FakeEmbedder(), 2026, args)
+    assert m.author_ids == ["A1"] and m.names == ["J. S"]
+    assert all("Robot" in w["title"] for w in works["j-s"])
+    assert "dropped record A2 from J S" in capsys.readouterr().err

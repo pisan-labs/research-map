@@ -65,9 +65,14 @@ UC San Diego was dropped by the user in favour of UC Santa Barbara.
      `openalex` and `build` now apply `opt_out` too, so no rescrape is needed.
    Checked and kept: `jorge-marchand` (0.13), `hal-perkins` (0.25),
    `soraya-bailey` (0.29), and strict matches whose records all share
-   one field. Idea: in strict mode, check each record's topics against
-   the person's profile, not just the person's overall agreement, which
-   would catch this automatically; measure it on UW CoE.
+   one field. **Per-record check (added 2026-11-09, not yet measured):**
+   in strict mode `openalex` now scores each author record's papers
+   against the person's own description and drops a record below
+   `--min-agreement-home` (0.10) or more than `--record-margin` (0.20)
+   below the best record; records with under 3 works are not judged.
+   Each drop prints `dropped record ... check by hand`;
+   `--no-record-check` restores the old behaviour. Measure it on UW CoE:
+   do the 17 pinned people come out right with the overrides set aside?
 3. **Build** `uw-coe`, `nu-mccormick`, `ucsb-coe`, `uwt`
    (`research-map build ../config/<slug>.yaml`; about 2-10 min each on CPU).
 4. **Name areas by hand**: `config/<slug>-labels.yaml` (see the UWB and UWT

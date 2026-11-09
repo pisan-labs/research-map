@@ -362,3 +362,36 @@ def fetch_works(client: OpenAlexClient, author_ids: list[str], since: str, stric
         seen.add(key)
         uniq.append(w)
     return uniq
+
+
+# ---------------------------------------------------------------- per-record check
+
+MIN_RECORD_WORKS = 3  # fewer works than this: too little to judge a record
+
+
+def works_by_record(works: list[dict], author_ids: list[str]) -> dict[str, list[dict]]:
+    """Split a strict match's works by which of its author records wrote them."""
+    out: dict[str, list[dict]] = {a: [] for a in author_ids}
+    for w in works:
+        for a in author_ids:
+            if a in w.get("authors", []):
+                out[a].append(w)
+    return out
+
+
+def pick_records(scores: dict[str, float | None], counts: dict[str, int],
+                 min_abs: float, margin: float) -> tuple[list[str], list[str]]:
+    """Which author records of a strict match to keep, from per-record agreement.
+
+    A strict match merges every same-name record with a home affiliation, so
+    a namesake in another field can leak in. A record is dropped when its
+    papers agree with the person's own description below `min_abs`, or more
+    than `margin` below the best-agreeing record. Records with too few works
+    (or no score) are kept: there is too little to judge. Returns (kept, dropped).
+    """
+    judged = {a: s for a, s in scores.items() if s is not None and counts.get(a, 0) >= MIN_RECORD_WORKS}
+    if len(judged) < 2:
+        return list(scores), []  # one record or none to compare: the person-level check covers it
+    best = max(judged.values())
+    dropped = [a for a, s in judged.items() if s < min_abs or s < best - margin]
+    return [a for a in scores if a not in dropped], dropped

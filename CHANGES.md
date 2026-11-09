@@ -63,3 +63,5 @@
 2026-11-08 [decision] Jose Lopez opted out of uw-coe (hematology; likely adjunct); default after 15 min. openalex and build now apply opt_out without a rescrape.
 
 2026-11-09 [plan] OpenAlex key still missing in this session; user approved two one-shot fresh-session runs (day 1 UW CoE+UCSB 11-10 00:17 UTC, day 2 McCormick+UWT 11-11 00:17 UTC).
+
+2026-11-09 [code] openalex: strict matches now drop author records whose papers disagree with the profile (per-record check; --record-margin, --no-record-check); unmeasured, day-1 run measures it on UW CoE.

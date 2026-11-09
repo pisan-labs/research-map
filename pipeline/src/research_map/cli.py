@@ -118,6 +118,8 @@ def cmd_openalex(args: argparse.Namespace) -> int:
         now = dt.date.today().year
         for m in matches:
             p = by_id[m.person_id]
+            if m.how == "strict" and len(m.author_ids) > 1 and not args.no_record_check:
+                check_strict_records(m, p, profiles.get(p.id), works, embedder, now, args)
             doc = build_doc(p.id, p.keywords, profiles.get(p.id), works.get(p.id))
             a = model.self_works_agreement(doc, embedder, now)
             if a is None:
@@ -179,6 +181,27 @@ def cmd_openalex(args: argparse.Namespace) -> int:
         n = sum(len(v) for v in works.values())
         print(f"works since {args.since}: {n} ({n / max(len(works), 1):.0f} per person)", file=sys.stderr)
     return 0
+
+
+def check_strict_records(m, p, profile, works: dict, embedder, now: int, args: argparse.Namespace) -> None:
+    """Strict match with several records: drop records whose papers do not fit
+    the person's own description (a namesake in another field at the same
+    university). Changes `m` and `works[p.id]` in place and prints each drop."""
+    split = openalex.works_by_record(works.get(p.id, []), m.author_ids)
+    scores = {a: model.self_works_agreement(build_doc(p.id, p.keywords, profile, ws), embedder, now) if ws else None
+              for a, ws in split.items()}
+    kept, dropped = openalex.pick_records(scores, {a: len(ws) for a, ws in split.items()},
+                                          args.min_agreement_home, args.record_margin)
+    if not dropped:
+        return
+    names = dict(zip(m.author_ids, m.names))
+    for a in dropped:
+        print(f"  dropped record {a} from {p.name}: {len(split[a])} works, agreement {scores[a]:.2f} "
+              f"(best {max(s for s in scores.values() if s is not None):.2f}); check by hand", file=sys.stderr)
+    m.author_ids = kept
+    m.names = [names[a] for a in kept]
+    keep = set(kept)
+    works[p.id] = [w for w in works.get(p.id, []) if keep & set(w.get("authors", []))]
 
 
 def read_openalex_ids(path: Path) -> dict[str, list[str]]:
@@ -422,6 +445,10 @@ def main(argv: list[str] | None = None) -> int:
                    help="UW-wide matches whose papers agree less than this with the profile go to review")
     o.add_argument("--min-agreement-home", type=float, default=0.10,
                    help="home-institution matches below this go to review (namesakes at large universities)")
+    o.add_argument("--record-margin", type=float, default=0.20,
+                   help="strict matches: drop author records whose papers agree this much less than the best record")
+    o.add_argument("--no-record-check", action="store_true",
+                   help="strict matches: keep every same-name record (the old behaviour)")
     o.set_defaults(func=cmd_openalex)
 
     b = sub.add_parser("build", help="embed, lay out and write site/<slug>/index.html")

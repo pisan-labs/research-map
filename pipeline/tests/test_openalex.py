@@ -66,3 +66,29 @@ def test_family_name_must_end_candidate_name_and_short_forms_searched():
     assert [h["display_name"] for h in hits] == ["Simon Peter"]
     assert _name_hits("Pedram Khalili", [{"display_name": "Pedram Khalili Amiri"}])
     assert "dan grossman" in search_queries("Daniel Grossman")
+
+
+def test_works_by_record():
+    from research_map.openalex import works_by_record
+    works = [{"id": "W1", "authors": ["A1", "X"]}, {"id": "W2", "authors": ["A2"]}, {"id": "W3", "authors": ["A1"]}]
+    split = works_by_record(works, ["A1", "A2", "A3"])
+    assert [w["id"] for w in split["A1"]] == ["W1", "W3"]
+    assert [w["id"] for w in split["A2"]] == ["W2"]
+    assert split["A3"] == []
+
+
+def test_pick_records_drops_namesake_record():
+    from research_map.openalex import pick_records
+    counts = {"cs": 40, "med": 30, "tiny": 1}
+    # The medicine record disagrees with a CS profile; the tiny one is not judged.
+    kept, dropped = pick_records({"cs": 0.45, "med": 0.12, "tiny": 0.0}, counts, 0.10, 0.20)
+    assert dropped == ["med"] and kept == ["cs", "tiny"]
+    # Two records in the same field: both kept.
+    kept, dropped = pick_records({"cs": 0.45, "cs2": 0.38}, {"cs": 40, "cs2": 20}, 0.10, 0.20)
+    assert dropped == [] and kept == ["cs", "cs2"]
+    # Below the absolute floor even if close to the best.
+    kept, dropped = pick_records({"a": 0.12, "b": 0.05}, {"a": 10, "b": 10}, 0.10, 0.20)
+    assert dropped == ["b"]
+    # Only one judgeable record: nothing to compare, keep all.
+    kept, dropped = pick_records({"a": 0.05, "b": None}, {"a": 10, "b": 0}, 0.10, 0.20)
+    assert dropped == [] and kept == ["a", "b"]
