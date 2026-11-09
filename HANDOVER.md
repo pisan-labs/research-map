@@ -143,10 +143,15 @@ UC San Diego was dropped by the user in favour of UC Santa Barbara.
   `config/certs/` and added to the trust store (verification stays on).
 - **Build time and size**: embeddings run on CPU; large units take minutes.
   `page_pubs` (default 60) caps papers in the page, not in the vectors.
-- **Scheduled tasks**: all of this session's scheduled check-ins and the
-  nightly OpenAlex runs were cancelled at handover, and the PR is no
-  longer watched by this session. Re-create them in the new session if
-  wanted (and subscribe to PR #1).
+- **Scheduled tasks** (re-created 2026-11-09, user approved): two one-shot
+  runs, each starting a fresh session on EnvFull. Day 1
+  `trig_01M7Gjj3urXAHXuyC2JLdCUB` at 2026-11-10 00:17 UTC (UW CoE + UCSB),
+  day 2 `trig_01FeuLYRYgmtH9E33nwBgmMP` at 2026-11-11 00:17 UTC
+  (NU McCormick + UWT). Each checks the key first and stops if it gets
+  "Authentication required". On 2026-11-09 the key still did not reach
+  session_01JyJzMZ6ysgnDJhMkmezwAV (on EnvFull), so check the Network
+  secret is there. Subscribing to PR #1 failed twice with no reason given;
+  a send_later check-in stands in for it.
 - User preferences apply (see the user's global instructions): ask before
   spending money or deploying to new places; questions numbered; commit
   and push before ending.
