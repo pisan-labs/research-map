@@ -69,3 +69,5 @@
 2026-11-09 [decision] Supabase (Q19): Plabs session proposes schema app_research_map in the shared HintWise project; repo side done and tested locally; applying it waits for the user.
 
 2026-11-09 [code] Migrations moved into schema app_research_map (pgvector in extensions, grants, fixed function search_path); Edge Function renamed research-map-search; loader and DB eval set search_path.
+
+2026-11-09 [note] Session session_01JyJzMWrSwd6gUA3dgsLb31 (from 7 Nov) handed over on request; session_01JyJzMZ6ysgnDJhMkmezwAV continues. Corrected the OpenAlex key note: session age is not why the key is missing.
