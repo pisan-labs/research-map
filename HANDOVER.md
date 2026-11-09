@@ -152,11 +152,12 @@ UC San Diego was dropped by the user in favour of UC Santa Barbara.
 ## Gotchas
 
 - **OpenAlex key**: saved as a network secret on the cloud environment
-  "EnvFull"; the proxy injects it for `api.openalex.org`. Only sessions
-  started after the secret was added get it (the same holds for the
-  Netlify and Supabase settings): a session from 2026-11-07 morning gets
-  "Authentication required". Single-record lookups (`/authors/A...`)
-  are free and work without a key. On halflife set
+  "EnvFull"; the proxy should inject it for `api.openalex.org`. It has
+  not reached any session since: one started 2026-11-07 and one started
+  2026-11-08 both get "Authentication required", so session age is not
+  the cause (an earlier note here said it was; that was wrong). Check the
+  secret's host and value in the environment settings. Single-record
+  lookups (`/authors/A...`) are free and work without a key. On halflife set
   `OPENALEX_API_KEY`. Responses are cached under `data/<slug>/openalex/`,
   but `data/` is not in git, so a fresh container refetches (costs budget).
 - **Netlify**: this environment sets `NETLIFY_SITE_ID` for another site;
