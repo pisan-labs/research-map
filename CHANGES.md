@@ -79,3 +79,5 @@
 2026-11-10 [code] openalex: a 429 for a spent daily budget now stops cleanly (BudgetExceeded, exit 2) instead of 5 retries and a traceback. uwb-stem and uwt loaded into Supabase; nu-mccormick waits for the reset.
 
 2026-11-10 [code] Supabase step d done: uwb-stem, uwt, nu-mccormick loaded; search answers for all three. Pages rebuilt with 2026-11-10 matches (small changes), committed and redeployed.
+
+2026-11-10 [decision] Day-2 scheduled OpenAlex run disabled; OpenAlex runs move to the Mac (UW CoE, then UCSB, one per day). Tokens stay out of cloud environment secrets (user declined).
