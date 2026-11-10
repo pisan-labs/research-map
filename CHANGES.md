@@ -77,3 +77,5 @@
 2026-11-10 [code] Supabase: applied schema app_research_map to the shared HintWise project, exposed it, deployed research-map-search (approved by the user).
 
 2026-11-10 [code] openalex: a 429 for a spent daily budget now stops cleanly (BudgetExceeded, exit 2) instead of 5 retries and a traceback. uwb-stem and uwt loaded into Supabase; nu-mccormick waits for the reset.
+
+2026-11-10 [code] Supabase step d done: uwb-stem, uwt, nu-mccormick loaded; search answers for all three. Pages rebuilt with 2026-11-10 matches (small changes), committed and redeployed.
