@@ -73,3 +73,5 @@
 2026-11-09 [note] Session session_01JyJzMWrSwd6gUA3dgsLb31 (from 7 Nov) handed over on request; session_01JyJzMZ6ysgnDJhMkmezwAV continues. Corrected the OpenAlex key note: session age is not why the key is missing.
 
 2026-11-09 [note] User approved applying app_research_map to the shared Supabase project; blocked: no Supabase management token reaches EnvFull sessions (helper session confirmed). Nothing applied.
+
+2026-11-10 [code] Supabase: applied schema app_research_map to the shared HintWise project, exposed it, deployed research-map-search (approved by the user).

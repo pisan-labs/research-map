@@ -88,22 +88,23 @@ UC San Diego was dropped by the user in favour of UC Santa Barbara.
    `env -u NETLIFY_SITE_ID npx netlify deploy --prod --dir site --site uw-research-maps --no-build`
 8. **Supabase: shared HintWise project, schema `app_research_map`**
    (proposed by the Plabs session; **approved by the user 2026-11-09 15:25
-   Lisbon**). Not applied yet: no session on EnvFull has a Supabase
-   management token (`SUPABASE_ACCESS_TOKEN` unset, proxy injects none; a
-   helper session started 15:36 confirmed it). Needs the token added to
-   EnvFull, then a new session runs a-c below.
+   Lisbon**). **a-c done 2026-11-10 ~07:03 Lisbon** (re-approved in
+   session session_01JyJzMV1e3a3uUp5gBGJb5p, token sent via
+   chat-secret-transfer into a local `.env`). Only d (loading data) remains.
    The repo side is done and tested on a local Postgres 16 + pgvector with
    Supabase-like roles: migrations create only `app_research_map` (8
    tables, RLS, `search_people`) and pgvector in `extensions`; anon can read
    and search but not write or see `overrides`; `load` writes into the schema.
    Steps after the yes:
-   a. Apply `supabase/migrations/*.sql` (each file in one transaction).
-   b. Expose the schema: GET `/v1/projects/arktxlrlyceffyozdwhq/postgrest`,
+   a. [done 2026-11-10] Apply `supabase/migrations/*.sql` (each file in one transaction).
+   b. [done 2026-11-10; now `public,graphql_public,wcv,platform,app_research_map`]
+      Expose the schema: GET `/v1/projects/arktxlrlyceffyozdwhq/postgrest`,
       then PATCH `db_schema` with `app_research_map` **appended** to the
       current list (`public,graphql_public,wcv,platform` on 2026-11-09;
       dropping `wcv` breaks a live app). That GET returns `jwt_secret`:
       never print the object whole.
-   c. Deploy the Edge Function as `research-map-search` (not `search`).
+   c. [done 2026-11-10; smoke test 200, empty results] Deploy the Edge
+      Function as `research-map-search` (not `search`), verify_jwt off.
    d. On halflife, run `research-map load ../config/<slug>.yaml` with
       `SUPABASE_DB_URL` = the session pooler URI (user
       `postgres.arktxlrlyceffyozdwhq`, port 5432, host from the dashboard's
@@ -115,9 +116,6 @@ UC San Diego was dropped by the user in favour of UC Santa Barbara.
 
 ## Open questions for the user
 
-- **Supabase** (PLAN Q19): the Plabs session proposed the shared HintWise
-  project, schema `app_research_map` (default taken there on 2026-11-09).
-  Needs the user's yes before step 8 touches it.
 - Area names for UWB and UWT were drafted by Claude from members' research;
   the user has not reviewed them.
 
