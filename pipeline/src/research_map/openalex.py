@@ -35,6 +35,15 @@ class BudgetExceeded(RuntimeError):
     pass
 
 
+def _out_of_budget(resp: httpx.Response) -> bool:
+    """A 429 that means the daily budget is spent (not a short burst limit)."""
+    try:
+        retry = int(resp.headers.get("retry-after", "0"))
+    except ValueError:
+        retry = 0
+    return retry > 300 or "insufficient budget" in resp.text.lower()
+
+
 class OpenAlexClient:
     def __init__(self, cache_dir: Path, max_cost_usd: float = 0.5, delay: float = 0.15):
         self.cache_dir = cache_dir
@@ -63,6 +72,12 @@ class OpenAlexClient:
                     raise
                 time.sleep(2**attempt)
                 continue
+            if resp.status_code == 429 and _out_of_budget(resp):
+                # The key's daily budget is spent: retrying cannot help until it resets.
+                raise BudgetExceeded(
+                    f"OpenAlex daily budget used up (remaining "
+                    f"${resp.headers.get('x-ratelimit-remaining-usd', '?')}, resets at midnight UTC, "
+                    f"in {int(resp.headers.get('retry-after', '0') or 0) // 60} min)")
             if resp.status_code == 429 or resp.status_code >= 500:
                 time.sleep(2**attempt)
                 continue

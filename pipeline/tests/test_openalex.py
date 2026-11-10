@@ -92,3 +92,22 @@ def test_pick_records_drops_namesake_record():
     # Only one judgeable record: nothing to compare, keep all.
     kept, dropped = pick_records({"a": 0.05, "b": None}, {"a": 10, "b": 0}, 0.10, 0.20)
     assert dropped == [] and kept == ["a", "b"]
+
+
+def test_budget_429_stops_without_retrying(tmp_path):
+    import httpx
+    import pytest
+    from research_map.openalex import BudgetExceeded, OpenAlexClient
+
+    calls = []
+
+    def handler(request):
+        calls.append(request.url)
+        return httpx.Response(429, headers={"retry-after": "40577", "x-ratelimit-remaining-usd": "0.0003"},
+                              json={"message": "Insufficient budget. Resets at midnight UTC."})
+
+    c = OpenAlexClient(tmp_path, delay=0)
+    c.http = httpx.Client(transport=httpx.MockTransport(handler))
+    with pytest.raises(BudgetExceeded, match="daily budget"):
+        c.get("/authors", {"search": "x"})
+    assert len(calls) == 1
