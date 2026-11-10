@@ -105,7 +105,11 @@ UC San Diego was dropped by the user in favour of UC Santa Barbara.
       never print the object whole.
    c. [done 2026-11-10; smoke test 200, empty results] Deploy the Edge
       Function as `research-map-search` (not `search`), verify_jwt off.
-   d. On halflife, run `research-map load ../config/<slug>.yaml` with
+   d. [2026-11-10: uwb-stem and uwt loaded from the Mac; nu-mccormick
+      waits for the OpenAlex daily reset (midnight UTC). The rebuilt
+      `site/` and `rosters/` files on the Mac differ from git (uwb-stem
+      65/89 matched vs 59): not reviewed, not committed, not deployed.]
+      On halflife, run `research-map load ../config/<slug>.yaml` with
       `SUPABASE_DB_URL` = the session pooler URI (user
       `postgres.arktxlrlyceffyozdwhq`, port 5432, host from the dashboard's
       Connect dialog; the direct host is IPv6-only; the user holds the
