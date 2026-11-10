@@ -1,5 +1,5 @@
 id,name,how,openalex_ids,openalex_names,works_count,works_since,agreement
-fadi-abdeljawad,Fadi Abdeljawad,search,A5004951902,Fadi Abdeljawad,109,101,
+fadi-abdeljawad,Fadi Abdeljawad,search,A5004951902,Fadi Abdeljawad,110,102,
 daniel-abrams,Daniel Abrams,search,A5086653394|A5028430502,Daniel M. Abrams|Daniel Arthur Abrams,179,101,0.55
 eduardo-acuna,Eduardo Acuna,none,,,0,0,
 anjali-agarwal,Anjali Agarwal,search,A5072134441,Anjali Agarwal,292,173,
@@ -11,9 +11,9 @@ lu-s-a-nunes-amaral,Luís A. Nunes Amaral,none,,,0,0,
 guillermo-a-ameer,Guillermo A. Ameer,search,A5032101070,Guillermo Antonio Ameer,232,156,
 bruce-ankenman,Bruce Ankenman,search,A5069187445,Bruce E. Ankenman,99,35,0.51
 casey-ankeny,Casey Ankeny,search,A5004479662,Casey J. Ankeny,48,48,0.65
-daniel-apley,Daniel Apley,search,A5050269446,Daniel W. Apley,191,114,0.57
-brenna-argall,Brenna Argall,search,A5051354595,Brenna Argall,114,76,0.74
-ludmilla-aristilde,Ludmilla Aristilde,search,A5030401347,Ludmilla Aristilde,134,121,0.53
+daniel-apley,Daniel Apley,search,A5050269446|A5046441242,Daniel W. Apley|Dan Apley,195,115,0.57
+brenna-argall,Brenna Argall,search,A5051354595,Brenna Argall,116,77,0.73
+ludmilla-aristilde,Ludmilla Aristilde,search,A5030401347,Ludmilla Aristilde,135,122,0.53
 nivedita-arora,Nivedita Arora,search,A5058721174|A5134904334,Nivedita Arora|Nivedita Arora,20,18,0.54
 koray-aydin,Koray Aydin,none,,,0,0,
 vadim-backman,Vadim Backman,strict,A5004008868,Vadim Backman,692,294,0.73
@@ -35,7 +35,7 @@ sruti-bhagavatula,Sruti Bhagavatula,search,A5061011828,Sruti Bhagavatula,17,16,
 j-alex-birdwell,J. Alex Birdwell,search,A5021818249|A5082403009,J. Alexander Birdwell|J. Birdwell,9,8,
 larry-birnbaum,Larry Birnbaum,search,A5109397252,Larry Birnbaum,91,24,0.56
 laurence-booth,Laurence Booth,none,,,0,0,
-molly-bright,Molly Bright,search,A5022744697,Molly G. Bright,120,81,0.61
+molly-bright,Molly Bright,search,A5022744697,Molly G. Bright,127,84,0.61
 linda-j-broadbelt,Linda J. Broadbelt,search,A5054861635,Linda J. Broadbelt,378,202,0.64
 ordel-brown,Ordel Brown,search,A5002103597,Ordel Brown,13,11,
 wesley-r-burghardt,Wesley R. Burghardt,search,A5051898827,Wesley R. Burghardt,198,42,0.61
@@ -47,10 +47,10 @@ jian-cao,Jian Cao,strict,A5013478040|A5002163353,Jian Cao|Jian Jing Cao,778,332,
 moses-chan,Moses Chan,none,,,0,0,
 c-cile-chazot,Cécile Chazot,search,A5023940753,Cécile A. C. Chazot,35,29,0.65
 minshuo-chen,Minshuo Chen,strict,A5103116351|A5126375274|A5130562870|A5136198783|A5137969389|A5145210460|A5157659947|A5157804779|A5159258031,Minshuo Chen|Minshuo Chen|Minshuo Chen|Minshuo Chen|Minshuo Chen|Minshuo Chen|Minshuo Chen|Minshuo Chen|Minshuo Chen,47,12,0.65
-wei-chen,Wei Chen,strict,A5100344522|A5100344298|A5100344489|A5100344385|A5100344573|A5100344361|A5100344556|A5100719254|A5100344439|A5100344502|A5100344339|A5100751003|A5100344553|A5089934202|A5100344294|A5100344362|A5100323822|A5100344309|A5115595744|A5000180605|A5100344492|A5100344487,Wei Chen|Wei Chen|Wei Chen|Wei Chen|Wei Chen|Wei Chen|Wei Chen|Wei Chen|Wei Chen|Wei Chen|Wei Chen|Wei Chen|Wei Chen|Wei Chen|Wei Ren Chen|Wei Chen|Wei Chen|Wei Chen|Wei Chen|Wei Chen|Wei Chen|Wei Chen,9108,270,0.75
+wei-chen,Wei Chen,strict,A5100344522|A5100344298|A5100344489|A5100344385|A5100344361|A5100344556|A5100719254|A5100344439|A5100344502|A5100344339|A5100751003|A5089934202|A5100344362|A5100323822|A5100344309|A5115595744|A5000180605|A5100344492|A5100344487,Wei Chen|Wei Chen|Wei Chen|Wei Chen|Wei Chen|Wei Chen|Wei Chen|Wei Chen|Wei Chen|Wei Chen|Wei Chen|Wei Chen|Wei Chen|Wei Chen|Wei Chen|Wei Chen|Wei Chen|Wei Chen|Wei Chen,9108,260,0.75
 xi-chen,Xi Chen,strict,A5100329996|A5036201545|A5100329867|A5100329915|A5100330041|A5100329994|A5074845057|A5100329861|A5102676216|A5115601796,Xi Chen|Xi Chen|Xi Chen|Xi Chen|Xi Chen|Xi Chen|Xi Chen|Xi Chen|Xi Chen|Xi Chen,1121,30,
 yan-chen,Yan Chen,strict,A5100378075|A5100378144|A5100378046|A5050847122|A5100703977|A5100378166|A5039958900|A5100378143|A5064369352|A5100724651|A5101820345|A5100378133|A5069796663|A5029860349|A5101793453|A5100612708|A5045463685,Yan Chen|Yan Chen|Yan Chen|Yan Chen|Yan Chen|Yan Chen|Yan Chen|Yan Chen|Yan Chen|Yan Chen|Chen Yan|Yan Chen|Yan Chen|Yan Chen|Yan Chen|Yan Chen|Yan Chen,3485,99,0.44
-ying-chen,Ying Chen,strict,A5037605128|A5100383008|A5100383032|A5100383121|A5100383004|A5032779538|A5100383143|A5020650971|A5100700519|A5101431915|A5103570246|A5102899533|A5126566193|A5136900920|A5159431433,Ying Chen|Ying Chen|Ying Chen|Ying Chen|Ying Chen|Ying Chen|Ying Chen|Ying Chen|Ying Chen|Ying Hao Chen|Ying Chen|Ying Chen|Ying Chen|Ying Chen|Ying Chen,1708,32,0.59
+ying-chen,Ying Chen,strict,A5037605128|A5100383008|A5100383032|A5100383121|A5100383004|A5032779538|A5100383143|A5020650971|A5100700519|A5101431915|A5103570246|A5102899533|A5126566193|A5159431433|A5136900920,Ying Chen|Ying Chen|Ying Chen|Ying Chen|Ying Chen|Ying Chen|Ying Chen|Ying Chen|Ying Chen|Ying Hao Chen|Ying Chen|Ying Chen|Ying Chen|Ying Chen|Ying Chen,1708,32,0.59
 mung-chiang,Mung Chiang,none,,,0,0,
 giorgia-chinazzo,Giorgia Chinazzo,search,A5067068719,Giorgia Chinazzo,76,62,0.47
 david-chopp,David Chopp,search,A5027192132,David L. Chopp,118,65,0.51
@@ -61,22 +61,22 @@ jennifer-cole,Jennifer Cole,search,A5001457934|A5076018139|A5136122066,Jennifer 
 j-edward-colgate,J. Edward Colgate,search,A5041218374,J.E. Colgate,4,0,
 noshir-contractor,Noshir Contractor,search,A5075283583,Noshir Contractor,406,239,0.35
 andrew-crotty,Andrew Crotty,search,A5054370671,Andrew Crotty,32,28,0.59
-gianluca-cusatis,Gianluca Cusatis,search,A5024267376,Gianluca Cusatis,301,222,0.75
+gianluca-cusatis,Gianluca Cusatis,search,A5024267376,Gianluca Cusatis,305,226,0.75
 joshua-deandria,Joshua DeAndria,none,,,0,0,
 emma-decosta,Emma DeCosta,search,A5082803825,Emma DeCosta,2,2,
 david-demeter,David Demeter,search,A5026447988,David Demeter,17,16,
 christos-dimoulas,Christos Dimoulas,search,A5041562511,Christos Dimoulas,51,37,0.57
-peter-dinda,Peter Dinda,search,A5077304920|A5009269958,Peter A. Dinda|Peter Dinda pdinda northwestern.edu,278,81,0.34
+peter-dinda,Peter Dinda,search,A5077304920,Peter A. Dinda,276,80,0.34
 douglas-downey,Douglas Downey,none,,,0,0,
-vinayak-p-dravid,Vinayak P. Dravid,strict,A5038226707|A5151138001|A5136173650,Vinayak P. Dravid|Vinayak P. Dravid|Vinayak P. Dravid,1111,682,0.52
+vinayak-p-dravid,Vinayak P. Dravid,strict,A5038226707|A5151138001|A5136173650,Vinayak P. Dravid|Vinayak P. Dravid|Vinayak P. Dravid,1112,682,0.52
 david-dunand,David Dunand,strict,A5082095023,David C. Dunand,698,347,0.64
 jennifer-dunn,Jennifer Dunn,search,A5031525338|A5128821105|A5160667486,Jennifer B. Dunn|Jennifer B Dunn|Jennifer Dunn,168,152,0.64
 pablo-durango-cohen,Pablo Durango-Cohen,none,,,0,0,
-igor-efimov,Igor Efimov,strict,A5001025616|A5160249337,Igor R. Efimov|Igor Efimov,624,82,0.78
-edith-elkind,Edith Elkind,search,A5050150656,Edith Elkind,349,183,0.64
+igor-efimov,Igor Efimov,strict,A5001025616,Igor R. Efimov,627,81,0.78
+edith-elkind,Edith Elkind,search,A5050150656,Edith Elkind,354,184,0.64
 matthew-elwin,Matthew Elwin,search,A5041493178,Matthew L. Elwin,53,51,0.53
 jonathan-emery,Jonathan Emery,search,A5102729384|A5102471921,Jonathan D. Emery|Jonathan Emery,73,68,0.56
-horacio-d-espinosa,Horacio D. Espinosa,strict,A5078407077|A5041572251|A5120034192|A5123902544,Horacio Dante Espinosa|Horacio Espinosa|Horacio D. Espinosa|Horacio D. Espinosa,399,170,0.67
+horacio-d-espinosa,Horacio D. Espinosa,strict,A5078407077|A5041572251|A5123902544,Horacio Dante Espinosa|Horacio Espinosa|Horacio D. Espinosa,399,165,0.67
 andrew-fano,Andrew Fano,search,A5073696279,Andrew Fano,44,10,
 arthur-felse,Arthur Felse,search,A5050625129,Arthur Felse,10,10,
 hayes-ferguson,Hayes Ferguson,none,,,0,0,
@@ -91,10 +91,10 @@ david-gatchell,David Gatchell,search,A5008463914,DAVID W. GATCHELL,35,22,0.64
 julia-gaudio,Julia Gaudio,search,A5073149598,Julia Gaudio,28,27,0.66
 dietrich-geisler,Dietrich Geisler,none,,,0,0,
 ken-gentry,Ken Gentry,search,A5082829971,Ken Gentry,8,7,
-elizabeth-gerber,Elizabeth Gerber,search,A5058390249,Elizabeth M. Gerber,150,128,0.59
+elizabeth-gerber,Elizabeth Gerber,search,A5058390249|A5001047965,Elizabeth M. Gerber|Liz Gerber,155,131,0.59
 branden-ghena,Branden Ghena,search,A5022291288,Branden Ghena,29,23,0.60
 sandip-ghosal,Sandip Ghosal,search,A5105692604,Sandip Ghosal,123,39,0.34
-nathan-gianneschi,Nathan Gianneschi,search,A5076257090,Nathan C. Gianneschi,390,325,0.62
+nathan-gianneschi,Nathan Gianneschi,search,A5076257090,Nathan C. Gianneschi,391,326,0.62
 matthew-r-glucksberg,Matthew R. Glucksberg,search,A5067470558,Matthew R. Glucksberg,91,23,0.53
 adam-goodman,Adam Goodman,none,,,0,0,
 kimberly-a-gray,Kimberly A. Gray,search,A5031608539|A5073228448,Kimberly A. Gray|Kimberly Gray,215,96,0.54
@@ -102,26 +102,26 @@ matthew-grayson,Matthew Grayson,none,,,0,0,
 izzy-grosof,Izzy Grosof,search,A5152473691,Izzy Grosof,4,3,0.64
 jie-gu,Jie Gu,strict,A5100370039|A5005991726|A5049627831|A5102995940|A5112116372|A5109729553|A5125350497|A5121665739|A5136109271,Jie Gu|Jie Gu|Jie Gu|Jie Gu|Jie Gu|Jie Gu|Jie Gu|Jie Gu|Jie Gu,394,78,0.67
 dongning-guo,Dongning Guo,search,A5081342685,Dongning Guo,253,134,0.57
-ping-guo,Ping Guo,strict,A5020083340|A5027904523|A5023332739|A5125356740|A5001539745|A5130223641|A5123089893,Ping Guo|Ping Yi Guo|Ping Guo|Ping Guo|Ping Guo|Ping Guo|Ping Guo,952,71,0.51
+ping-guo,Ping Guo,strict,A5020083340|A5027904523|A5023332739|A5125356740|A5001539745|A5123089893|A5130223641,Ping Guo|Ping Yi Guo|Ping Guo|Ping Guo|Ping Guo|Ping Guo|Ping Guo,952,71,0.51
 sossina-m-haile,Sossina M. Haile,search,A5009290154,Sossina Mariam Haile,366,171,0.65
 kristian-j-hammond,Kristian J. Hammond,search,A5114000097|A5072838552,Kristian J. Hammond|Kristian Hammond,201,34,0.64
 nikos-hardavellas,Nikos Hardavellas,search,A5077219627|A5113815615,Nikos Hardavellas|Nikos Hardavellas,137,66,0.50
 jason-d-hartline,Jason D. Hartline,search,A5089749790,Jason D. Hartline,194,116,0.58
 erica-hartmann,Erica Hartmann,search,A5047718140|A5140234362|A5122782556,Erica Marie Hartmann|Erica M. Hartmann|Erica Hartmann,154,132,0.83
-mitra-hartmann,Mitra Hartmann,search,A5079028851,Mitra J. Z. Hartmann,116,64,0.68
-mark-c-hersam,Mark C. Hersam,strict,A5020649130|A5134976170|A5137966270,Mark C. Hersam|Mark C. Hersam (675285)|Mark Hersam,975,660,0.75
+mitra-hartmann,Mitra Hartmann,search,A5079028851,Mitra J. Z. Hartmann,117,65,0.68
+mark-c-hersam,Mark C. Hersam,strict,A5020649130|A5137966270,Mark C. Hersam|Mark Hersam,975,657,0.75
 colin-hisey,Colin Hisey,search,A5005116033,Colin L. Hisey,52,45,0.76
 greg-holderfield,Greg Holderfield,none,,,0,0,
 michael-honig,Michael Honig,search,A5016921772|A5158554607,Michael L. Honig|Michael Honig,417,98,0.61
-michael-horn,Michael Horn,strict,A5078687182|A5133459312|A5036289972|A5151048322,Michael Horn|Mike Horn|Michael Horn Horn|Michael Horn,178,99,0.62
+michael-horn,Michael Horn,strict,A5078687182|A5133459312|A5036289972,Michael Horn|Mike Horn|Michael Horn Horn,178,95,0.63
 ian-horswill,Ian Horswill,search,A5010370828,Ian Douglas Horswill,135,34,0.66
-daniel-horton,Daniel Horton,search,A5067202389,Daniel E. Horton,155,137,
+daniel-horton,Daniel Horton,search,A5067202389,Daniel E. Horton,156,138,
 mahdi-hosseini,Mahdi Hosseini,search,A5027941435,Mahdi Hosseini,105,92,
 seng-tiong-ho,Seng-Tiong Ho,none,,,0,0,
 yonggang-huang,Yonggang Huang,strict,A5011255000|A5111440008|A5143773988|A5143782692|A5008033128|A5103579528|A5126145844|A5050318924|A5112791374|A5133129737|A5135452902|A5160169236,Yonggang Y. Huang|Yonggang Huang|Yonggang Huang|Yonggang Huang|Yonggang Huang|Huang Yonggang|Yonggang Huang|YONGGANG HUANG|Yonggang Huang|Yonggang Huang|Yonggang Huang|Yonggang Huang,803,479,0.37
 huiling-hu,Huiling Hu,none,,,0,0,
 jessica-hullman,Jessica Hullman,search,A5068008545|A5132895071,Jessica R. Hullman|Jessica Hullman,134,126,0.74
-joseph-hummel,Joseph Hummel,search,A5109804904|A5125890481,Joseph Hummel|Joseph Hummel,16,4,0.49
+joseph-hummel,Joseph Hummel,search,A5109804904|A5125890481|A5014403232,Joseph Hummel|Joseph Hummel|Joe Hummel,42,8,0.51
 seyed-m-r-iravani,Seyed M.R. Iravani,search,A5028121464|A5079457276,Seyed M. R. Iravani|Seyed Iravani,92,39,0.68
 maia-jacobs,Maia Jacobs,search,A5076992382,Maia L. Jacobs,51,48,0.64
 jackson-jewett,Jackson Jewett,none,,,0,0,
@@ -139,27 +139,27 @@ david-m-kelso,David M. Kelso,search,A5109888154|A5066979758,David M. Kelso|David
 sinan-keten,Sinan Keten,search,A5014744105,Sinan Keten,272,219,0.76
 jeremy-keys,Jeremy Keys,none,,,0,0,
 pedram-khalili,Pedram Khalili,search,A5016666318,Pedram Khalili Amiri,228,207,
-samir-khuller,Samir Khuller,search,A5042716179,Samir Khuller,346,73,0.42
+samir-khuller,Samir Khuller,search,A5042716179,Samir Khuller,348,75,0.42
 junsoo-kim,Junsoo Kim,strict,A5100636165|A5100636166|A5123905674|A5133009004,Junsoo Kim|Junsoo Kim|Junsoo Kim|Junsoo Kim,104,13,0.41
 ella-king,Ella King,search,A5001438515,Ella M. King,12,12,
 diego-klabjan,Diego Klabjan,search,A5013049879,Diego Klabjan,297,238,0.60
 igor-kourkine,Igor Kourkine,search,A5036686849,Igor V. Kourkine,19,1,0.36
 sam-kriegman,Sam Kriegman,search,A5003985051,Sam Kriegman,46,44,
-sridhar-krishnaswamy,Sridhar Krishnaswamy,search,A5076269020,Sridhar Krishnaswamy,315,139,0.68
+sridhar-krishnaswamy,Sridhar Krishnaswamy,search,A5076269020,Sridhar Krishnaswamy,319,139,0.68
 simge-k-kyavuz,Simge Küçükyavuz,search,A5030522889,Si̇mge Küçükyavuz,73,63,
 manohar-kulkarni,Manohar Kulkarni,none,,,0,0,
 prem-kumar,Prem Kumar,strict,A5037554581|A5102730525|A5137400454|A5159109557,Prem Kumar|Prem Kumar|Prem Kumar|Prem Kumar,632,157,0.81
 rajan-kumar,Rajan Kumar,search,A5074157327,Rajan Kumar,14,14,0.44
 anastasia-kurdia,Anastasia Kurdia,none,,,0,0,
 aleksandar-kuzmanovic,Aleksandar Kuzmanovic,search,A5045865983,Aleksandar Kuzmanovic,117,54,0.54
-lincoln-j-lauhon,Lincoln J. Lauhon,search,A5062408295,Lincoln J. Lauhon,279,165,0.65
+lincoln-j-lauhon,Lincoln J. Lauhon,search,A5062408295,Lincoln J. Lauhon,282,168,0.65
 josh-leonard,Josh Leonard,none,,,0,0,
 chamille-lescott,Chamille Lescott,search,A5058829916,Chamille J. Lescott,15,15,
 seth-lichter,Seth Lichter,search,A5015247675,Seth Lichter,70,16,0.63
-manling-li,Manling Li,strict,A5052644952|A5007530729|A5127878778|A5136482180|A5137665748|A5125482159|A5139783590|A5133482527|A5126453490|A5134102996|A5144409057|A5134222847|A5159286846|A5122916298|A5139651267|A5136008540|A5138503345|A5157914467|A5148080593|A5125752983|A5158875404|A5151313751|A5152056980,Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li,151,58,
+manling-li,Manling Li,strict,A5052644952|A5007530729|A5127878778|A5136482180|A5137665748|A5125482159|A5139783590|A5133482527|A5126453490|A5134102996|A5144409057|A5134222847|A5159286846|A5122916298|A5139651267|A5136008540|A5157914467|A5138503345|A5158875404|A5148080593|A5125752983|A5151313751|A5152056980,Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li|Manling Li,151,58,
 john-linehan,John Linehan,search,A5109935848,John H. Linehan,193,6,0.65
 daniel-w-linna-jr,Daniel W. Linna Jr.,search,A5038316167,Daniel W. Linna,23,16,
-han-liu,Han Liu,strict,A5100349032|A5061818383|A5100448105|A5100349057|A5100349055|A5100349062|A5100349022|A5100349058|A5100349037|A5100349017|A5100657632|A5100452607|A5061262919|A5100349034|A5108239123|A5100349045|A5102144089,Han Liu|Han Liu|Han Liu|Han Liu|Han Liu|Han Liu|Han Liu|Han Liu|Han Liu|Han Liu|Han Liu|Han Liu|Han Liu|Han Liu|Han Liu|Han Liu|Han Liu,2240,68,0.51
+han-liu,Han Liu,strict,A5100349032|A5061818383|A5100448105|A5100349055|A5100349062|A5100349022|A5100349058|A5100349037|A5100349017|A5100657632|A5100452607|A5061262919|A5100349034|A5108239123|A5100349045|A5102144089,Han Liu|Han Liu|Han Liu|Han Liu|Han Liu|Han Liu|Han Liu|Han Liu|Han Liu|Han Liu|Han Liu|Han Liu|Han Liu|Han Liu|Han Liu|Han Liu,2240,64,0.52
 wing-k-liu,Wing K. Liu,strict,A5014509470|A5054956402|A5014749805|A5112328753|A5045733683|A5003032678|A5006264963|A5020354012|A5027936546|A5067767923,Wing Kam Liu|Wing Kam Liu|Wing Liu|Wing-Kam Liu|Wing Kam Snm Liu|Wing Kim Liu|Liu Wing-Kam|Wing-Kam Liu|Wing Liu|Wing-Kam Liu,629,235,0.46
 shu-q-liu,Shu Q. Liu,strict,A5031981029|A5001223226|A5101628662|A5007824537|A5061231229,Shu Q. Liu|Shu Q. Liu|Shu Liu|Shu Q. Liu|Shu Qian Liu,90,27,0.58
 amanda-petford-long,Amanda Petford-Long,none,,,0,0,
@@ -191,18 +191,18 @@ todd-murphey,Todd Murphey,search,A5067725461,Todd D. Murphey,311,216,0.67
 wendy-m-murray,Wendy M. Murray,search,A5074706123|A5135988398|A5136165678,Wendy M. Murray|Wendy Murray|Wendy M. Murray,111,72,0.66
 yu-marco-nie,Yu (Marco) Nie,search,A5105352079|A5049237985|A5159389659,Yu Marco Nie|Marco Nie|Yu (Marco) Nie,206,152,0.72
 jorge-nocedal,Jorge Nocedal,search,A5081856145,Jorge M. Nocedal,153,41,0.52
-justin-m-notestein,Justin M. Notestein,search,A5030553728,Justin M. Notestein,199,171,0.73
-seda-ogrenci,Seda Ogrenci,search,A5111716641|A5007998506|A5084008290,Seda Öǧrenci Memik|Seda Ogrenci-Memik|Seda Ogrenci,184,72,0.66
+justin-m-notestein,Justin M. Notestein,search,A5030553728,Justin M. Notestein,212,184,0.73
+seda-ogrenci,Seda Ogrenci,search,A5084008290,Seda Ogrenci,10,6,0.53
 suzanne-olds,Suzanne Olds,search,A5015168069,Suzanne A. Olds,12,3,0.57
 monica-olvera-de-la-cruz,Monica Olvera de la Cruz,strict,A5068153815|A5160521676,Mónica Olvera de la Cruz|Monica Olvera de la Cruz,692,311,0.73
-david-o-neill,David O'Neill,none,,,0,0,
+david-o-neill,David O'Neill,search,A5072197244,David O'Neill,35,29,
 eleanor-o-rourke,Eleanor O'Rourke,none,,,0,0,
 magdalena-osburn,Magdalena Osburn,search,A5046335611,Magdalena Rose Osburn,141,112,
 julio-m-ottino,Julio M. Ottino,search,A5055235277|A5124795189,Julio M. Ottino|Julio Mario Ottino,407,115,0.61
-aaron-i-packman,Aaron I. Packman,search,A5033733533,Aaron I. Packman,354,215,0.77
+aaron-i-packman,Aaron I. Packman,search,A5033733533,Aaron I. Packman,355,216,0.77
 thrasyvoulos-thrasos-n-pappas,Thrasyvoulos (Thrasos) N. Pappas,search,A5033881432|A5158904798|A5069308745,Thrasyvoulos N. Pappas|Thrasyvoulos N. Pappas|Thrasos Pappas,217,57,0.50
 bryan-pardo,Bryan Pardo,search,A5102878078|A5139039459|A5158397268,Bryan Pardo|Bryan Pardo|Bryan Pardo,213,136,0.68
-neelesh-a-patankar,Neelesh A. Patankar,search,A5049052304,Neelesh A. Patankar,266,147,0.65
+neelesh-a-patankar,Neelesh A. Patankar,search,A5049052304,Neelesh A. Patankar,269,150,0.65
 eric-j-perreault,Eric J. Perreault,search,A5091823591|A5158586121,Eric Jon Perreault|Eric J. Perreault,224,147,0.78
 michael-a-peshkin,Michael A. Peshkin,search,A5091276611,Michael A. Peshkin,260,68,0.57
 alexander-polzin,Alexander Polzin,none,,,0,0,
@@ -212,16 +212,16 @@ laleh-rad,Laleh Rad,none,,,0,0,
 manijeh-razeghi,Manijeh Razeghi,strict,A5010738983,Manijeh Razeghi,1369,312,0.49
 chang-han-rhee,Chang-Han Rhee,search,A5034088089,Chang-Han Rhee,31,25,0.53
 jeffrey-richards,Jeffrey Richards,search,A5014935844,Jeffrey John Richards,289,89,0.35
-hermann-riecke,Hermann Riecke,search,A5091730385,Hermann Riecke,176,26,0.67
+hermann-riecke,Hermann Riecke,search,A5091730385,Hermann Riecke,179,26,0.67
 chris-riesbeck,Chris Riesbeck,search,A5070364385,Chris Riesbeck,3,2,0.55
 jonathan-rivnay,Jonathan Rivnay,search,A5066036682,Jonathan Rivnay,263,224,0.69
 jennie-m-rogers,Jennie M. Rogers,search,A5056003081|A5086579813,Jennie Rogers|Jennie Rogers,26,19,0.75
-john-rogers,John Rogers,strict,A5045551635|A5110421977|A5000988147|A5110179884,John A. Rogers|John S. Rogers|John A. Rogers|John A. Rogers,1912,560,0.62
+john-rogers,John Rogers,strict,A5045551635|A5110421977|A5000988147|A5110179884,John A. Rogers|John S. Rogers|John A. Rogers|John A. Rogers,1913,560,0.62
 james-rondinelli,James Rondinelli,strict,A5007838414|A5122725302|A5147508473,James M. Rondinelli|James Rondinelli|James M. Rondinelli,581,298,0.58
 alessandro-rotta-loria,Alessandro Rotta Loria,none,,,0,0,
 michael-rubenstein,Michael Rubenstein,search,A5038198209,Michael Rubenstein,63,43,0.65
 gregory-ryskin,Gregory Ryskin,search,A5020648055,Gregory Ryskin,38,4,0.43
-alan-v-sahakian,Alan V. Sahakian,search,A5036593593,Alan Varteres Sahakian,215,45,0.67
+alan-v-sahakian,Alan V. Sahakian,search,A5036593593,Alan Varteres Sahakian,217,47,0.67
 ted-sargent,Ted Sargent,strict,A5054680242|A5051554398,Edward Hartley Sargent|Ted Sargent,1252,167,0.68
 christopher-schuh,Christopher Schuh,search,A5055304339,Christopher Allan Schuh,488,289,
 linsey-seitz,Linsey Seitz,search,A5037183181,Linsey Christine Seitz,74,69,0.61
@@ -230,7 +230,7 @@ naichen-shi,Naichen Shi,search,A5024713053,Naichen Shi,45,37,0.42
 krishna-shrinivas,Krishna Shrinivas,search,A5073937993,Krishna Shrinivas,36,30,0.49
 kenneth-shull,Kenneth Shull,search,A5008630783,Kenneth R. Shull,348,121,0.67
 sean-sinclair,Sean Sinclair,search,A5007393142,Sean R. Sinclair,27,21,0.66
-karen-smilowitz,Karen Smilowitz,search,A5034986207,Karen R. Smilowitz,125,73,
+karen-smilowitz,Karen Smilowitz,search,A5034986207,Karen R. Smilowitz,126,74,
 kate-smith,Kate Smith,none,,,0,0,
 randall-q-snurr,Randall Q. Snurr,strict,A5019016673|A5146793963,Randall Q. Snurr|Randall Q. Snurr,634,305,0.67
 g-jeffrey-snyder,G. Jeffrey Snyder,none,,,0,0,
@@ -240,20 +240,20 @@ vincent-st-amour,Vincent St-Amour,search,A5022567249,Vincent St-Amour,34,17,0.49
 amanda-stathopoulos,Amanda Stathopoulos,search,A5023040965,Amanda Stathopoulos,141,114,0.72
 lucia-stein-montalvo,Lucia Stein-Montalvo,search,A5072264445,Lucia Stein-Montalvo,17,13,0.57
 abigail-bellis-stringer,Abigail Bellis Stringer,none,,,0,0,
-samuel-stupp,Samuel Stupp,strict,A5079222349|A5159543010|A5147710250|A5081911843|A5084616838,Samuel Isaac Stupp|Samuel I. Stupp|Samuel Stupp|Samuel S Stupp|Samuel Stupp,797,340,0.60
+samuel-stupp,Samuel Stupp,strict,A5079222349|A5159543010|A5147710250|A5081911843|A5084616838,Samuel Isaac Stupp|Samuel I. Stupp|Samuel Stupp|Samuel S Stupp|Samuel Stupp,805,340,0.60
 v-s-subrahmanian,V.S. Subrahmanian,strict,A5038645035|A5087344848|A5004107550|A5129751417|A5130716483|A5124452202|A5036942164,V. S. Subrahmanian|V. S. Subrahmanian|V. S. Subrahmanian|V. S. Subrahmanian|V. S. Subrahmanian|V. S. Subrahmanian|V. S. Subrahmanian,592,43,0.65
 cheng-sun,Cheng Sun,strict,A5100418653|A5049797831|A5057631289|A5073088278|A5112026870|A5109249862|A5131213199|A5135008952|A5136139637,Cheng Sun|Cheng Sun|Cheng Sun|Cheng Sun|Cheng Gong Sun|Cheng Liang Sun|Cheng Sun|Cheng Sun|Cheng Sun,867,183,0.46
 tao-sun,Tao Sun,search,A5044883230|A5101751437,Tao Sun|Tao Sun,257,224,0.58
 dayne-swearer,Dayne Swearer,search,A5048157208,Dayne F. Swearer,76,73,
 jakub-szefer,Jakub Szefer,search,A5044387689,Jakub M. Szefer,192,177,0.52
 igal-szleifer,Igal Szleifer,search,A5065234406,Igal G. Szleifer,397,187,0.64
-john-m-torkelson,John M. Torkelson,search,A5005755652,John M. Torkelson,474,192,0.74
+john-m-torkelson,John M. Torkelson,search,A5005755652,John M. Torkelson,476,194,0.74
 matthew-tresch,Matthew Tresch,search,A5001221340,Matthew C. Tresch,98,51,0.80
 ryan-truby,Ryan Truby,search,A5058930967,Ryan L. Truby,61,57,0.75
 danielle-tullman-ercek,Danielle Tullman-Ercek,none,,,0,0,
 keith-e-j-tyo,Keith E.J. Tyo,search,A5049701357,Keith E. J. Tyo,108,87,0.60
 aravindan-vijayaraghavan,Aravindan Vijayaraghavan,search,A5081431077,Aravindan Vijayaraghavan,84,59,0.47
-petia-vlahovska,Petia Vlahovska,search,A5002605448,Petia M. Vlahovska,214,162,0.70
+petia-vlahovska,Petia Vlahovska,search,A5002605448,Petia M. Vlahovska,216,164,0.70
 vasilis-volakakis,Vasilis Volakakis,none,,,0,0,
 lisa-volpatti,Lisa Volpatti,search,A5029475460,Lisa R. Volpatti,42,39,0.73
 vladimir-volpert,Vladimir Volpert,search,A5113807543,Vladimir A. Volpert,50,10,0.72
@@ -268,19 +268,19 @@ michael-watson,Michael Watson,none,,,0,0,
 ermin-wei,Ermin Wei,search,A5085511405,Ermin Wei,96,86,0.60
 george-wells,George Wells,search,A5103230221,George Wells,163,142,0.79
 mark-werwath,Mark Werwath,search,A5026805941,Mark Werwath,6,5,0.56
-william-white,William White,strict,A5109004846|A5101673331|A5104283691,William White Cooper|William L. White|William D. White,592,1,
-uri-wilensky,Uri Wilensky,search,A5050932651,Uri J. Wilensky,381,178,0.10
-jill-h-wilson,Jill H. Wilson,search,A5000660882,Jill Hardin Wilson,34,26,0.07
+william-white,William White,search,A5101673331|A5104283691,William L. White|William D. White,233,79,
+uri-wilensky,Uri Wilensky,rejected-topic,,Uri J. Wilensky,382,0,0.09
+jill-h-wilson,Jill H. Wilson,rejected-topic,,Jill Hardin Wilson,34,0,0.07
 chris-wolverton,Chris Wolverton,strict,A5087949669|A5087834833|A5146618193,Chris M. Wolverton|Chris Wolverton|Chris Wolverton,1219,381,0.54
 zach-wood-doughty,Zach Wood-Doughty,search,A5059956805,Zach Wood-Doughty,30,25,
 marcelo-worsley,Marcelo Worsley,search,A5080000490,Marcelo Bonilla Worsley,128,119,0.63
-ying-wu,Ying Wu,strict,A5101780958|A5002074693|A5042765290|A5017858171|A5059211394|A5051274129|A5055935194|A5086912043|A5001231730|A5111243948|A5108016849|A5054640772|A5069977898|A5101710520|A5101411245,Ying Nian Wu|Ying Wu|Ying Nian Wu|Ying Wu|Ying Wu|Ying Guang Wu|Ying Wu|Ying Choon Wu|Ying Wu|Ying Wu|Ying Wu|Ying Wu|Ying Wu|Ying Nian Wu|Ying Wu,1661,121,0.59
-stephen-xia,Stephen Xia,search,A5051730108|A5130953107,Stephen Xia|Stephen Xia,69,68,0.60
+ying-wu,Ying Wu,strict,A5101780958|A5002074693|A5042765290|A5017858171|A5051274129|A5055935194|A5086912043|A5001231730|A5111243948|A5108016849|A5054640772|A5069977898|A5101710520|A5101411245,Ying Nian Wu|Ying Wu|Ying Nian Wu|Ying Wu|Ying Guang Wu|Ying Wu|Ying Choon Wu|Ying Wu|Ying Wu|Ying Wu|Ying Wu|Ying Wu|Ying Nian Wu|Ying Wu,1661,117,0.59
+stephen-xia,Stephen Xia,search,A5051730108|A5130953107,Stephen Xia|Stephen Xia,70,68,0.60
 xinyu-xing,Xinyu Xing,strict,A5041094652|A5127779290|A5111223111|A5148763062,Xinyu Xing|Xinyu Xing|Xinyu Xing|Xinyu Xing,134,21,0.56
 yingqian-chan-xiong,Yingqian (Chan) Xiong,search,A5102222004,Yingqian Xiong,21,6,
 zikai-xiong,Zikai Xiong,search,A5090740525,Zikai Xiong,17,17,
 david-zaretsky,David Zaretsky,search,A5088154827,David C. Zaretsky,19,1,0.23
-hao-zhang,Hao Zhang,strict,A5100396876|A5100396841|A5079750663|A5002330627|A5021020058|A5127790501|A5100396964|A5100396981|A5100396784|A5071772595|A5100397062|A5100396787|A5100396830|A5100396817|A5128142252|A5122313835|A5121136433|A5126589724|A5128049850|A5128286553,Hao Zhang|Hao Zhang|Hao F. Zhang|Hao Zhang|Hao Zhang|Hao Zhang|Hao Zhang|Hao Zhang|Hao Zhang|Hao Chi Zhang|Hao Zhang|Hao Zhang|Hao Zhang|Hao Zhang|Hao F. Zhang|Hao F. Zhang|Hao F. Zhang|Hao F. Zhang|Hao F. Zhang|Hao F. Zhang,3012,284,0.77
+hao-zhang,Hao Zhang,strict,A5100396876|A5100396841|A5079750663|A5002330627|A5127790501|A5100396964|A5100396981|A5100396784|A5071772595|A5100397062|A5100396787|A5100396830|A5100396817|A5128142252|A5122313835|A5121136433|A5126589724|A5128049850|A5128286553,Hao Zhang|Hao Zhang|Hao F. Zhang|Hao Zhang|Hao Zhang|Hao Zhang|Hao Zhang|Hao Zhang|Hao Chi Zhang|Hao Zhang|Hao Zhang|Hao Zhang|Hao Zhang|Hao F. Zhang|Hao F. Zhang|Hao F. Zhang|Hao F. Zhang|Hao F. Zhang|Hao F. Zhang,3012,279,0.77
 haoqi-zhang,Haoqi Zhang,search,A5013414457,Haoqi Zhang,84,51,0.41
 jie-jack-zhang,Jie (Jack) Zhang,strict,A5100436765|A5100436650|A5100436683|A5100436799|A5010292967|A5160397364,Jie Zhang|Jie Zhang|Jie Zhang|Jie Zhang|Jie Zhang|Jie Zhang,939,4,
 ruohan-zhang,Ruohan Zhang,search,A5101649950,Ruohan Zhang,88,80,

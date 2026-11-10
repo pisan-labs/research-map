@@ -34,15 +34,15 @@ charles-bryan,Charles Bryan,rejected-topic,,Charles S Bryan,299,0,0.18
 tyler-budge,Tyler Budge,none,,,0,0,
 william-burghart,William Burghart,search,A5012229501,William Devon Burghart,5,4,
 angel-cabrera-silva,Angel Cabrera Silva,none,,,0,0,
-wei-cai,Wei Cai,search,A5053432286|A5122145732|A5127825758,Wei Cai|Wei Cai|Wei Cai,170,159,
-jarrod-call,Jarrod Call,search,A5017774844|A5135516128,Jarrod B. Call|Jarrod Call LCSW,34,33,0.63
+wei-cai,Wei Cai,search,A5053432286|A5127825758|A5122145732,Wei Cai|Wei Cai|Wei Cai,170,159,
+jarrod-call,Jarrod Call,search,A5017774844,Jarrod B. Call,32,31,0.64
 zhiyan-juliet-cao,Zhiyan (Juliet) Cao,search,A5048003711,Zhiyan Cao,22,18,0.55
 thomas-capaul,Thomas Capaul,none,,,0,0,
 ryan-card,Ryan Card,none,,,0,0,
 alison-cardinal,Alison Cardinal,search,A5018964375,Alison Cardinal,15,14,0.66
 rub-n-casas,Rubén Casas,search,A5031465314,Rubén Casas,5,4,0.54
 leighann-chaffee,Leighann Chaffee,search,A5003939828,Leighann R. Chaffee,8,6,0.84
-edward-chamberlain,Edward Chamberlain,search,A5083882158,Edward A. Chamberlain,14,13,0.70
+edward-chamberlain,Edward Chamberlain,search,A5083882158|A5129932810,Edward A. Chamberlain|Ed Chamberlain,21,14,0.70
 sarah-a-chavez,Sarah A. Chavez,search,A5091821117,Sarah A. Chavez,63,37,0.68
 ben-chen,Ben Chen,none,,,0,0,
 chieh-sunny-cheng,Chieh (Sunny) Cheng,search,A5082033756,Sunny Chieh Cheng,24,24,0.77
@@ -64,13 +64,13 @@ martine-de-cock,Martine De Cock,search,A5056749857|A5153295202,Martine De Cock|M
 sonia-de-la-cruz,Sonia De La Cruz,none,,,0,0,
 vanessa-de-veritch-woodside,Vanessa de Veritch Woodside,search,A5035682095,Vanessa de Veritch Woodside,7,6,0.71
 chris-demaske,Chris Demaske,search,A5065846537,Chris Demaske,25,21,0.74
-haluk-demirkan,Haluk Demirkan,search,A5024960528,Haluk Demirkan,145,79,0.70
+haluk-demirkan,Haluk Demirkan,search,A5024960528,Haluk Demirkan,146,79,0.70
 yonn-dierwechter,Yonn Dierwechter,search,A5081649916,Yonn Dierwechter,88,61,0.70
 joanne-clarke-dillman,Joanne Clarke Dillman,search,A5086860553,Joanne Clarke Dillman,13,10,0.72
 joyce-dinglasan-panlilio,Joyce Dinglasan-Panlilio,search,A5017829798,Joyce Dinglasan-Panlilio,7,5,0.42
 cassandra-donatelli,Cassandra Donatelli,search,A5046201571,Cassandra M. Donatelli,59,42,
 julia-dressel,Julia Dressel,none,,,0,0,
-julia-eaton,Julia Eaton,search,A5008261491,Julia Eaton,11,9,0.04
+julia-eaton,Julia Eaton,rejected-topic,,Julia Eaton,11,0,0.04
 marion-eberly,Marion Eberly,search,A5040462698,Marion B. Eberly,23,22,0.53
 sara-eccleston,Sara Eccleston,search,A5093913075,Sara Eccleston,1,1,0.45
 rachel-endo,Rachel Endo,search,A5080262725,Rachel Endo,34,30,0.46
@@ -147,12 +147,12 @@ carmen-lewis,Carmen Lewis,unchecked-wider,,Carmen L. Lewis,130,0,
 jingyi-li,Jingyi Li,search,A5045434495|A5100399447|A5138537925,Jingyi Jessica Li|Jingyi Li|Jingyi Li,308,284,
 jonah-li,Jonah Li,none,,,0,0,
 hengshuo-winston-liang,Hengshuo (Winston) Liang,search,A5021057717,Hengshuo Liang,25,21,
-xutong-liu,Xutong Liu,strict,A5103007400|A5135161079|A5135674239|A5160106415|A5138380325,Xutong Liu|Xutong Liu|Xutong Liu|Xutong Liu|Xutong Liu,63,9,
+xutong-liu,Xutong Liu,strict,A5103007400|A5135161079|A5135674239|A5160106415|A5138380325,Xutong Liu|Xutong Liu|Xutong Liu|Xutong Liu|Xutong Liu,64,9,
 wes-lloyd,Wes Lloyd,search,A5021815916,Wes Lloyd,75,67,0.59
 thillainathan-logenthiran,Thillainathan Logenthiran,search,A5063663427,Thillainathan Logenthiran,131,112,0.23
 belinda-y-louie,Belinda Y. Louie,search,A5103559943,Belinda Yun-Ying Louie,40,12,
 anna-lov-sz,Anna Lovász,search,A5089570967,Anna Lovász,71,37,
-gregory-lund,Gregory Lund,none,,,0,0,
+gregory-lund,Gregory Lund,unchecked-wider,,Greg Lund,6,0,
 eva-ma,Eva Ma,search,A5113114527,Eva Ma,1,1,
 augustus-augie-machine,"Augustus ""Augie"" Machine",none,,,0,0,
 eric-madfis,Eric Madfis,search,A5054405398,Eric Madfis,60,47,0.52
@@ -165,7 +165,7 @@ julie-masura,Julie Masura,search,A5015407209,Julie Masura,28,19,0.79
 michael-mccourt,Michael McCourt,search,A5103437209,Michael J. McCourt,35,33,0.53
 erik-mcdonald,Erik McDonald,search,A5109000993,Erik A. McDonald,3,2,0.49
 divya-mcmillin,Divya McMillin,search,A5061331110,Divya C. McMillin,25,8,
-benjamin-meiches,Benjamin Meiches,search,A5009574799,Benjamin Meiches,39,26,0.71
+benjamin-meiches,Benjamin Meiches,search,A5009574799|A5046839736,Benjamin Meiches|Ben Meiches,40,27,0.71
 altaf-merchant,Altaf Merchant,search,A5069724703,Altaf Merchant,75,65,0.29
 danica-miller,Danica Miller,search,A5070642033|A5128379285,Danica Sterud Miller|Danica Miller,25,11,0.53
 alex-theodore-miller,Alex (Theodore) Miller,search,A5103171776,Alex Miller,38,23,
@@ -184,7 +184,7 @@ elavie-ndura,Elavie Ndura,search,A5046132405,Elavie Ndura,46,29,
 jinlan-ni,Jinlan Ni,search,A5050869668,Jinlan Ni,51,38,0.39
 randy-nichols,Randy Nichols,search,A5070328894,Randy Nichols,33,25,0.74
 stephen-norman,Stephen Norman,none,,,0,0,
-alexandra-leah-nutter,Alexandra Leah Nutter,none,,,0,0,
+alexandra-leah-nutter,Alexandra Leah Nutter,search,A5050666904,Alexandra Nutter Smith,11,10,0.45
 maeve-o-donnell,Maeve O'Donnell,none,,,0,0,
 ariana-ochoa-camacho,Ariana Ochoa Camacho,search,A5051142008,Ariana Ochoa Camacho,12,9,
 allen-olson,Allen Olson,none,,,0,0,
@@ -233,15 +233,15 @@ i-an-amy-su,"I-An ""Amy"" Su",search,A5108272108,I-An Su,9,9,
 huatong-sun,Huatong Sun,search,A5055660110,Huatong Sun,70,48,
 libi-elizabeth-sundermann,Libi (Elizabeth) Sundermann,search,A5062640691,Elizabeth A. Sundermann,6,5,0.52
 ankur-suri,Ankur Suri,search,A5039410959,Ankur Suri,4,4,
-anne-taufen,Anne Taufen,search,A5046489842|A5063709553,Anne Taufen Wessells|Anne Taufen,35,25,
-josh-tenenberg,Josh Tenenberg,search,A5026191600,Josh Tenenberg,158,62,
+anne-taufen,Anne Taufen,search,A5063709553,Anne Taufen,19,16,
+josh-tenenberg,Josh Tenenberg,search,A5026191600,Josh Tenenberg,159,62,
 ankur-teredesai,Ankur Teredesai,search,A5061359226,Ankur M. Teredesai,128,79,0.68
 duong-rita-than,Duong (Rita) Than,none,,,0,0,
 riki-thompson,Riki Thompson,search,A5016404716,Riki Thompson,36,28,0.69
 emily-thuma,Emily Thuma,search,A5017484650,Emily L. Thuma,15,14,0.52
-grant-tietjen,Grant Tietjen,search,A5030132077,Grant E. Tietjen,28,22,
+grant-tietjen,Grant Tietjen,search,A5030132077,Grant E. Tietjen,32,26,
 barb-toews,Barb Toews,search,A5082086501,Barb Toews,35,26,
-matthew-tolentino,Matthew Tolentino,search,A5050252817,Matthew E. Tolentino,23,15,
+matthew-tolentino,Matthew Tolentino,search,A5050252817|A5068184476,Matthew E. Tolentino|Matt Tolentino,27,16,
 damiano-torre,Damiano Torre,search,A5023761803,Damiano Torre,41,29,
 erik-tou,Erik Tou,search,A5050215961,Erik R. Tou,35,34,
 sarah-arvey-tov,Sarah Arvey Tov,unchecked-wider,,Sarah A Tov,1,0,
