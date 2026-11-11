@@ -1,0 +1,42 @@
+# Hand-written names for computed areas, used instead of the automatic
+# distinctive-term labels. Each entry names the cluster that contains
+# `member` (a person id), so it survives rebuilds that renumber clusters.
+# level: area (broad, shown zoomed out) or topic (fine, shown zoomed in).
+# Drafted 2026-11-11 by Claude from members' departments, listed research
+# areas and OpenAlex topics; not yet reviewed by the user. Edit freely.
+- {level: area, member: kim-woodrow, label: "Bioengineering and biomedical technology"}
+- {level: area, member: juan-idrobo, label: "Materials, nanoscale devices and energy"}
+- {level: area, member: baosen-zhang, label: "Power, wireless and computer systems"}
+- {level: area, member: rastislav-bodik, label: "Programming languages, theory and algorithms"}
+- {level: area, member: bart-nijssen, label: "Water, climate and environmental engineering"}
+- {level: area, member: luke-zettlemoyer, label: "Machine learning, NLP and computer vision"}
+- {level: area, member: jon-froehlich, label: "Human-computer interaction and accessibility"}
+- {level: area, member: renee-desing, label: "Engineering and computing education"}
+- {level: area, member: siddhartha-srinivasa, label: "Robotics and human-robot interaction"}
+- {level: area, member: robert-breidenthal, label: "Fluid dynamics, combustion and plasma propulsion"}
+- {level: area, member: marc-eberhard, label: "Structural and earthquake engineering"}
+- {level: area, member: stephen-muench, label: "Transportation, construction and infrastructure"}
+
+- {level: topic, member: katharina-reinecke, label: "Human-computer interaction, accessibility and social computing"}
+- {level: topic, member: brian-johnson, label: "Power systems, power electronics and wireless sensing"}
+- {level: topic, member: tom-anderson, label: "Computer systems, networking and security"}
+- {level: topic, member: noah-smith, label: "Machine learning, NLP and reinforcement learning"}
+- {level: topic, member: alberto-aliseda, label: "Fluid dynamics, combustion and plasmas"}
+- {level: topic, member: cecilia-giachelli, label: "Cardiovascular, musculoskeletal and tissue engineering"}
+- {level: topic, member: peter-pauzauskie, label: "Nanomaterials, photonics and nanomechanics"}
+- {level: topic, member: jeffrey-berman, label: "Structural and earthquake engineering"}
+- {level: topic, member: patrick-stayton, label: "Drug delivery, biosensors and molecular imaging"}
+- {level: topic, member: maya-cakmak, label: "Robotics, haptics and human-robot interaction"}
+- {level: topic, member: faisal-hossain, label: "Hydrology, oceans and the cryosphere"}
+- {level: topic, member: xuegang-ban, label: "Transportation, construction and sustainable infrastructure"}
+- {level: topic, member: zachary-tatlock, label: "Programming languages, compilers and software engineering"}
+- {level: topic, member: matthew-yankowitz, label: "Quantum and 2D materials"}
+- {level: topic, member: hugh-hillhouse, label: "Energy materials, batteries and organic electronics"}
+- {level: topic, member: georg-seelig, label: "Synthetic biology, DNA computing and quantitative biology"}
+- {level: topic, member: stuart-reges, label: "Computer science education"}
+- {level: topic, member: alyssa-taylor, label: "Engineering education and equity"}
+- {level: topic, member: gregory-korshin, label: "Water treatment and environmental contaminants"}
+- {level: topic, member: chet-moritz, label: "Neural engineering and brain-computer interfaces"}
+- {level: topic, member: steven-seitz, label: "Computer vision and graphics"}
+- {level: topic, member: anup-rao, label: "Theory of computing and algorithms"}
+- {level: topic, member: chiwoo-park, label: "Industrial data science and health systems"}

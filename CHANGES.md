@@ -93,3 +93,5 @@
 2026-11-11 [code] Field scan of 131 multi-record matches (free lookups): pinned 12 UW CoE and 16 UCSB people to drop namesake records (e.g. a cardiologist for Matt Reynolds); removed a duplicate Juming Tang pin (already pinned 2026-11-08).
 
 2026-11-11 [doc] UCSB area and topic names drafted by Claude (config/ucsb-coe-labels.yaml, 10 areas, 17 topics) from departments, listed areas and OpenAlex topics; awaiting user review.
+
+2026-11-11 [doc] UW CoE area and topic names drafted by Claude (config/uw-coe-labels.yaml, 12 areas, 23 topics); awaiting user review. UCSB names applied (28, all clusters named).
