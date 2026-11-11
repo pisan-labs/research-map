@@ -83,3 +83,5 @@
 2026-11-10 [decision] Day-2 scheduled OpenAlex run disabled; OpenAlex runs move to the Mac (UW CoE, then UCSB, one per day). Tokens stay out of cloud environment secrets (user declined).
 
 2026-11-10 [code] openalex names: transliterate letters NFKD drops (ł, ß, ø...) and Unicode dashes; roster short names (Mike) also search full forms (Michael). Recovers 10 of 28 unmatched UW CoE people.
+
+2026-11-11 [decision] UW CoE: Noah Smith record drops accepted; Juming Tang pinned (all 3 records food engineering). The previous entry (name fix) is dated 2026-11-10 by mistake; it was 2026-11-11.
