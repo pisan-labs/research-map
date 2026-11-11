@@ -95,9 +95,18 @@ class OpenAlexClient:
 # ---------------------------------------------------------------- names
 
 
+# Letters NFKD does not decompose: dropping them broke names ("Bałazińska" ->
+# "baazinska", "Rothvoß" -> "rothvo"). Unicode dashes ("Su‐In") would glue tokens.
+_TRANSLIT = str.maketrans({
+    "ł": "l", "Ł": "L", "ß": "ss", "ø": "o", "Ø": "O", "æ": "ae", "Æ": "AE", "œ": "oe", "Œ": "OE",
+    "đ": "d", "Đ": "D", "ð": "d", "Ð": "D", "þ": "th", "Þ": "Th", "ı": "i", "ħ": "h", "Ħ": "H",
+    "‐": "-", "‑": "-", "‒": "-", "–": "-", "—": "-", "―": "-", "−": "-",
+})
+
+
 def norm_name(name: str) -> list[str]:
     """Lowercase ASCII tokens; drops bracketed nicknames and degree suffixes."""
-    name = re.sub(r"\([^)]*\)", " ", name)
+    name = re.sub(r"\([^)]*\)", " ", name).translate(_TRANSLIT)
     name = unicodedata.normalize("NFKD", name).encode("ascii", "ignore").decode()
     toks = re.findall(r"[a-z]+", name.lower())
     return [t for t in toks if t not in {"dr", "phd", "jr", "sr", "ii", "iii", "md", "pe"}]
@@ -121,7 +130,7 @@ NICKNAMES = {
     "nick": {"nicholas"}, "pat": {"patrick", "patricia"}, "sue": {"susan"}, "jen": {"jennifer"},
     "jenny": {"jennifer"}, "ed": {"edward"}, "ted": {"edward", "theodore"}, "greg": {"gregory"},
     "ken": {"kenneth"}, "larry": {"lawrence"}, "tim": {"timothy"}, "wolf": {"wolfgang", "bjong"},
-    "joey": {"joanna", "josephine"}, "jong": {"jong"},
+    "joey": {"joanna", "josephine"}, "jong": {"jong"}, "kim": {"kimberly"},
 }
 
 
@@ -205,6 +214,8 @@ def search_queries(name: str) -> list[str]:
     qs = [f"{toks[0]} {toks[-1]}"] + [f"{n} {toks[-1]}" for nick in nicknames(name) for n in norm_name(nick)[:1]]
     # Short forms people publish under ("Daniel Grossman" publishes as "Dan Grossman").
     qs += [f"{short} {toks[-1]}" for short, full in NICKNAMES.items() if toks[0] in full and short != toks[0]]
+    # And the reverse: the roster says "Mike Averkiou", the record is "Michael Averkiou".
+    qs += [f"{full} {toks[-1]}" for full in sorted(NICKNAMES.get(toks[0], ())) if full != toks[0]]
     # Hyphenated or apostrophe surnames as written ("Al-Masri", "O'Rourke"): "eyhab masri" can miss them.
     words = re.sub(r"\([^)]*\)", " ", name).split()
     if len(words) >= 2 and re.search(r"[-'’]", words[-1]):

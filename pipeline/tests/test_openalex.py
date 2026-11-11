@@ -111,3 +111,20 @@ def test_budget_429_stops_without_retrying(tmp_path):
     with pytest.raises(BudgetExceeded, match="daily budget"):
         c.get("/authors", {"search": "x"})
     assert len(calls) == 1
+
+
+def test_names_with_letters_nfkd_drops():
+    from research_map.openalex import name_match_kind, norm_name
+
+    assert norm_name("Magdalena Bałazińska") == ["magdalena", "balazinska"]
+    assert name_match_kind("Magdalena Balazinska", "Magdalena Bałazińska") == "exact"
+    assert name_match_kind("Thomas Rothvoss", "Thomas Rothvoß") == "exact"
+    assert name_match_kind("Su-In Lee", "Su‐In Lee") == "exact"  # U+2010 hyphen
+
+
+def test_short_roster_names_also_search_full_forms():
+    from research_map.openalex import name_match_kind, search_queries
+
+    assert "michael averkiou" in search_queries("Mike Averkiou")
+    assert "kimberly ingraham" in search_queries("Kim Ingraham")
+    assert name_match_kind("Kim Ingraham", "Kimberly Ingraham") == "exact"
