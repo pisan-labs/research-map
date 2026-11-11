@@ -48,7 +48,7 @@ daniel-chiu,Daniel Chiu,search,A5035797201,Daniel T. Chiu,303,145,0.64
 john-choe,John Choe,search,A5054606105|A5159582838,John H. Choe|John Y. Choe,36,19,0.31
 jungwon-choi,Jungwon Choi,search,A5025170421|A5160255569,Jungwon Choi|Jungwon Choi,45,43,0.48
 eric-chudler,Eric Chudler,search,A5064544100,Eric H. Chudler,71,30,0.61
-jae-hyun-chung,Jae-Hyun Chung,strict,A5113523399|A5089539936|A5043103129,Jae-Hyun Chung|Jae‐Hyun Chung|Jae-Hyn Chung,150,71,0.66
+jae-hyun-chung,Jae-Hyun Chung,override,A5113523399|A5102914490,,0,39,0.61
 andrea-coladangelo,Andrea Coladangelo,search,A5091749382,Andrea Coladangelo,43,37,0.77
 sarah-coppola,Sarah Coppola,search,A5034030638,Sarah M. Coppola,25,25,0.51
 brock-craft,Brock Craft,search,A5019431004,Brock Craft,61,30,0.65
@@ -222,7 +222,7 @@ katharina-reinecke,Katharina Reinecke,search,A5076852435,Katharina Reinecke,141,
 matt-reynolds,Matt Reynolds,search,A5019543377|A5101739845,Matthew S. Reynolds|Matthew R. Reynolds,463,363,0.43
 david-ribes,David Ribes,search,A5074771697,David Ribes,88,56,0.68
 james-ritcey,James Ritcey,search,A5041520627,James A. Ritcey,221,55,0.61
-jenny-robinson,Jenny Robinson,strict,A5089418361|A5011198593|A5136506098,Jennifer G. Robinson|Jennifer L. Robinson|Jennifer Robinson,524,18,0.59
+jenny-robinson,Jenny Robinson,override,A5011198593|A5136506098|A5140583333,,0,53,0.60
 franziska-roesner,Franziska Roesner,search,A5058923617,Franziska Roesner,148,124,0.66
 julie-rorrer,Julie Rorrer,search,A5018736061,Julie E. Rorrer,29,26,0.72
 thomas-rothvoss,Thomas Rothvoss,search,A5008952420,Thomas Rothvoß,110,61,0.62
