@@ -1,0 +1,40 @@
+# Hand-written names for computed areas, used instead of the automatic
+# distinctive-term labels. Each entry names the cluster that contains
+# `member` (a person id), so it survives rebuilds that renumber clusters.
+# level: area (broad, shown zoomed out) or topic (fine, shown zoomed in).
+# Drafted 2026-11-11 by Claude from members' departments and OpenAlex topics
+# (this roster lists no research areas); not yet reviewed by the user.
+- {level: area, member: douglas-downey, label: "AI, machine learning and data visualization"}
+- {level: area, member: julius-lucks, label: "Synthetic biology, biotechnology and microbial systems"}
+- {level: area, member: david-dunand, label: "Structural materials, mechanics and manufacturing"}
+- {level: area, member: samir-khuller, label: "Optimization, algorithms and operations research"}
+- {level: area, member: ordel-brown, label: "Engineering education, learning sciences and design"}
+- {level: area, member: aleksandar-kuzmanovic, label: "Networks, systems, security and transportation"}
+- {level: area, member: kevin-lynch, label: "Robotics, biomechanics and neuromechanics"}
+- {level: area, member: sinan-keten, label: "Soft materials, polymers and bioelectronics"}
+- {level: area, member: randall-q-snurr, label: "Catalysis, energy materials and batteries"}
+- {level: area, member: michael-j-miksis, label: "Fluid dynamics and applied mathematics"}
+- {level: area, member: matthew-r-glucksberg, label: "Biomedical devices, cardiac and imaging engineering"}
+- {level: area, member: manijeh-razeghi, label: "Photonics, quantum devices and sensors"}
+- {level: area, member: robby-findler, label: "Programming languages, compilers and parallel computing"}
+
+- {level: topic, member: douglas-downey, label: "AI, NLP and explainable machine learning"}
+- {level: topic, member: emma-decosta, label: "Engineering education and design"}
+- {level: topic, member: michael-markl, label: "Cardiac engineering, biomedical imaging and devices"}
+- {level: topic, member: konstantin-makarychev, label: "Algorithms, optimization and stochastic systems"}
+- {level: topic, member: ted-sargent, label: "Catalysis, energy materials and batteries"}
+- {level: topic, member: christopher-schuh, label: "Metals, alloys and additive manufacturing"}
+- {level: topic, member: yan-chen, label: "Wireless networks, systems and security"}
+- {level: topic, member: muzhou-wang, label: "Soft materials, polymers and mechanics"}
+- {level: topic, member: petia-vlahovska, label: "Fluid dynamics, interfaces and applied mathematics"}
+- {level: topic, member: nivedita-arora, label: "Mobile sensing, embedded and cyber-physical systems"}
+- {level: topic, member: karen-smilowitz, label: "Transportation, logistics and supply chains"}
+- {level: topic, member: hooman-mohseni, label: "Quantum optics, photonics and optoelectronics"}
+- {level: topic, member: giuseppe-buscarnera, label: "Computational mechanics, geomechanics and structures"}
+- {level: topic, member: keith-e-j-tyo, label: "Synthetic biology and metabolic engineering"}
+- {level: topic, member: michael-horn, label: "Learning sciences, computing education and collaboration"}
+- {level: topic, member: aaron-i-packman, label: "Environmental engineering, water and ecosystems"}
+- {level: topic, member: samuel-stupp, label: "Biomaterials, nanomedicine and self-assembly"}
+- {level: topic, member: robby-findler, label: "Programming languages, compilers and parallel computing"}
+- {level: topic, member: j-edward-colgate, label: "Robotics, haptics and assistive systems"}
+- {level: topic, member: eric-j-perreault, label: "Neuromechanics and motor control"}

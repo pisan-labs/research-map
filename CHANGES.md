@@ -95,3 +95,5 @@
 2026-11-11 [doc] UCSB area and topic names drafted by Claude (config/ucsb-coe-labels.yaml, 10 areas, 17 topics) from departments, listed areas and OpenAlex topics; awaiting user review.
 
 2026-11-11 [doc] UW CoE area and topic names drafted by Claude (config/uw-coe-labels.yaml, 12 areas, 23 topics); awaiting user review. UCSB names applied (28, all clusters named).
+
+2026-11-11 [doc] McCormick area and topic names drafted by Claude (config/nu-mccormick-labels.yaml, 13 areas, 20 topics); the live map needs a rebuild and redeploy to show them. UW CoE names accepted by the user.
