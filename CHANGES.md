@@ -87,3 +87,5 @@
 2026-11-11 [decision] UW CoE: Noah Smith record drops accepted; Juming Tang pinned (all 3 records food engineering). The previous entry (name fix) is dated 2026-11-10 by mistake; it was 2026-11-11.
 
 2026-11-11 [decision] McCormick stays on the live site (user); its area names are still computed and are queued for hand naming.
+
+2026-11-11 [code] openalex names: curly apostrophes (O’Malley) normalised. Pins: UW CoE Jae-Hyun Chung, Jenny Robinson (check dropped her own record, kept a cardiologist); UCSB Xin (Eric) Wang (25 merged records), Palmstrøm, Klapperich, Chandrasekaran, Dey.

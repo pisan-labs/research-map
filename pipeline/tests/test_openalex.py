@@ -128,3 +128,9 @@ def test_short_roster_names_also_search_full_forms():
     assert "michael averkiou" in search_queries("Mike Averkiou")
     assert "kimberly ingraham" in search_queries("Kim Ingraham")
     assert name_match_kind("Kim Ingraham", "Kimberly Ingraham") == "exact"
+
+
+def test_curly_apostrophe_surname():
+    from research_map.openalex import name_match_kind
+
+    assert name_match_kind("Michelle O'Malley", "Michelle O’Malley") == "exact"
