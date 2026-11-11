@@ -22,9 +22,9 @@ self-contained HTML page that works offline.
 |---|---|---|---|---|---|
 | UW Bothell STEM | `config/uwb-stem.yaml` | 89 (87 mapped) | 65 matched, 2,197 works (2026-11-10) | yes | yes, and in Supabase |
 | UW Tacoma (whole campus) | `config/uwt.yaml` | 268 (256 mapped) | 195 matched, 6,177 works (2026-11-10) | yes | yes, and in Supabase |
-| UW College of Engineering | `config/uw-coe.yaml` | 300 | 272 matched, 24,740 works (2026-11-11); rerun with the 2c0ea67 name fix should give ~282 | on the Mac, not committed | no |
+| UW College of Engineering | `config/uw-coe.yaml` | 300 | 282 matched, 26,236 works (2026-11-11); pins b8a731d need a rerun | on the Mac, not committed | no |
 | Northwestern McCormick | `config/nu-mccormick.yaml` | 288 (265 mapped) | 246 rows matched, 26,324 works (2026-11-10, latest rules) | yes | yes (user kept it live 2026-11-11; areas still computed), and in Supabase |
-| UC Santa Barbara Engineering | `config/ucsb-coe.yaml` | 170 | **not run** | no | no |
+| UC Santa Barbara Engineering | `config/ucsb-coe.yaml` | 170 | 163 matched, 20,135 works (2026-11-11); pins b8a731d need a rerun | on the Mac, not committed | no |
 
 UC San Diego was dropped by the user in favour of UC Santa Barbara.
 
@@ -73,6 +73,10 @@ UC San Diego was dropped by the user in favour of UC Santa Barbara.
    Each drop prints `dropped record ... check by hand`;
    `--no-record-check` restores the old behaviour. Measure it on UW CoE:
    do the 17 pinned people come out right with the overrides set aside?
+   First evidence (2026-11-11): of 5 drops checked by hand, 2 were wrong
+   (Jae-Hyun Chung's and Jenny Robinson's own small records) and it kept
+   a 469-work namesake cardiologist for Robinson; Xin (Eric) Wang (UCSB)
+   had 25 merged records. Strict matches with common names need checking.
 3. **Build** `uw-coe`, `nu-mccormick`, `ucsb-coe`, `uwt`
    (`research-map build ../config/<slug>.yaml`; about 2-10 min each on CPU).
 4. **Name areas by hand**: `config/<slug>-labels.yaml` (see the UWB and UWT
