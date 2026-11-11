@@ -23,7 +23,7 @@ self-contained HTML page that works offline.
 | UW Bothell STEM | `config/uwb-stem.yaml` | 89 (87 mapped) | 65 matched, 2,197 works (2026-11-10) | yes | yes, and in Supabase |
 | UW Tacoma (whole campus) | `config/uwt.yaml` | 268 (256 mapped) | 195 matched, 6,177 works (2026-11-10) | yes | yes, and in Supabase |
 | UW College of Engineering | `config/uw-coe.yaml` | 300 | 272 matched, 24,740 works (2026-11-11); rerun with the 2c0ea67 name fix should give ~282 | on the Mac, not committed | no |
-| Northwestern McCormick | `config/nu-mccormick.yaml` | 288 (265 mapped) | 246 rows matched, 26,324 works (2026-11-10, latest rules) | yes | yes (linked from the index), and in Supabase |
+| Northwestern McCormick | `config/nu-mccormick.yaml` | 288 (265 mapped) | 246 rows matched, 26,324 works (2026-11-10, latest rules) | yes | yes (user kept it live 2026-11-11; areas still computed), and in Supabase |
 | UC Santa Barbara Engineering | `config/ucsb-coe.yaml` | 170 | **not run** | no | no |
 
 UC San Diego was dropped by the user in favour of UC Santa Barbara.

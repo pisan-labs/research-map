@@ -85,3 +85,5 @@
 2026-11-10 [code] openalex names: transliterate letters NFKD drops (ł, ß, ø...) and Unicode dashes; roster short names (Mike) also search full forms (Michael). Recovers 10 of 28 unmatched UW CoE people.
 
 2026-11-11 [decision] UW CoE: Noah Smith record drops accepted; Juming Tang pinned (all 3 records food engineering). The previous entry (name fix) is dated 2026-11-10 by mistake; it was 2026-11-11.
+
+2026-11-11 [decision] McCormick stays on the live site (user); its area names are still computed and are queued for hand naming.
