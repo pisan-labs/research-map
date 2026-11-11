@@ -1,0 +1,34 @@
+# Hand-written names for computed areas, used instead of the automatic
+# distinctive-term labels. Each entry names the cluster that contains
+# `member` (a person id), so it survives rebuilds that renumber clusters.
+# level: area (broad, shown zoomed out) or topic (fine, shown zoomed in).
+# Drafted 2026-11-11 by Claude from members' departments, listed research
+# areas and OpenAlex topics; not yet reviewed by the user. Edit freely.
+- {level: area, member: tevfik-bultan, label: "Computer systems, software and security"}
+- {level: area, member: robert-mcmeeking, label: "Mechanics, structural materials and fluids"}
+- {level: area, member: shiyu-chang, label: "Machine learning, visual computing and HCI"}
+- {level: area, member: umesh-mishra, label: "Semiconductors, photonics and electronic devices"}
+- {level: area, member: ryan-stowers, label: "Bioengineering and systems biology"}
+- {level: area, member: rachel-segalman, label: "Polymers, soft materials and catalysis"}
+- {level: area, member: katie-byl, label: "Control, robotics and dynamical systems"}
+- {level: area, member: nelson-phillips, label: "Technology management and innovation"}
+- {level: area, member: ram-seshadri, label: "Inorganic, quantum and energy materials"}
+- {level: area, member: upamanyu-madhow, label: "Communications, signal processing and radar"}
+
+- {level: topic, member: ryan-stowers, label: "Cell mechanics, tissue engineering and structural biology"}
+- {level: topic, member: shiyu-chang, label: "Machine learning, vision, AR and HCI"}
+- {level: topic, member: matthew-r-begley, label: "Mechanics of materials and additive manufacturing"}
+- {level: topic, member: ben-hardekopf, label: "Programming languages, verification and architecture"}
+- {level: topic, member: jason-marden, label: "Control theory and multi-agent systems"}
+- {level: topic, member: nelson-phillips, label: "Technology management, organizations and entrepreneurship"}
+- {level: topic, member: daniel-lokshtanov, label: "Algorithms, theory and distributed computing"}
+- {level: topic, member: elaheh-ahmadi, label: "GaN, oxide and quantum semiconductor materials"}
+- {level: topic, member: stephen-wilson, label: "Quantum, magnetic and battery materials"}
+- {level: topic, member: giovanni-vigna, label: "Computer security and cryptography"}
+- {level: topic, member: mark-rodwell, label: "Photonics, RF and high-speed electronics"}
+- {level: topic, member: craig-hawker, label: "Polymers and soft matter"}
+- {level: topic, member: susannah-scott, label: "Catalysis and energy chemistry"}
+- {level: topic, member: upamanyu-madhow, label: "Wireless communications, signal processing and radar"}
+- {level: topic, member: eckart-meiburg, label: "Fluid dynamics and heat transfer"}
+- {level: topic, member: elliot-hawkes, label: "Robotics, haptics and soft robots"}
+- {level: topic, member: carl-meinhart, label: "Microfluidics and thermal transport"}
