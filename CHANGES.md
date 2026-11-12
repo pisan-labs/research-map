@@ -97,3 +97,5 @@
 2026-11-11 [doc] UW CoE area and topic names drafted by Claude (config/uw-coe-labels.yaml, 12 areas, 23 topics); awaiting user review. UCSB names applied (28, all clusters named).
 
 2026-11-11 [doc] McCormick area and topic names drafted by Claude (config/nu-mccormick-labels.yaml, 13 areas, 20 topics); the live map needs a rebuild and redeploy to show them. UW CoE names accepted by the user.
+
+2026-11-12 [code] Published UCSB and UW CoE maps and McCormick names (Netlify; all three loaded into Supabase with names). Named the last computed UWB area/topic and two UWT topics; needs a rebuild, load and deploy.
