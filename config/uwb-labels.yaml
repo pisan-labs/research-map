@@ -1,0 +1,34 @@
+# Hand-written names for computed areas, used instead of the automatic
+# distinctive-term labels. Each entry names the cluster that contains
+# `member` (a person id), so it survives rebuilds that renumber clusters.
+# level: area (broad, shown zoomed out) or topic (fine, shown zoomed in).
+# Drafted 2026-11-13 by Claude from members' schools, programs, profile text
+# and OpenAlex topics; not yet reviewed by the user. Edit freely.
+- {level: area, member: munehiro-fukuda, label: "Computing, software and engineering"}
+- {level: area, member: sarah-b-shear, label: "Education, race, history and society"}
+- {level: area, member: camelia-bejan, label: "Business: finance, marketing and management"}
+- {level: area, member: jody-early, label: "Nursing and public health"}
+- {level: area, member: hyung-kim, label: "Life and physical sciences"}
+- {level: area, member: amaranth-borsuk, label: "Arts, media, literature and gender studies"}
+- {level: area, member: brian-martensen, label: "Mathematics and STEM education"}
+- {level: area, member: avery-shinneman, label: "Environment, sustainability and ecology"}
+
+- {level: topic, member: celia-gorbman, label: "Nursing, health equity and public health"}
+- {level: topic, member: linda-simonsen, label: "Mathematics and STEM education"}
+- {level: topic, member: tyson-e-j-marsh, label: "Education, critical race and Indigenous studies"}
+- {level: topic, member: yang-peng, label: "Distributed systems, networks and IoT"}
+- {level: topic, member: adam-romero, label: "Environmental studies, geography and sustainability"}
+- {level: topic, member: xiaodong-nie, label: "Marketing, operations and information systems"}
+- {level: topic, member: paola-rodriguez-hidalgo, label: "Physics, astronomy and fluids"}
+- {level: topic, member: karam-dana, label: "History, politics and ethnic studies"}
+- {level: topic, member: ron-krabill, label: "Media, culture and communication"}
+- {level: topic, member: elizabeth-ostrowski, label: "Evolution, microbiology and molecular biology"}
+- {level: topic, member: kelvin-sung, label: "Games, graphics, HCI and computing education"}
+- {level: topic, member: julie-shayne, label: "Gender, sexuality and creative writing"}
+- {level: topic, member: daewoung-choi, label: "Finance and accounting"}
+- {level: topic, member: dong-si, label: "AI, computational biology and neuroscience"}
+- {level: topic, member: shima-abadi, label: "Acoustics, signal processing and animal communication"}
+- {level: topic, member: casey-mann, label: "Mathematics: geometry, matrices and analysis"}
+- {level: topic, member: stephie-minjung-kang, label: "Language, identity and qualitative research"}
+- {level: topic, member: liz-janssen, label: "Literature, film and sound"}
+- {level: topic, member: sophie-leroy, label: "Management and organizational behavior"}
