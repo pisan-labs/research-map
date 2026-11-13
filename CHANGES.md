@@ -101,3 +101,5 @@
 2026-11-12 [code] Published UCSB and UW CoE maps and McCormick names (Netlify; all three loaded into Supabase with names). Named the last computed UWB area/topic and two UWT topics; needs a rebuild, load and deploy.
 
 2026-11-13 [code] New unit uwb (whole UW Bothell campus): adapter uwb-campus reads uwb.edu/faculty/ and each profile role, school and department; 231 full-time faculty. uwb-stem kept as is for now.
+
+2026-11-13 [code] uwb: STEM keywords restored from department pages; field scan of 23 multi-record matches pinned 5 (Marc Dupuis: largest record was a namesake; Ying Li set to none). Same pins for Chang, Dupuis added to uwb-stem.
