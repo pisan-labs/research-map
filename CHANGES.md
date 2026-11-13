@@ -105,3 +105,5 @@
 2026-11-13 [code] uwb: STEM keywords restored from department pages; field scan of 23 multi-record matches pinned 5 (Marc Dupuis: largest record was a namesake; Ying Li set to none). Same pins for Chang, Dupuis added to uwb-stem.
 
 2026-11-13 [doc] uwb: pinned Rick McLaughlin (full-name searches made two records tie) and Stefanie Iverson Cabral; area and topic names drafted by Claude (8 areas, 19 topics), awaiting review.
+
+2026-11-13 [decision] User: UWB names fine; publish uwb; keep uwb-stem on the index alongside it.
