@@ -51,6 +51,82 @@ def uwb_listing(fetcher: CachedFetcher, cfg: dict, refresh: bool):
     return people, areas
 
 
+def uwb_campus_rows(html: str) -> list[tuple[str, str]]:
+    """The campus faculty page (uwb.edu/faculty/): (name, profile url) per row, all schools."""
+    soup = BeautifulSoup(html, "html.parser")
+    rows = []
+    for a in soup.select("tbody.js-filterable-faculty-landing a.faculty-landing-name"):
+        rows.append((strip_credentials(_clean(a.get_text(" "))), a.get("href", "")))
+    return rows
+
+
+def strip_credentials(name: str) -> str:
+    """'Aaron Enten, Ph.D., MBA, MBID' -> 'Aaron Enten': trailing degrees would be read as
+    the family name when matching OpenAlex. Kept when anything after a comma is not a credential."""
+    head, *rest = [x.strip() for x in name.split(",")]
+    if rest and all(re.fullmatch(r"[A-Z][A-Za-z.\-]{0,9}", x) and not re.fullmatch(r"[A-Z][a-z]{3,}", x) for x in rest):
+        return head
+    return name
+
+
+SCHOOL_SHORT = {"Science, Technology, Engineering & Mathematics": "School of STEM"}
+
+
+def uwb_profile_header(html: str) -> tuple[str, list[str], str]:
+    """(role, schools, department) from a UW Bothell profile; empty when absent.
+    Joint appointments list several schools, one link each."""
+    soup = BeautifulSoup(html, "html.parser")
+    role = soup.find(class_="faculty-profile-role")
+    schools, dept = [], ""
+    for h in soup.find_all("h3", class_="faculty-sidebar-heading"):
+        body = h.find_next_sibling(class_="faculty-sidebar-content")
+        if body is None:
+            continue
+        head = _clean(h.get_text())
+        if head == "School":
+            schools = [_clean(a.get_text(" ")) for a in body.find_all("a")] or [_clean(body.get_text(" "))]
+        elif head == "Department":
+            dept = _clean(body.get_text(" "))
+    return _clean(role.get_text()) if role else "", [x for x in schools if x], dept
+
+
+def uwb_school(schools: list[str], dept: str) -> str:
+    """One school per person for colouring: STEM when a STEM department is given
+    (only STEM profiles name departments), else the first school listed."""
+    stem = "Science, Technology, Engineering & Mathematics"
+    pick = stem if dept and stem in schools else (schools[0] if schools else "")
+    return SCHOOL_SHORT.get(pick, f"School of {pick}" if pick else "Other")
+
+
+def uwb_campus_listing(fetcher: CachedFetcher, cfg: dict, refresh: bool):
+    """Whole UW Bothell campus: the campus faculty page lists everyone without titles,
+    so each profile is read for its role (used by the include rules), school and
+    department. The STEM department pages are read too for their curated research areas."""
+    rows = uwb_campus_rows(fetcher.get(cfg["campus_url"], refresh=refresh))
+    print(f"  campus page: {len(rows)} listed", file=sys.stderr)
+    people: list[Person] = []
+    for i, (name, url) in enumerate(rows, 1):
+        url = urljoin(cfg["base_url"], url)
+        try:
+            role, schools, dept = uwb_profile_header(fetcher.get(url, refresh=refresh))
+        except Exception as e:  # a missing profile should not stop the roster
+            print(f"  profile failed for {name}: {e}", file=sys.stderr)
+            role, schools, dept = "", [], ""
+        school = uwb_school(schools, dept)
+        people.append(Person(id=roster.id_from_url(url, name), name=name, title=role,
+                             department=school, program=dept or school,
+                             category="", keywords="", profile_url=url))
+        if i % 50 == 0:
+            print(f"  read {i}/{len(rows)} profiles", file=sys.stderr)
+    areas: dict[str, list[str]] = {}
+    for entry in cfg.get("directory", []):
+        html = fetcher.get(entry["url"], refresh=refresh)
+        for area, ids in roster.parse_research_areas(html, cfg["base_url"]).items():
+            areas.setdefault(area, [])
+            areas[area] += [x for x in ids if x not in areas[area]]
+    return people, areas
+
+
 # ---------------------------------------------------------------- UW Tacoma
 
 
@@ -282,6 +358,7 @@ def ucsb_coe_listing(fetcher: CachedFetcher, cfg: dict, refresh: bool):
 
 ADAPTERS = {
     "uwb-stem": Adapter(uwb_listing, uwb_profiles.parse_profile),
+    "uwb-campus": Adapter(uwb_campus_listing, uwb_profiles.parse_profile),
     "uwt-directory": Adapter(uwt_listing, uwt_profile),
     "uwcoe-facultyfinder": Adapter(uwcoe_listing, None),
     "nu-mccormick-xml": Adapter(nu_mccormick_listing, None),

@@ -86,3 +86,22 @@ def test_canonical_department():
     assert canonical_department("Department of Computer Science & Engineering", depts) == "Computer Science and Engineering"
     assert canonical_department("Pediatrics, Bioengineering", depts) == "Bioengineering"
     assert canonical_department("CMRR", depts) == "CMRR"
+
+
+def test_uwb_campus_parsing():
+    from research_map.adapters import strip_credentials, uwb_campus_rows, uwb_profile_header, uwb_school
+
+    page = ('<table><tbody class="js-filterable-faculty-landing"><tr><td>'
+            '<a class="faculty-landing-name" href="https://www.uwb.edu/faculty/aaron-enten/"> Aaron Enten, Ph.D., MBA </a>'
+            '</td></tr></tbody></table>')
+    assert uwb_campus_rows(page) == [("Aaron Enten", "https://www.uwb.edu/faculty/aaron-enten/")]
+    prof = ('<h2 class="faculty-profile-role">Professor</h2>'
+            '<h3 class="faculty-sidebar-heading">School</h3><div class="faculty-sidebar-content">'
+            '<div><a href="/ias">Interdisciplinary Arts &amp; Sciences</a></div>'
+            '<div><a href="/stem">Science, Technology, Engineering &amp; Mathematics</a></div></div>'
+            '<h3 class="faculty-sidebar-heading">Department</h3><div class="faculty-sidebar-content">Engineering &amp; Mathematics</div>')
+    role, schools, dept = uwb_profile_header(prof)
+    assert role == "Professor" and len(schools) == 2 and dept == "Engineering & Mathematics"
+    assert uwb_school(schools, dept) == "School of STEM"
+    assert uwb_school(["Business"], "") == "School of Business"
+    assert strip_credentials("Ana Lopez, Seattle") == "Ana Lopez, Seattle"

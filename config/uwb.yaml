@@ -1,0 +1,27 @@
+# Research map for all of UW Bothell (every school), from the campus faculty page.
+# Same people rule as uwb-stem (full-time faculty) applied to profile roles.
+slug: uwb
+name: UW Bothell (whole campus)
+university: University of Washington Bothell
+adapter: uwb-campus
+openalex_institution: I4210138624  # University of Washington Bothell
+# Tried when nobody matches at the main institution (some Bothell papers say "University of Washington").
+openalex_fallback_institutions: [I201448701]
+base_url: https://www.uwb.edu/
+campus_url: https://www.uwb.edu/faculty/
+# STEM department pages: read only for their curated research areas (neighbour and search checks).
+directory:
+  - department: Biological Sciences
+    url: https://www.uwb.edu/stem/faculty/bs-faculty
+  - department: Computing & Software Systems
+    url: https://www.uwb.edu/stem/faculty/css-faculty
+  - department: Engineering & Mathematics
+    url: https://www.uwb.edu/stem/faculty/em-faculty
+  - department: Physical Sciences
+    url: https://www.uwb.edu/stem/faculty/ps-faculty
+include:
+  title_pattern: "professor|lecturer"
+  exclude_title_pattern: "emerit|retired|affiliate|part[- ]time|adjunct|visiting|courtesy"
+opt_out: []
+color_by: department
+search_model: all-MiniLM-L6-v2
