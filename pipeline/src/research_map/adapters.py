@@ -118,12 +118,23 @@ def uwb_campus_listing(fetcher: CachedFetcher, cfg: dict, refresh: bool):
                              category="", keywords="", profile_url=url))
         if i % 50 == 0:
             print(f"  read {i}/{len(rows)} profiles", file=sys.stderr)
+    # Department pages (STEM only) carry a keywords line and a finer program
+    # ("Mathematics") that the campus page lacks; without the keywords the topic
+    # check rejected correct matches (McLoud-Mann, Musselman, McLaughlin).
     areas: dict[str, list[str]] = {}
+    listed: dict[str, Person] = {}
     for entry in cfg.get("directory", []):
         html = fetcher.get(entry["url"], refresh=refresh)
+        for q in roster.parse_directory(html, entry["department"], cfg["base_url"]):
+            listed.setdefault(q.id, q)
         for area, ids in roster.parse_research_areas(html, cfg["base_url"]).items():
             areas.setdefault(area, [])
             areas[area] += [x for x in ids if x not in areas[area]]
+    for p in people:
+        q = listed.get(p.id)
+        if q is not None:
+            p.keywords = p.keywords or q.keywords
+            p.program = q.program or p.program
     return people, areas
 
 
