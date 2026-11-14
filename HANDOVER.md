@@ -113,6 +113,8 @@ UC San Diego was dropped by the user in favour of UC Santa Barbara.
    d. [done 2026-11-10: uwb-stem, uwt, nu-mccormick loaded from the Mac;
       pages rebuilt, committed (8f5af3f) and redeployed to Netlify.]
       On halflife, run `research-map load ../config/<slug>.yaml` with
+      `SUPABASE_DB_PASSWORD` set (the user keeps it in that variable on the Mac;
+      `load` builds the pooler URI itself; `SUPABASE_DB_URL` still overrides) or
       `SUPABASE_DB_URL` = the session pooler URI (user
       `postgres.arktxlrlyceffyozdwhq`, port 5432, host from the dashboard's
       Connect dialog; the direct host is IPv6-only; the user holds the

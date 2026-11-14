@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import json
 import os
+from urllib.parse import quote
 import re
 from pathlib import Path
 
@@ -19,12 +20,20 @@ SCHEMA = "app_research_map"  # see supabase/migrations
 SERVER_SEARCH_MODEL = "thenlper/gte-small"  # matches Supabase.ai Session("gte-small")
 
 
+# Session pooler of the shared HintWise project (the direct host is IPv6-only).
+POOLER_USER = "postgres.arktxlrlyceffyozdwhq"
+POOLER_HOST = "aws-1-us-east-1.pooler.supabase.com"
+
+
 def connection_string() -> str:
     url = os.environ.get("SUPABASE_DB_URL") or os.environ.get("DATABASE_URL") or ""
-    if not url:
-        raise SystemExit("set SUPABASE_DB_URL (the session pooler URI from the dashboard's Connect dialog;\n"
-                         "the direct host is IPv6-only). Never commit it.")
-    return url
+    if url:
+        return url
+    pw = os.environ.get("SUPABASE_DB_PASSWORD", "")
+    if pw:  # quoted, so a password with @ : / does not break the URI
+        return f"postgresql://{POOLER_USER}:{quote(pw, safe='')}@{POOLER_HOST}:5432/postgres"
+    raise SystemExit("set SUPABASE_DB_PASSWORD (or SUPABASE_DB_URL, the session pooler URI from the\n"
+                     "dashboard's Connect dialog; the direct host is IPv6-only). Never commit either.")
 
 
 def search_record_rows(payload: dict) -> list[tuple]:

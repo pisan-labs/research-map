@@ -107,3 +107,5 @@
 2026-11-13 [doc] uwb: pinned Rick McLaughlin (full-name searches made two records tie) and Stefanie Iverson Cabral; area and topic names drafted by Claude (8 areas, 19 topics), awaiting review.
 
 2026-11-13 [decision] User: UWB names fine; publish uwb; keep uwb-stem on the index alongside it.
+
+2026-11-14 [code] load: reads SUPABASE_DB_PASSWORD (user keeps the DB password there) and builds the pooler URI, password URL-quoted; SUPABASE_DB_URL still overrides.

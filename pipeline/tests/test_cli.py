@@ -30,3 +30,16 @@ def test_check_strict_records_drops_namesake(capsys):
     assert m.author_ids == ["A1"] and m.names == ["J. S"]
     assert all("Robot" in w["title"] for w in works["j-s"])
     assert "dropped record A2 from J S" in capsys.readouterr().err
+
+
+def test_db_url_from_password(monkeypatch):
+    from research_map import db
+
+    monkeypatch.delenv("SUPABASE_DB_URL", raising=False)
+    monkeypatch.delenv("DATABASE_URL", raising=False)
+    monkeypatch.setenv("SUPABASE_DB_PASSWORD", "p@ss/w:rd")
+    url = db.connection_string()
+    assert url.startswith("postgresql://postgres.arktxlrlyceffyozdwhq:p%40ss%2Fw%3Ard@")
+    assert url.endswith(":5432/postgres")
+    monkeypatch.setenv("SUPABASE_DB_URL", "postgresql://x")
+    assert db.connection_string() == "postgresql://x"

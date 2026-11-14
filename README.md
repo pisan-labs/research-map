@@ -37,7 +37,7 @@ parses profile pages.
   schema `app_research_map` only; not applied yet. Schema and search
   function: `supabase/migrations/`; search API:
   `supabase/functions/research-map-search/`. `research-map load CONFIG`
-  writes a built map into that schema (`SUPABASE_DB_URL`, the session pooler
+  writes a built map into that schema (`SUPABASE_DB_PASSWORD`, or `SUPABASE_DB_URL` = the session pooler
   URI; never commit it);
   `tests/search_eval_db.py` runs the search test set against it.
 - **Pipeline**: runs on halflife for now; Render later.
