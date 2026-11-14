@@ -25,7 +25,7 @@ self-contained HTML page that works offline.
 | UW College of Engineering | `config/uw-coe.yaml` | 300 (297 mapped) | 282 matched, 26,992 works (2026-11-11, hand-checked + field scan) | yes, names drafted by Claude (accepted) | yes (2026-11-12), and in Supabase |
 | Northwestern McCormick | `config/nu-mccormick.yaml` | 288 (265 mapped) | 246 rows matched, 26,324 works (2026-11-10, latest rules) | yes, names drafted by Claude | yes (names live 2026-11-12), and in Supabase |
 | UC Santa Barbara Engineering | `config/ucsb-coe.yaml` | 170 (169 mapped) | 168 matched, 22,072 works (2026-11-11, hand-checked + field scan) | yes, names drafted by Claude | yes (2026-11-12), and in Supabase |
-| UW Bothell (whole campus) | `config/uwb.yaml` (adapter `uwb-campus`) | 231 (2026-11-13: STEM 92, IAS 75, Business 30, NHS 25, Education 9) | not run (copy `data/uwb-stem/openalex` first: same URLs) | no | no |
+| UW Bothell (whole campus) | `config/uwb.yaml` (adapter `uwb-campus`) | 231 (226 mapped; STEM 92, IAS 75, Business 30, NHS 25, Education 9) | 160 matched, 3,776 works (2026-11-13, field scan + pins) | yes, names drafted by Claude (accepted) | yes (2026-11-14), and in Supabase; `uwb-stem` kept alongside (user) |
 
 UC San Diego was dropped by the user in favour of UC Santa Barbara.
 

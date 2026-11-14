@@ -109,3 +109,5 @@
 2026-11-13 [decision] User: UWB names fine; publish uwb; keep uwb-stem on the index alongside it.
 
 2026-11-14 [code] load: reads SUPABASE_DB_PASSWORD (user keeps the DB password there) and builds the pooler URI, password URL-quoted; SUPABASE_DB_URL still overrides.
+
+2026-11-14 [code] uwb (whole campus) published: Netlify and Supabase (226 on the map, all areas named). uwb-stem names refreshed after the 11-13 pins reshuffled its clusters.

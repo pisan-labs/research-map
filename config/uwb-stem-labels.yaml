@@ -13,7 +13,7 @@
 - {level: topic, member: emily-gismervig, label: "Mathematics and STEM education"}
 - {level: topic, member: kelvin-sung, label: "Software engineering, HCI and games"}
 - {level: topic, member: cynthia-chang, label: "Ecology, evolution and biodiversity"}
-- {level: topic, member: yang-peng, label: "Distributed systems, wireless networks and power"}
+- {level: topic, member: yang-peng, label: "Networks, security and distributed systems"}
 - {level: topic, member: dong-si, label: "AI and computational biology"}
 - {level: topic, member: brent-lagesse, label: "Cybersecurity and pervasive computing"}
 - {level: topic, member: kaibao-nie, label: "Signal processing, waves and astrophysics"}
@@ -23,3 +23,6 @@
 - {level: topic, member: jong-yoon, label: "Robotics, devices and fabrication"}
 - {level: area, member: joey-shapiro-key, label: "Physics, astronomy, chemistry and climate"}
 - {level: topic, member: paola-rodriguez-hidalgo, label: "Astrophysics and climate science"}
+- {level: area, member: hyung-kim, label: "Chemistry and physics"}
+- {level: topic, member: yusuf-pisan, label: "Software engineering, HCI, games and CS education"}
+- {level: topic, member: rachel-scherr, label: "STEM learning and teaching"}
