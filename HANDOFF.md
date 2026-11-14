@@ -29,14 +29,15 @@ Done (live at https://research-map.hintwise.org, all loaded into Supabase):
 
 Remaining (none started):
 - [ ] User review of the uwb-stem and uwt names (Claude drafts of 7 Nov; never reviewed).
-- [ ] Page size: uw-coe 4.6 MB, nu-mccormick 3.9 MB (slow on phones). Measured 2026-11-14 (cloud):
+- [x] Page size: uw-coe 4.6 MB, nu-mccormick 3.9 MB (slow on phones). Measured 2026-11-14 (cloud):
       publications (`pubs`) are 54% of the data and their search vectors (`sv`) 34%; both scale with
       `page_pubs` (default 60, now ~45 per person on average). Estimated size at `page_pubs`
       60/30/20/10 (raw MB, gzip MB): uw-coe 4.75/3.2/2.56/1.88 (2.03/1.34/1.05/0.73);
       nu-mccormick 4.01/2.77/2.27/1.73 (1.67/1.12/0.89/0.64). Netlify serves compressed, so
       real transfer is about the gzip figure. Search recall at lower caps NOT measured.
       User chose 30 (2026-11-14): `page_pubs: 30` set in uw-coe, nu-mccormick, ucsb-coe configs.
-      NOT yet rebuilt, loaded or deployed: do that on the Mac, then re-check sizes and `smoke.mjs`.
+      Done 2026-11-14 (Mac, user-reported): rebuilt (uw-coe 3.2 MB, nu-mccormick 2.8 MB, ucsb-coe 2.1 MB),
+      loaded, one deploy; commit 3025696. The openalex rerun made 0 calls and changed no matches.
 - [ ] Unmatched: 18 uw-coe, 71 uwb (many artists, clinical teaching faculty). User: leave for now.
 - [ ] uw-coe main records missing for `jenq-neng-hwang`, `peter-mackenzie-helnwein` (noted 8 Nov, not rechecked).
 
@@ -50,19 +51,8 @@ Remaining (none started):
 
 ## 4. Next step
 
-Netlify deploys cost credits (user, 2026-11-14): make ONE deploy for everything below.
-Everything doable in the cloud is done (configs, tests, docs). On the Mac, in order:
-
-1. `git pull` this branch (`claude/amazing-hypatia-8bmos9`; merge to `main` is the user's call).
-2. uw-coe only: `uv run research-map openalex ../config/uw-coe.yaml --max-cost 0.45` (restores
-   the 2 Noah Smith records dropped by the old per-record check; also recheck main records for
-   `jenq-neng-hwang` and `peter-mackenzie-helnwein`). Uses the OpenAlex budget; cache is on the Mac.
-3. `build` uw-coe, nu-mccormick, ucsb-coe (now `page_pubs: 30`); read the `labels:` lines and
-   name any new clusters; `smoke.mjs` each page.
-4. Optionally fold in name edits for uwb-stem and uwt if the user reviews them first.
-5. `load` the same maps, then ONE `netlify deploy` of `site/`.
-
-Not doable in the cloud: caches, keys and DB password are on the Mac only.
+Ask the user which Remaining item to take (all need the user or the Mac). Deploys cost
+Netlify credits: batch changes into one. `smoke.mjs` needs Playwright, absent on the Mac (cloud has it).
 
 ## 5. Decisions and why
 
