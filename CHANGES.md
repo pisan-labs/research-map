@@ -115,3 +115,5 @@
 2026-11-14 [code] load: SUPABASE_DB_PASSWORD now beats a generic DATABASE_URL, and load says which source it used. A Mac load failed with password authentication; the built URI was checked and is correct.
 
 2026-11-14 [decision] Per-record namesake check switched off by default (user); opt in with --record-check. Hand checks found 3 of 6 drops wrong, including Noah Smith (2 records restored on next openalex run).
+
+2026-11-14 [doc] HANDOVER.md replaced by HANDOFF.md (handoff format: status, decisions, rejected approaches, gotchas, open questions).
