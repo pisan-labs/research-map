@@ -125,3 +125,5 @@
 2026-11-14 [plan] User: Netlify deploys cost credits. Single batched deploy planned (HANDOFF section 4): uw-coe openalex rerun, rebuild three maps at page_pubs 30, load, one deploy.
 
 2026-11-14 [code] Page size done: page_pubs 30 on uw-coe, nu-mccormick, ucsb-coe; rebuilt, loaded and deployed once from the Mac (3025696). Openalex rerun: 0 calls, matches unchanged.
+
+2026-11-14 [decision] User dropped open questions: uwb-stem/uwt names review, DB variable choice, first-load failure cause. Names stay as drafted.

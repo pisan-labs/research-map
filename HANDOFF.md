@@ -28,7 +28,7 @@ Done (live at https://research-map.hintwise.org, all loaded into Supabase):
 - [x] `load` builds the pooler URI from `SUPABASE_DB_PASSWORD`.
 
 Remaining (none started):
-- [ ] User review of the uwb-stem and uwt names (Claude drafts of 7 Nov; never reviewed).
+- [-] uwb-stem and uwt names: Claude drafts of 7 Nov, never reviewed; user dropped the review (2026-11-14).
 - [x] Page size: uw-coe 4.6 MB, nu-mccormick 3.9 MB (slow on phones). Measured 2026-11-14 (cloud):
       publications (`pubs`) are 54% of the data and their search vectors (`sv`) 34%; both scale with
       `page_pubs` (default 60, now ~45 per person on average). Estimated size at `page_pubs`
@@ -132,8 +132,5 @@ leave them alone).
 
 ## 11. Open questions
 
-1. Are the uwb-stem and uwt names right? (Claude drafts, unreviewed.)
-2. (Answered 2026-11-14: `page_pubs: 30`; pending Mac rebuild/deploy.)
-3. Keep both `SUPABASE_DB_URL` (Mac `.env`) and `SUPABASE_DB_PASSWORD`, or only one? User's call.
-4. Why the first `uwb-stem` load on 2026-11-14 failed with password authentication and
-   the retry with the same variable worked: I don't know.
+None. Dropped by the user 2026-11-14: names review of uwb-stem and uwt, keeping both DB
+variables, and the cause of the first failed load. Page size was answered and is deployed.
