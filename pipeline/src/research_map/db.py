@@ -12,6 +12,7 @@ import json
 import os
 from urllib.parse import quote
 import re
+import sys
 from pathlib import Path
 
 from . import model
@@ -26,12 +27,22 @@ POOLER_HOST = "aws-1-us-east-1.pooler.supabase.com"
 
 
 def connection_string() -> str:
-    url = os.environ.get("SUPABASE_DB_URL") or os.environ.get("DATABASE_URL") or ""
+    """SUPABASE_DB_URL, else SUPABASE_DB_PASSWORD, else DATABASE_URL. The generic
+    DATABASE_URL comes last: another app's value must not win over this project's
+    password. Says which one it used (never the value)."""
+    url = os.environ.get("SUPABASE_DB_URL", "")
     if url:
+        print("db: using SUPABASE_DB_URL", file=sys.stderr)
         return url
     pw = os.environ.get("SUPABASE_DB_PASSWORD", "")
     if pw:  # quoted, so a password with @ : / does not break the URI
+        print(f"db: using SUPABASE_DB_PASSWORD ({len(pw)} characters) for {POOLER_USER}@{POOLER_HOST}",
+              file=sys.stderr)
         return f"postgresql://{POOLER_USER}:{quote(pw, safe='')}@{POOLER_HOST}:5432/postgres"
+    url = os.environ.get("DATABASE_URL", "")
+    if url:
+        print("db: using DATABASE_URL", file=sys.stderr)
+        return url
     raise SystemExit("set SUPABASE_DB_PASSWORD (or SUPABASE_DB_URL, the session pooler URI from the\n"
                      "dashboard's Connect dialog; the direct host is IPv6-only). Never commit either.")
 

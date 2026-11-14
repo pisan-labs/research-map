@@ -41,5 +41,7 @@ def test_db_url_from_password(monkeypatch):
     url = db.connection_string()
     assert url.startswith("postgresql://postgres.arktxlrlyceffyozdwhq:p%40ss%2Fw%3Ard@")
     assert url.endswith(":5432/postgres")
+    monkeypatch.setenv("DATABASE_URL", "postgresql://other-app")
+    assert "arktxlrlyceffyozdwhq" in db.connection_string()  # the project password beats a generic DATABASE_URL
     monkeypatch.setenv("SUPABASE_DB_URL", "postgresql://x")
     assert db.connection_string() == "postgresql://x"

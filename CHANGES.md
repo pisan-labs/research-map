@@ -111,3 +111,5 @@
 2026-11-14 [code] load: reads SUPABASE_DB_PASSWORD (user keeps the DB password there) and builds the pooler URI, password URL-quoted; SUPABASE_DB_URL still overrides.
 
 2026-11-14 [code] uwb (whole campus) published: Netlify and Supabase (226 on the map, all areas named). uwb-stem names refreshed after the 11-13 pins reshuffled its clusters.
+
+2026-11-14 [code] load: SUPABASE_DB_PASSWORD now beats a generic DATABASE_URL, and load says which source it used. A Mac load failed with password authentication; the built URI was checked and is correct.
