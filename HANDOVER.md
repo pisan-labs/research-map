@@ -72,12 +72,16 @@ UC San Diego was dropped by the user in favour of UC Santa Barbara.
    `--min-agreement-home` (0.10) or more than `--record-margin` (0.20)
    below the best record; records with under 3 works are not judged.
    Each drop prints `dropped record ... check by hand`;
-   `--no-record-check` restores the old behaviour. Measure it on UW CoE:
+   **Switched off 2026-11-14 (user):** now opt-in with `--record-check`. Measure it on UW CoE:
    do the 17 pinned people come out right with the overrides set aside?
    First evidence (2026-11-11): of 5 drops checked by hand, 2 were wrong
    (Jae-Hyun Chung's and Jenny Robinson's own small records) and it kept
    a 469-work namesake cardiologist for Robinson; Xin (Eric) Wang (UCSB)
    had 25 merged records. Strict matches with common names need checking.
+   Noah Smith's two dropped records (2026-11-14 lookup) are also his (UW/AI2, NLP): 3 of 6
+   drops wrong. Namesakes are now handled by the field scan (all records of multi-record
+   matches looked up free, records whose fields do not overlap the main one judged by hand)
+   and pins in config/<slug>-openalex-overrides.csv.
 3. **Build** `uw-coe`, `nu-mccormick`, `ucsb-coe`, `uwt`
    (`research-map build ../config/<slug>.yaml`; about 2-10 min each on CPU).
 4. **Name areas by hand**: `config/<slug>-labels.yaml` (see the UWB and UWT

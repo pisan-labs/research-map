@@ -118,7 +118,7 @@ def cmd_openalex(args: argparse.Namespace) -> int:
         now = dt.date.today().year
         for m in matches:
             p = by_id[m.person_id]
-            if m.how == "strict" and len(m.author_ids) > 1 and not args.no_record_check:
+            if m.how == "strict" and len(m.author_ids) > 1 and args.record_check:
                 check_strict_records(m, p, profiles.get(p.id), works, embedder, now, args)
             doc = build_doc(p.id, p.keywords, profiles.get(p.id), works.get(p.id))
             a = model.self_works_agreement(doc, embedder, now)
@@ -447,8 +447,11 @@ def main(argv: list[str] | None = None) -> int:
                    help="home-institution matches below this go to review (namesakes at large universities)")
     o.add_argument("--record-margin", type=float, default=0.20,
                    help="strict matches: drop author records whose papers agree this much less than the best record")
-    o.add_argument("--no-record-check", action="store_true",
-                   help="strict matches: keep every same-name record (the old behaviour)")
+    # Off by default since 2026-11-14: checked by hand, 3 of 6 drops were the person's own
+    # records (Chung, Robinson, Noah Smith) and it kept a 469-work namesake for Robinson.
+    # Namesakes are caught by the field scan and pinned in config/<slug>-openalex-overrides.csv.
+    o.add_argument("--record-check", action="store_true",
+                   help="strict matches: drop author records whose papers do not fit the description (unreliable; off by default)")
     o.set_defaults(func=cmd_openalex)
 
     b = sub.add_parser("build", help="embed, lay out and write site/<slug>/index.html")
