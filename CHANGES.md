@@ -117,3 +117,5 @@
 2026-11-14 [decision] Per-record namesake check switched off by default (user); opt in with --record-check. Hand checks found 3 of 6 drops wrong, including Noah Smith (2 records restored on next openalex run).
 
 2026-11-14 [doc] HANDOVER.md replaced by HANDOFF.md (handoff format: status, decisions, rejected approaches, gotchas, open questions).
+
+2026-11-14 [note] Page size measured: pubs 54% and their vectors 34% of page data; page_pubs 30 would cut uw-coe 4.75->3.2 MB raw (2.0->1.3 gzip). Recall not measured; awaiting user choice.
