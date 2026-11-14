@@ -29,3 +29,4 @@ include:
 opt_out: [jose-lopez]
 color_by: department
 search_model: all-MiniLM-L6-v2
+page_pubs: 30  # page size: 30 publications per person on the page; the search API keeps all

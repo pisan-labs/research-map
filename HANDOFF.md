@@ -35,7 +35,8 @@ Remaining (none started):
       60/30/20/10 (raw MB, gzip MB): uw-coe 4.75/3.2/2.56/1.88 (2.03/1.34/1.05/0.73);
       nu-mccormick 4.01/2.77/2.27/1.73 (1.67/1.12/0.89/0.64). Netlify serves compressed, so
       real transfer is about the gzip figure. Search recall at lower caps NOT measured.
-      Awaiting user's choice (open question 2); nothing changed in config yet.
+      User chose 30 (2026-11-14): `page_pubs: 30` set in uw-coe, nu-mccormick, ucsb-coe configs.
+      NOT yet rebuilt, loaded or deployed: do that on the Mac, then re-check sizes and `smoke.mjs`.
 - [ ] Unmatched: 18 uw-coe, 71 uwb (many artists, clinical teaching faculty). User: leave for now.
 - [ ] uw-coe main records missing for `jenq-neng-hwang`, `peter-mackenzie-helnwein` (noted 8 Nov, not rechecked).
 
@@ -130,9 +131,7 @@ leave them alone).
 ## 11. Open questions
 
 1. Are the uwb-stem and uwt names right? (Claude drafts, unreviewed.)
-2. Page size: lower `page_pubs` for uw-coe and nu-mccormick, or another approach? Not decided.
-   Recommendation: `page_pubs: 30` for uw-coe, nu-mccormick and ucsb-coe (-33% raw, ~1.3 MB gzip);
-   the Supabase search API still holds every record. Needs a rebuild/load/deploy on the Mac.
+2. (Answered 2026-11-14: `page_pubs: 30`; pending Mac rebuild/deploy.)
 3. Keep both `SUPABASE_DB_URL` (Mac `.env`) and `SUPABASE_DB_PASSWORD`, or only one? User's call.
 4. Why the first `uwb-stem` load on 2026-11-14 failed with password authentication and
    the retry with the same variable worked: I don't know.
