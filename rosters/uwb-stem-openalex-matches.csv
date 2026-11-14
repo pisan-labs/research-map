@@ -1,12 +1,12 @@
 id,name,how,openalex_ids,openalex_names,works_count,works_since,agreement
-salwa-al-noori,Salwa Al-Noori,none,,,0,0,
-cynthia-chang,Cynthia Chang,search,A5068204552|A5071811196|A5109726248,Cynthia C. Chang|Cynthia C. Chang|Cynthia Chang,46,33,0.75
+salwa-al-noori,Salwa Al-Noori,search,A5049405768,Salwa Al‐Noori,15,6,
+cynthia-chang,Cynthia Chang,override,A5068204552|A5071811196,,0,30,0.76
 heather-galindo,Heather Galindo,search,A5021371143,Heather M. Galindo,11,7,0.39
 guy-hamilton,Guy Hamilton,none,,,0,0,
 kristina-hillesland,Kristina Hillesland,search,A5044235172,Kristina Linnea Hillesland,33,14,0.75
 jeffrey-jensen,Jeff Jensen,none,,,0,0,
 alaron-lewis,Alaron Lewis,override,A5111386997,,0,5,0.15
-rick-mclaughlin,Rick McLaughlin,search-wider,A5036304574,Richard N. McLaughlin,26,26,0.81
+rick-mclaughlin,Rick McLaughlin,override,A5036304574,,0,26,0.81
 elizabeth-ostrowski,Elizabeth Ostrowski,search,A5070912354,Elizabeth A. Ostrowski,25,15,0.60
 michele-price,Michele B. Price,override,A5013186329,,0,1,0.57
 han-wei-shih,Han-Wei Shih,search,A5059810372,Han-Wei Shih,12,11,0.61
@@ -19,7 +19,7 @@ mia-champion,Mia Champion,override,A5123020517,,0,1,0.29
 min-chen,Min Chen,strict,A5100337209|A5062581654|A5100337178|A5066425157|A5102836844|A5100773296|A5124676969|A5128785020|A5144350795|A5150998110|A5133309789,Min Chen|Min Chen|Min Chen|Chen Min|Min Chen|Min Chen|Min Chen|Min Chen|Min Chen|Min Chen|Min Chen,1832,49,0.62
 morteza-chini,Morteza Chini,search,A5063762889,Morteza Chini,1,1,0.23
 dharma-dailey,Dharma Dailey,search,A5108213960,Dharma Dailey,34,25,0.52
-marc-dupuis,Marc Dupuis,search,A5003202268|A5102725128,Marc Dupuis|Marc Dupuis,152,124,0.70
+marc-dupuis,Marc Dupuis,override,A5102725128,,0,60,0.80
 munehiro-fukuda,Munehiro Fukuda,search,A5090114871,Munehiro Fukuda,75,39,0.71
 vishesh-khemani,Vishesh Khemani,override,A5050047493,,0,1,0.26
 jeffrey-kim,Jeffrey Kim,ambiguous,,Jeffrey J. Kim|Jeffrey Y. Kim|Jeffrey D. Kim,0,0,
@@ -67,7 +67,7 @@ clark-musselman,Clark Musselman,search-wider,A5001866771,Clark Musselman,2,1,0.4
 pietro-paparella,Pietro Paparella,search,A5040002983,Pietro Paparella,39,38,0.77
 linda-simonsen,Linda Simonsen,search,A5085823833,Linda M. Simonsen,12,2,0.62
 shima-abadi,Shima Abadi,search,A5047337456,Shima H. Abadi,119,110,0.79
-bill-anderson,Bill Anderson,none,,,0,0,
+bill-anderson,Bill Anderson,ambiguous,,William F. Anderson|William B. Anderson|William Anderson,0,0,
 miguel-balzan,Miguel Balzan,search,A5080169456,Miguel Balzan,13,12,0.67
 imen-elloumi-hannachi,Imen Elloumi-Hannachi,none,,,0,0,
 sharon-jones,Sharon A. Jones,search,A5087892251,Sharon A. Jones,66,35,0.77

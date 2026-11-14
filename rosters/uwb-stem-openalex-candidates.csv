@@ -1,5 +1,4 @@
 id,name,candidate_id,candidate_name,works_count,recent_affiliations
-salwa-al-noori,Salwa Al-Noori,A5021806331,Salwa Noori Abdullah,2,
 guy-hamilton,Guy Hamilton,A5005185255,Guy Hamilton,2,
 guy-hamilton,Guy Hamilton,A5041022244,Guy Hamilton,13,
 guy-hamilton,Guy Hamilton,A5139789203,Guy Hamilton,1,
@@ -30,9 +29,9 @@ zachary-rubin,Zachary (Zak) Rubin,A5046846289,Zak Rubin,2,"University of Califor
 zhao-wang,Zhao (Joanna) Wang,A5100434557,Zhao Wang,502,Hefei University of Technology 2024-2026; Yangtze University 2026-2026; Tiangong University 2026-2026
 zhao-wang,Zhao (Joanna) Wang,A5100434530,Zhao Wang,277,University of Leeds 2023-2026; Jilin Normal University 2023-2026; Qilu University of Technology 2026-2026
 zhao-wang,Zhao (Joanna) Wang,A5100434569,Zhao Wang,249,Xi'an University of Architecture and Technology 2026-2026; China Three Gorges University 2026-2026; Chinese Academy of Medical Sciences & Peking Union Medical College 2026-2026
+zhao-wang,Zhao (Joanna) Wang,A5100613095,Zhao‐Qi Wang,216,Shandong University 2023-2026; Leibniz Institute on Aging - Fritz Lipmann Institute (FLI) 2006-2026; Friedrich Schiller University Jena 2007-2026
 zhao-wang,Zhao (Joanna) Wang,A5100434574,Zhao Wang,186,The University of Texas MD Anderson Cancer Center 2024-2026; Baylor College of Medicine 2012-2026; Capital Medical University 2013-2026
-zhao-wang,Zhao (Joanna) Wang,A5032891379,Zhao V. Wang,100,City Of Hope National Medical Center 2022-2026; Beckman Research Institute 2022-2026; City of Hope 2023-2025
-zhao-wang,Zhao (Joanna) Wang,A5024931578,Zhao Wang,199,Guangxi University 2017-2026; Xi'an Technological University 2020-2026; Thermal Power Research Institute 2020-2026
+zhao-wang,Zhao (Joanna) Wang,A5027945800,Zhao‐Kui Wang,310,Soochow University 2012-2026; Soochow University 2025-2025; Jiangsu Industry Technology Research Institute 2024-2025
 yangqing-liu,Yangqing Liu,A5115589374,Yangqing Liu,34,Zhengzhou University 2012-2025; Changzhou University 2025-2025; Guangxi Normal University 2024-2024
 yangqing-liu,Yangqing Liu,A5008601516,Yangqing Liu,91,Shanghai University 2023-2026; Hangzhou Medical College 2026-2026; Aalto University 2024-2026
 yangqing-liu,Yangqing Liu,A5101455714,Yangqing Liu,31,Henan Provincial People's Hospital 2022-2024; Shanxi Datong University 2024-2024; Zhengzhou University 2023-2023
@@ -43,9 +42,9 @@ ariana-dundon,Ariana Dundon,A5026511642,Ariana Dundon,1,Montgomery College 2011-
 elizabeth-field,Elizabeth Field,A5039381470,Elizabeth H. Field,86,University of Iowa 1989-2021; University of Iowa Hospitals and Clinics 1989-2021; Iowa City VA Medical Center 1989-2021
 elizabeth-field,Elizabeth Field,A5066710269,Elizabeth Anne Field,134,University of Liverpool 1985-2026; Wrexham Maelor Hospital 2025-2025; Royal Liverpool and Broadgreen University Hospital NHS Trust 2007-2012
 elizabeth-field,Elizabeth Field,A5030222603,Elizabeth A. Field,9,
+elizabeth-field,Elizabeth Field,A5065240603,Elizabeth Wrigley‐Field,79,"University of Minnesota 2016-2026; National Bureau of Economic Research 2026-2026; University of California, San Francisco 2023-2023"
 elizabeth-field,Elizabeth Field,A5051650802,Elizabeth Field,10,Kent and Medway NHS and Social Care Partnership Trust 2026-2026; Central London Community Healthcare NHS Trust 2002-2002; Norfolk Community Health and Care NHS Trust 2002-2002
 elizabeth-field,Elizabeth Field,A5024886895,Elizabeth B. Field,2,
-elizabeth-field,Elizabeth Field,A5065782600,Elizabeth Field,4,"Queens College, CUNY 1995-1995; The Graduate Center, CUNY 1995-1995"
 alexandria-musselman,Alexandria Musselman,A5038488083,Alexandria Theakston Musselman,4,
 alexandria-musselman,Alexandria Musselman,A5025914840,Alex Musselman,1,University of Westminster 1996-1996
 bill-anderson,Bill Anderson,A5030933431,Bill Anderson,89,Illinois State University 2018-2026; Elon University 2016-2025; University of Otago 2008-2024
@@ -64,10 +63,11 @@ anita-li,Anita Li,A5102485733,Anita Li,2,General Motors (United States) 2022-202
 anita-li,Anita Li,A5047289357,Anita K. Li,4,University of Calgary 1973-1974
 wolf-yeigh,Wolf Yeigh,A5089605014,Bjong Wolf Yeigh,2,
 jong-yoon,Jong Yoon,A5075867931,Jong H. Yoon,79,VA Palo Alto Health Care System 2013-2026; Stanford Medicine 2014-2026; Stanford University 2010-2026
+jong-yoon,Jong Yoon,A5007103053,Jong‐Woo Yoon,100,Hallym University 2001-2025; Kangdong Sacred Heart Hospital 2025-2025; Korea Research Institute of Chemical Technology 2025-2025
+jong-yoon,Jong Yoon,A5068264754,Jong‐Bok Yoon,71,Chungnam National University 2026-2026; Yonsei University 1998-2025; Seoul National University 2009-2009
 jong-yoon,Jong Yoon,A5113655700,Yoon Jong Choi,85,Blueprint Medicines (United States) 2021-2025; Syros Pharmaceuticals (United States) 2014-2019; Harvard University 2009-2017
 jong-yoon,Jong Yoon,A5002351215,Jong Pil Yoon,147,Kyungpook National University Hospital 2011-2026; Kyungpook National University 2008-2026; Seoul National University 2008-2016
-jong-yoon,Jong Yoon,A5077562182,Jong Hyuk Yoon,62,Korea Brain Research Institute 2018-2026; Pohang University of Science and Technology 2008-2025; NovaCell Technology (South Korea) 2012-2014
-jong-yoon,Jong Yoon,A5017753088,Jong Moon Yoon,35,Universidade Nova de Lisboa 2020-2020; Iowa State University 2006-2018; Korea Advanced Institute of Science and Technology 2009-2013
+jong-yoon,Jong Yoon,A5106571413,Jong‐Gul Yoon,66,Kyungpook National University 2026-2026; University of Suwon 1993-2022; Seoul National University 1985-2003
 khushroo-daruwala,Khushroo Daruwala,A5017726432,Khushroo P. Daruwala,13,University of Nebraska–Lincoln 1988-1992; Oregon State University 1988-1988
 muralidhara-thimmaiah,Muralidhara Thimmaiah,A5009455672,Muralidhara Thimmaiah,21,The University of Texas at San Antonio 2012-2014; Oregon State University 2011-2011; Michigan Technological University 2005-2008
 alanna-pawlak,Alanna Pawlak,A5063540321,Alanna Pawlak,15,University of Colorado Boulder 2019-2021; San Jose State University 2019-2019; Michigan State University 2015-2018

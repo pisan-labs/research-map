@@ -176,7 +176,7 @@ rajib-doogar,Rajib Doogar,search,A5084686894,Rajib Doogar,21,4,
 rebecca-price,Rebecca Price,search,A5032579469,Rebecca Price,38,34,0.70
 regina-lisinker,Regina Lisinker,none,,,0,0,
 rejoice-akapame,Rejoice Akapame,search,A5041472334,Rejoice Akapame,2,2,0.65
-rick-mclaughlin,Rick McLaughlin,ambiguous,,Richard N. McLaughlin|Richard J. McLaughlin,0,0,
+rick-mclaughlin,Rick McLaughlin,override,A5036304574,,0,26,0.81
 robert-turner,Robert Turner,ambiguous,,Robert Turner|Robert Eugene Turner|Robert S. Turner,0,0,
 ron-krabill,Ron Krabill,search,A5082358582,Ron Krabill,25,14,0.66
 ronnie-thibault,Ronnie Thibault,none,,,0,0,
@@ -198,7 +198,7 @@ shima-abadi,Shima Abadi,search,A5047337456,Shima H. Abadi,119,110,0.79
 silvia-ferreira,Silvia Ferreira,override,A5003688180,,0,2,0.57
 solmaz-batebi,Solmaz Batebi,search,A5104592131,Solmaz Batebi,6,4,0.63
 sophie-leroy,Sophie Leroy,search,A5101770244,Sophie Leroy,20,18,0.50
-stefanie-iverson-cabral,Stefanie Iverson Cabral,rejected-topic,,Stefanie Iverson Cabral,1,0,0.14
+stefanie-iverson-cabral,Stefanie Iverson Cabral,override,A5087847891,,0,1,0.14
 stephen-jones,Stephen Jones,search,A5088622649,Stephen L. Jones,31,26,0.76
 stephie-minjung-kang,Stephie Minjung Kang,none,,,0,0,
 stuart-streichler,Stuart Streichler,search-wider,A5039879201,Stuart A. Streichler,15,3,0.51
