@@ -50,7 +50,19 @@ Remaining (none started):
 
 ## 4. Next step
 
-`git fetch`, then ask the user which Remaining item to take (recommended: page size).
+Netlify deploys cost credits (user, 2026-11-14): make ONE deploy for everything below.
+Everything doable in the cloud is done (configs, tests, docs). On the Mac, in order:
+
+1. `git pull` this branch (`claude/amazing-hypatia-8bmos9`; merge to `main` is the user's call).
+2. uw-coe only: `uv run research-map openalex ../config/uw-coe.yaml --max-cost 0.45` (restores
+   the 2 Noah Smith records dropped by the old per-record check; also recheck main records for
+   `jenq-neng-hwang` and `peter-mackenzie-helnwein`). Uses the OpenAlex budget; cache is on the Mac.
+3. `build` uw-coe, nu-mccormick, ucsb-coe (now `page_pubs: 30`); read the `labels:` lines and
+   name any new clusters; `smoke.mjs` each page.
+4. Optionally fold in name edits for uwb-stem and uwt if the user reviews them first.
+5. `load` the same maps, then ONE `netlify deploy` of `site/`.
+
+Not doable in the cloud: caches, keys and DB password are on the Mac only.
 
 ## 5. Decisions and why
 

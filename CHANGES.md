@@ -121,3 +121,5 @@
 2026-11-14 [note] Page size measured: pubs 54% and their vectors 34% of page data; page_pubs 30 would cut uw-coe 4.75->3.2 MB raw (2.0->1.3 gzip). Recall not measured; awaiting user choice.
 
 2026-11-14 [decision] User: page_pubs 30 for uw-coe, nu-mccormick, ucsb-coe (config set; rebuild, load and deploy on the Mac pending; recall not measured).
+
+2026-11-14 [plan] User: Netlify deploys cost credits. Single batched deploy planned (HANDOFF section 4): uw-coe openalex rerun, rebuild three maps at page_pubs 30, load, one deploy.
